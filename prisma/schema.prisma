@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  name        String
+  nickname    String?
+  birthDate   DateTime?
+  weight      Float?
+  height      Float?
+  imageUrl    String?
+  progress    UserProgress?
+  createdAt  DateTime
+
+  plan      Plan?    @relation(fields: [planId], references: [id])
+  planId    String?
+
+
+  @@map("users")
+  LuckyNumbers LuckyNumbers[]
+}
+
+model UserProgress {
+  id              String   @id @default(uuid())
+  lastWeight      Float?
+  nextWorkout     String
+  lastWorkout     String?
+  iaAnalyses      String?
+  iaAnalysesDate  DateTime?
+  currentGoal     String?
+  streaks         DateTime[]
+
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String @unique
+}
+
+model Bills {
+  id String @id @default(uuid())
+  name String
+  category String
+  amount Decimal
+  createdAt DateTime @default(now())
+}
+
+model Plan {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  price       Decimal
+  experienceDate DateTime
+  createdAt   DateTime @default(now())
+  users       User[]
+}
+
+model Message {
+  id String @id @default(uuid())
+  name String
+  subject String
+  status String
+  createdAt DateTime
+}
+
+model GymEquipament {
+  id String @id @default(uuid())
+  name String
+  cod String
+  status String
+  lastMaintenance DateTime
+}
+
+model Reservation {
+  id String @id @default(uuid())
+  name String
+  email String
+  date DateTime
+  shift String
+  status String
+}
+
+model PrizeDraw {
+  id String @id @default(uuid())
+  prize String
+  drawnNumber String
+  winnerId String?
+  status String //pending finished
+  createdAt DateTime @default(now())
+  finishedAt DateTime?
+}
+
+model LuckyNumbers {
+  id String @id @default(uuid())
+  luckyNumber String[]
+  lastUpdate DateTime
+
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
+}
