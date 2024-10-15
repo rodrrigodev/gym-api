@@ -4,7 +4,7 @@
   "description": "[ ] - Users must be able to update their personal details \r [ ] - Users can get AI analyses\r [ ] - Users can just start one lesson per day according with their plan",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx ./src/index.ts",
+    "dev": "tsx watch ./src/server.ts",
     "build": "tsup src --out-dir --format .js"
   },
   "keywords": [],
@@ -22,7 +22,11 @@
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/body-parser": "^1.19.5",
     "@types/express": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
     "express": "^4.21.1",
     "zod": "^3.23.8"
   }
