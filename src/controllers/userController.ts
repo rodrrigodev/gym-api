@@ -1,16 +1,25 @@
-import { Request, Response } from 'express'
-import { useMakeCreateUserUseCase } from 'factories/useMakeCreateUser'
+import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { hash } from 'bcryptjs'
+import { useMakeCreateUserUseCase } from '@/factories/useMakeCreateUser'
+import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
 
 export async function createUserController(
   request: Request,
   response: Response,
+  next: NextFunction,
 ) {
   const createUserSchema = z.object({
-    email: z.string().min(3),
-    password: z.string().min(8),
-    name: z.string().min(3),
+    email: z
+      .string()
+      .min(3, { message: 'Email must be at least 3 characters long' })
+      .email({ message: 'Invalid email format' }),
+    password: z
+      .string()
+      .min(8, { message: 'Password must be at least 8 characters long' }),
+    name: z
+      .string()
+      .min(3, { message: 'Name must be at least 3 characters long' }),
     nickname: z.string().min(3).nullable(),
     birthDate: z.date().nullable(),
     weight: z.number().nullable(),
@@ -18,19 +27,21 @@ export async function createUserController(
     imageUrl: z.string().nullable(),
   })
 
-  const {
-    name,
-    email,
-    password,
-    nickname,
-    birthDate,
-    weight,
-    height,
-    imageUrl,
-  } = createUserSchema.parse(request.body)
-  const hashedPassword = await hash(password, 6)
-
   try {
+    // Validate the request body
+    const {
+      birthDate,
+      email,
+      height,
+      imageUrl,
+      name,
+      nickname,
+      password,
+      weight,
+    } = createUserSchema.parse(request.body)
+
+    const hashedPassword = await hash(password, 6)
+
     await useMakeCreateUserUseCase().execute({
       email,
       password: hashedPassword,
@@ -41,8 +52,15 @@ export async function createUserController(
       weight: weight || undefined,
       imageUrl: imageUrl || undefined,
     })
+
     response.status(201).send({ message: 'User created successfully!' })
   } catch (error) {
-    response.status(409).send(error)
+    if (error instanceof UserAlreadyExistsError) {
+      response.status(409).json({
+        message: error.message,
+      })
+    } else {
+      next(error)
+    }
   }
 }

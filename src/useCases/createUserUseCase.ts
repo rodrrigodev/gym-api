@@ -1,5 +1,5 @@
-import { UserAlreadyExistsError } from 'errors/userAlreadyExistsError'
-import { UserRepository } from 'repositories/userRepository'
+import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
+import { UserRepository } from '@/repositories/userRepository'
 
 interface CreateUserUseCaseRequest {
   email: string

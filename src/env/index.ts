@@ -1,8 +1,9 @@
 import { z } from 'zod'
-// import 'dotenv/config'
+import 'dotenv/config'
 
 const envSchema = z.object({
-  PORT: z.number().default(3333),
+  NODE_ENV: z.enum(['production', 'development', 'test']).default('production'),
+  PORT: z.coerce.number().default(3333),
 })
 
 const _env = envSchema.safeParse(process.env)
