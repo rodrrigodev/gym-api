@@ -28,7 +28,6 @@ export async function createUserController(
   })
 
   try {
-    // Validate the request body
     const {
       birthDate,
       email,

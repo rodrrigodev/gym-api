@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
-    "build": "tsup src --out-dir --format .js"
+    "build": "tsup src --out-dir --format .js",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +16,9 @@
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^22.7.5",
     "eslint": "^8.57.1",
+    "jest": "^29.7.0",
     "prisma": "^5.20.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.3.0",
