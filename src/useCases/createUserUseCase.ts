@@ -16,7 +16,9 @@ export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
   async execute(data: CreateUserUseCaseRequest) {
-    const emailAlreadyExists = await this.userRepository.findByEmail(data.email)
+    const emailAlreadyExists = await this.userRepository.findUserByEmail(
+      data.email,
+    )
 
     if (emailAlreadyExists) {
       throw new UserAlreadyExistsError()

@@ -25,11 +25,31 @@ export class InMemoryUserRepository implements UserRepository {
     return user
   }
 
-  async findByEmail(email: string) {
+  async findUserByEmail(email: string) {
     const emailAlreadyExists = this.users.find((user) => {
       return user.email === email
     })
 
     return emailAlreadyExists || null
+  }
+
+  async findUserById(id: string) {
+    const user = this.users.find((user) => {
+      return user.id === id
+    })
+
+    return user || null
+  }
+
+  async deleteUserById(id: string) {
+    const user = this.findUserById(id)
+
+    const filteredUsers = this.users.filter((user) => {
+      return user.id !== id
+    })
+
+    this.users = filteredUsers
+
+    return user || null
   }
 }

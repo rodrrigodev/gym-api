@@ -9,11 +9,23 @@ export class PrismaUserRepository implements UserRepository {
     return user
   }
 
-  async findByEmail(email: string) {
+  async findUserByEmail(email: string) {
     const emailAlreadyExists = await prisma.user.findUnique({
       where: { email },
     })
 
     return emailAlreadyExists
+  }
+
+  async findUserById(id: string) {
+    const userExists = await prisma.user.findUnique({ where: { id } })
+
+    return userExists
+  }
+
+  async deleteUserById(id: string) {
+    const filterAndRemoveUser = await prisma.user.delete({ where: { id } })
+
+    return filterAndRemoveUser
   }
 }

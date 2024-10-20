@@ -24,12 +24,13 @@ model User {
   progress    UserProgress?
   createdAt   DateTime
 
-  plan      Plan?    @relation(fields: [planId], references: [id])
+  plan      Plan?    @relation(fields: [planId], references: [id], onDelete: Cascade)
   planId    String?
 
 
   @@map("users")
   LuckyNumbers LuckyNumbers[]
+  PrizeDraw PrizeDraw[]
 }
 
 model UserProgress {
@@ -42,7 +43,7 @@ model UserProgress {
   currentGoal     String?
   streaks         DateTime[]
 
-  user            User      @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String @unique
 }
 
@@ -90,12 +91,14 @@ model Reservation {
 
 model PrizeDraw {
   id String @id @default(uuid())
+  winnerId String?
   prize String
   drawnNumber String
-  winnerId String?
-  status String //pending finished
+  status String
   createdAt DateTime @default(now())
   finishedAt DateTime?
+
+  user            User?      @relation(fields: [winnerId], references: [id], onDelete: Cascade)
 }
 
 model LuckyNumbers {
