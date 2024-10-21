@@ -42,14 +42,17 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async deleteUserById(id: string) {
-    const user = this.findUserById(id)
+    const user = await this.findUserById(id)
 
-    const filteredUsers = this.users.filter((user) => {
-      return user.id !== id
-    })
+    if (user) {
+      const filteredUsers = this.users.filter((user) => {
+        return user.id !== id
+      })
 
-    this.users = filteredUsers
+      this.users = filteredUsers
+      return 'Success!'
+    }
 
-    return user || null
+    return null
   }
 }
