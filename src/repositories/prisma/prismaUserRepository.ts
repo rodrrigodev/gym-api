@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { UserRepository } from '../userRepository'
+import { UserDataToUpdate, UserRepository } from '../userRepository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaUserRepository implements UserRepository {
@@ -24,14 +24,17 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async deleteUserById(id: string) {
-    const userExists = await prisma.user.findUnique({ where: { id } })
+    const deletedUser = await prisma.user.delete({ where: { id } })
 
-    if (userExists) {
-      await prisma.user.delete({ where: { id } })
+    return deletedUser
+  }
 
-      return 'Success!'
-    }
+  async updateUser(id: string, data: UserDataToUpdate) {
+    const userUpdated = await prisma.user.update({
+      where: { id },
+      data,
+    })
 
-    return null
+    return userUpdated
   }
 }

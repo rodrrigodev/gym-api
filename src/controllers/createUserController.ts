@@ -10,16 +10,9 @@ export async function createUserController(
   next: NextFunction,
 ) {
   const createUserSchema = z.object({
-    email: z
-      .string()
-      .min(3, { message: 'Email must be at least 3 characters long' })
-      .email({ message: 'Invalid email format' }),
-    password: z
-      .string()
-      .min(8, { message: 'Password must be at least 8 characters long' }),
-    name: z
-      .string()
-      .min(3, { message: 'Name must be at least 3 characters long' }),
+    email: z.string().min(3).email(),
+    password: z.string().min(8),
+    name: z.string().min(3),
     nickname: z.string().min(3).nullable(),
     birthDate: z.date().nullable(),
     weight: z.number().nullable(),

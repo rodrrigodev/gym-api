@@ -1,6 +1,7 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
-import { beforeEach, describe, expect, test } from '@jest/globals'
+import { beforeEach, describe, expect, it } from '@jest/globals'
 import { CreateUserUseCase } from './createUserUseCase'
+import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: CreateUserUseCase
@@ -11,7 +12,7 @@ describe('create user test', () => {
     sut = new CreateUserUseCase(inMemoryUserRepository)
   })
 
-  test('it should be able to create a user', async () => {
+  it('should be able to create a user', async () => {
     const user = await sut.execute({
       email: 'rodrigo@email.com',
       name: 'Rodrigo',
@@ -21,7 +22,7 @@ describe('create user test', () => {
     expect(user.name).toBe('Rodrigo')
   })
 
-  test('it should not be able to create a user', async () => {
+  it('should not be able to create a user', async () => {
     await sut.execute({
       email: 'rodrigo@email.com',
       name: 'Rodrigo',
@@ -34,6 +35,6 @@ describe('create user test', () => {
         name: 'Rodrigo',
         password: '12345678',
       }),
-    ).rejects.toThrow('⚠️ User already exists!')
+    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
 })
