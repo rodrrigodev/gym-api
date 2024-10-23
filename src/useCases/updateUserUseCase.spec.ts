@@ -1,8 +1,8 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { CreateUserUseCase } from './createUserUseCase'
-import { UpdateUserUseCase } from './UpdateUserUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
+import { UpdateUserUseCase } from './updateUserUseCase'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let createUserUseCase: CreateUserUseCase

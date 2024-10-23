@@ -37,4 +37,16 @@ export class PrismaUserRepository implements UserRepository {
 
     return userUpdated
   }
+
+  async fetchUsersOrSearch(page: number, query?: string) {
+    const result = query
+      ? await prisma.user.findMany({
+          where: { OR: [{ name: query }, { email: query }] },
+          skip: (page - 1) * 20,
+          take: 20,
+        })
+      : await prisma.user.findMany({ skip: (page - 1) * 20, take: 20 })
+
+    return result
+  }
 }

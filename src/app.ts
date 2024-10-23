@@ -4,7 +4,8 @@ import { errorHandler } from './middleware/errorHandler'
 import 'dotenv/config'
 import { createUserController } from './controllers/createUserController'
 import { deleteUserController } from './controllers/deleteUserController'
-import { UpdateUserController } from './controllers/UpdateUserController'
+import { UpdateUserController } from './controllers/updateUserController'
+import { FetchUsersOrSearchController } from './controllers/fetchUsersOrSearchController'
 
 export const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,5 +16,7 @@ app.post('/create-user', createUserController)
 app.delete('/delete-user', deleteUserController)
 
 app.delete('/update-user', UpdateUserController)
+
+app.get('/users', FetchUsersOrSearchController)
 
 app.use(errorHandler)

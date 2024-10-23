@@ -82,4 +82,18 @@ export class InMemoryUserRepository implements UserRepository {
       planId: userExists.planId,
     }
   }
+
+  async fetchUsersOrSearch(page: number, query?: string) {
+    return query
+      ? this.users
+          .filter((user) => {
+            const lowerCaseQuery = query.toLowerCase()
+            return (
+              user.email.toLowerCase().includes(lowerCaseQuery) ||
+              user.name.toLowerCase().includes(lowerCaseQuery)
+            )
+          })
+          .slice((page - 1) * 20, page * 20)
+      : this.users.slice((page - 1) * 20, page * 20)
+  }
 }

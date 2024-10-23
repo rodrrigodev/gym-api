@@ -12,6 +12,7 @@ export interface UserDataToUpdate {
 
 export interface UserRepository {
   create: (data: Prisma.UserCreateInput) => Promise<User>
+  fetchUsersOrSearch: (page: number, query?: string) => Promise<User[] | null>
   findUserByEmail: (email: string) => Promise<User | null>
   findUserById: (id: string) => Promise<User | null>
   updateUser: (id: string, data: UserDataToUpdate) => Promise<User | null>
