@@ -6,7 +6,7 @@ import { hash } from 'bcryptjs'
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
 
-  async create(data: Prisma.UserCreateInput) {
+  async createUser(data: Prisma.UserCreateInput) {
     const passwordHashed = await hash(data.password, 6)
 
     const user = {

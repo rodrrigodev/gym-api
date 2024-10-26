@@ -11,7 +11,7 @@ This is a project to develop an API designed to help gyms manage their daily ope
 
 ### ADMINS
 - [ ] Can create a new user, edit or delete
-- [ ] Can search for a specific user based on name or id
+- [ ] Can search for a specific user based on name or email
 - [ ] Can add more 30 days in users plans or upgrade or ungraded a plan
 - [ ] Create bills, edit or delete
 - [ ] Create staff members, edit or delete
@@ -21,6 +21,7 @@ This is a project to develop an API designed to help gyms manage their daily ope
 
 ### BUSINESS RULES
 - [ ] Users are allowed to update their profile only once per week.
+- [ ] Users can get AI analytics after 7 gym activities.
 - [ ] Users are limited to receiving AI-based workout analysis only once every 7 days.
 - [ ] Password must be encrypted for security
 - [ ] Gym activities cannot be started between 11:00 PM and 5:59 AM.
