@@ -45,6 +45,20 @@ model UserProgress {
 
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String @unique
+
+  UserEquipmentTracking UserEquipmentTracking[]
+}
+
+model UserEquipmentTracking {
+  id              String   @id @default(uuid())
+  weight Int
+  lastUpdate DateTime?
+
+  userProgress            UserProgress      @relation(fields: [userProgressId], references: [id], onDelete: Cascade)
+  userProgressId          String @unique
+  
+  gymEquipament GymEquipament @relation(fields: [gymEquipamentId], references: [id], onDelete: Cascade)
+  gymEquipamentId String @unique
 }
 
 model Bills {
@@ -64,29 +78,17 @@ model Plan {
   users       User[]
 }
 
-model Message {
-  id String @id @default(uuid())
-  name String
-  subject String
-  status String
-  createdAt DateTime
-}
-
 model GymEquipament {
   id String @id @default(uuid())
   name String
+  category String
+  sets Int
+  reps Int
   cod String
   status String
   lastMaintenance DateTime
-}
 
-model Reservation {
-  id String @id @default(uuid())
-  name String
-  email String
-  date DateTime
-  shift String
-  status String
+  UserEquipmentTracking UserEquipmentTracking[]
 }
 
 model PrizeDraw {
