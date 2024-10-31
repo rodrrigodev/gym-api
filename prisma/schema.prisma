@@ -10,104 +10,118 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 model User {
-  id          String   @id @default(uuid())
-  email       String   @unique
-  password    String
-  name        String
-  nickname    String?
-  birthDate   DateTime?
-  weight      Float?
-  height      Float?
-  imageUrl    String?
-  progress    UserProgress?
-  createdAt   DateTime
+  id             String        @id @default(uuid())
+  email          String        @unique
+  password       String
+  name           String
+  nickname       String?
+  birth_date     DateTime?
+  current_weight Float?
+  height         Float?
+  image_URL      String?
+  progress       UserProgress?
+  created_at     DateTime
 
-  plan      Plan?    @relation(fields: [planId], references: [id], onDelete: Cascade)
-  planId    String?
+  plan    Plan?   @relation(fields: [plan_id], references: [id], onDelete: Cascade)
+  plan_id String?
 
+  LuckyNumbers LuckyNumbers[]
+  PrizeDraw    PrizeDraw[]
 
   @@map("users")
-  LuckyNumbers LuckyNumbers[]
-  PrizeDraw PrizeDraw[]
 }
 
 model UserProgress {
-  id              String   @id @default(uuid())
-  lastWeight      Float?
-  nextWorkout     String
-  lastWorkout     String?
-  iaAnalyses      String?
-  iaAnalysesDate  DateTime?
-  currentGoal     String?
-  streaks         DateTime[]
+  id               String     @id @default(uuid())
+  initial_weight   Float?
+  next_workout     String?
+  last_workout     String?
+  ia_analyses      String?
+  ia_analyses_date DateTime?
+  current_goal     String?
+  streaks          DateTime[]
 
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId          String @unique
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id String @unique
 
   UserEquipmentTracking UserEquipmentTracking[]
+
+  @@map("user_progress")
 }
 
 model UserEquipmentTracking {
-  id              String   @id @default(uuid())
-  weight Int
-  lastUpdate DateTime?
+  id          String    @id @default(uuid())
+  weight      Int
+  last_update DateTime?
 
-  userProgress            UserProgress      @relation(fields: [userProgressId], references: [id], onDelete: Cascade)
-  userProgressId          String @unique
-  
-  gymEquipament GymEquipament @relation(fields: [gymEquipamentId], references: [id], onDelete: Cascade)
-  gymEquipamentId String @unique
+  userProgress     UserProgress @relation(fields: [user_progress_id], references: [id], onDelete: Cascade)
+  user_progress_id String       @unique
+
+  gymEquipament     GymEquipament @relation(fields: [gym_equipament_id], references: [id], onDelete: Cascade)
+  gym_equipament_id String        @unique
+
+  @@map("user_equipment_tracking")
 }
 
-model Bills {
-  id String @id @default(uuid())
-  name String
-  category String
-  amount Decimal
-  createdAt DateTime @default(now())
+model Bill {
+  id         String   @id @default(uuid())
+  name       String
+  category   String
+  amount     Decimal
+  created_at DateTime @default(now())
+
+  @@map("bills")
 }
 
 model Plan {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  price       Decimal
-  experienceDate DateTime
-  createdAt   DateTime @default(now())
-  users       User[]
+  id              String   @id @default(uuid())
+  name            String   @unique
+  price           Decimal
+  experience_date DateTime
+  created_at      DateTime @default(now())
+
+  User User[]
+
+  @@map("plans")
 }
 
 model GymEquipament {
-  id String @id @default(uuid())
-  name String
-  category String
-  sets Int
-  reps Int
-  cod String
-  status String
-  lastMaintenance DateTime
+  id               String   @id @default(uuid())
+  name             String
+  category         String
+  sets             Int
+  reps             Int
+  cod              String
+  status           String
+  last_maintenance DateTime
 
   UserEquipmentTracking UserEquipmentTracking[]
+
+  @@map("gym_equipaments")
 }
 
 model PrizeDraw {
-  id String @id @default(uuid())
-  winnerId String?
-  prize String
-  drawnNumber String
-  status String
-  createdAt DateTime @default(now())
-  finishedAt DateTime?
+  id           String    @id @default(uuid())
+  prize        String
+  drawn_number String
+  status       String
+  created_at   DateTime  @default(now())
+  finished_at  DateTime?
 
-  user            User?      @relation(fields: [winnerId], references: [id], onDelete: Cascade)
+  user      User?   @relation(fields: [winner_id], references: [id], onDelete: Cascade)
+  winner_id String?
+
+  @@map("prize_draws")
 }
 
 model LuckyNumbers {
-  id String @id @default(uuid())
-  luckyNumber String[]
-  lastUpdate DateTime
+  id            String   @id @default(uuid())
+  lucky_numbers String[]
+  last_update   DateTime
 
-  user User @relation(fields: [userId], references: [id])
-  userId String @unique
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String @unique
+
+  @@map("lucky_numbers")
 }

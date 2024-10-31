@@ -15,12 +15,12 @@ export class InMemoryUserRepository implements UserRepository {
       email: data.email,
       password: passwordHashed,
       nickname: data.nickname || null,
-      birthDate: data.birthDate ? new Date(data.birthDate) : null,
-      weight: data.weight || null,
+      birth_date: data.birth_date ? new Date(data.birth_date) : null,
+      current_weight: data.current_weight || null,
       height: data.height || null,
-      imageUrl: data.imageUrl || null,
-      createdAt: new Date(),
-      planId: null,
+      image_URL: data.image_URL || null,
+      created_at: new Date(),
+      plan_id: null,
     }
 
     this.users.push(user)
@@ -78,8 +78,8 @@ export class InMemoryUserRepository implements UserRepository {
     return {
       ...checkedData,
       password: userExists.password,
-      createdAt: userExists.createdAt,
-      planId: userExists.planId,
+      created_at: userExists.created_at,
+      plan_id: userExists.plan_id,
     }
   }
 

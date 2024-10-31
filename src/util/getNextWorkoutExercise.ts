@@ -1,23 +1,11 @@
+import { UserProgress } from '@prisma/client'
+
 type WorkoutType = 'chest' | 'legs' | 'back'
 
-interface CheckGymMembersWorkouts {
-  id: string
-  lastWeight: number | null
-  nextWorkout: string
-  lastWorkout: string | null
-  iaAnalyses: string | null
-  iaAnalysesDate: Date | null
-  currentGoal: string | null
-  streaks: Date[]
-  userId: string
-}
-
-export default function getNextWorkoutExercise(
-  workouts: CheckGymMembersWorkouts[],
-): WorkoutType {
+export function getNextWorkoutExercise(workouts: UserProgress[]): WorkoutType {
   const workoutCounts = workouts.reduce(
     (counts, workout) => {
-      const workoutType = workout.nextWorkout as WorkoutType
+      const workoutType = workout.next_workout as WorkoutType
 
       counts[workoutType] = (counts[workoutType] || 0) + 1
       return counts

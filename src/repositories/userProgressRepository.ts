@@ -1,15 +1,15 @@
-import { UserProgress } from '@prisma/client'
+import { Prisma, UserProgress } from '@prisma/client'
 
 export interface CreateUserProgressData {
-  id: string
-  lastWeight: number
-  currentGoal: 'slim down' | 'bulk up'
-  nextWorkout?: 'chest' | 'legs' | 'back'
+  userId: string
+  initialWeight: number
+  currentGoal: string
+  nextWorkout: string | null
 }
 
 export interface UserProgressRepository {
   createUserProgress: (
-    data: CreateUserProgressData,
+    data: Prisma.UserProgressUncheckedCreateInput,
   ) => Promise<UserProgress | null>
-  // updateUserProgress: (id: string) => Promise<User | null>
+  findUserProgressById: (id: string) => Promise<UserProgress | null>
 }

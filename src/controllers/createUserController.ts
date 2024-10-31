@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
-import { useMakeCreateUserUseCase } from '@/factories/useMakeDeleteUserUseCase'
+import { useMakeCreateUserUseCase } from '@/factories/useMakeCreateUserUseCase'
 
 export async function createUserController(
   request: Request,

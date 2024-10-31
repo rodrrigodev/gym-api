@@ -4,10 +4,10 @@ export interface UserDataToUpdate {
   name?: string
   email?: string
   nickname?: string | null
-  birthDate?: Date | null
-  weight?: number | null
+  birth_date?: Date | null
+  current_weight?: number | null
   height?: number | null
-  imageUrl?: string | null
+  image_URL?: string | null
 }
 
 export interface UserRepository {

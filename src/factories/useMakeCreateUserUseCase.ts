@@ -1,9 +1,9 @@
 import { PrismaUserRepository } from '@/repositories/prisma/prismaUserRepository'
-import { DeleteUserUseCase } from '@/useCases/deleteUserUseCase'
+import { CreateUserUseCase } from '@/useCases/createUserUseCase'
 
-export function useMakeDeleteUserUseCase() {
+export function useMakeCreateUserUseCase() {
   const prismaUserRepository = new PrismaUserRepository()
-  const deleteUserUseCase = new DeleteUserUseCase(prismaUserRepository)
+  const createUserUseCase = new CreateUserUseCase(prismaUserRepository)
 
-  return deleteUserUseCase
+  return createUserUseCase
 }

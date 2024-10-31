@@ -28,12 +28,12 @@ export class CreateUserUseCase {
       name: data.name,
       email: data.email,
       password: data.password,
-      birthDate: data.birthDate || null,
+      birth_date: data.birthDate || null,
       nickname: data.nickname || null,
       height: data.height || null,
-      imageUrl: data.imageUrl || null,
-      weight: data.weight || null,
-      createdAt: new Date(),
+      image_URL: data.imageUrl || null,
+      current_weight: data.weight || null,
+      created_at: new Date(),
     })
 
     return user
