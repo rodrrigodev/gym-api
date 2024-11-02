@@ -20,13 +20,13 @@ model User {
   current_weight Float?
   height         Float?
   image_URL      String?
+  lucky_numbers String[]
   progress       UserProgress?
   created_at     DateTime
 
   plan    Plan?   @relation(fields: [plan_id], references: [id], onDelete: Cascade)
   plan_id String?
 
-  LuckyNumbers LuckyNumbers[]
   PrizeDraw    PrizeDraw[]
 
   @@map("users")
@@ -56,37 +56,15 @@ model UserEquipmentTracking {
   last_update DateTime?
 
   userProgress     UserProgress @relation(fields: [user_progress_id], references: [id], onDelete: Cascade)
-  user_progress_id String       @unique
+  user_progress_id String      
 
-  gymEquipament     GymEquipament @relation(fields: [gym_equipament_id], references: [id], onDelete: Cascade)
-  gym_equipament_id String        @unique
+  gymEquipment     GymEquipment @relation(fields: [gym_equipment_id], references: [id], onDelete: Cascade)
+  gym_equipment_id String        
 
   @@map("user_equipment_tracking")
 }
 
-model Bill {
-  id         String   @id @default(uuid())
-  name       String
-  category   String
-  amount     Decimal
-  created_at DateTime @default(now())
-
-  @@map("bills")
-}
-
-model Plan {
-  id              String   @id @default(uuid())
-  name            String   @unique
-  price           Decimal
-  experience_date DateTime
-  created_at      DateTime @default(now())
-
-  User User[]
-
-  @@map("plans")
-}
-
-model GymEquipament {
+model GymEquipment {
   id               String   @id @default(uuid())
   name             String
   category         String
@@ -115,13 +93,24 @@ model PrizeDraw {
   @@map("prize_draws")
 }
 
-model LuckyNumbers {
-  id            String   @id @default(uuid())
-  lucky_numbers String[]
-  last_update   DateTime
+model Plan {
+  id              String   @id @default(uuid())
+  name            String   @unique
+  price           Decimal
+  experience_date DateTime
+  created_at      DateTime @default(now())
 
-  user    User   @relation(fields: [user_id], references: [id])
-  user_id String @unique
+  User User[]
 
-  @@map("lucky_numbers")
+  @@map("plans")
+}
+
+model Bill {
+  id         String   @id @default(uuid())
+  name       String
+  category   String
+  amount     Decimal
+  created_at DateTime @default(now())
+
+  @@map("bills")
 }
