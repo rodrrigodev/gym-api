@@ -1,5 +1,5 @@
 import { Prisma, UserProgress } from '@prisma/client'
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'node:crypto'
 import { getNextWorkoutExercise } from '@/util/getNextWorkoutExercise'
 import { UserProgressRepository } from '../userProgressRepository'
 
@@ -13,7 +13,7 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
     next_workout,
   }: Prisma.UserProgressUncheckedCreateInput) {
     const newWorkout = {
-      id: randomUUID().toString(),
+      id: randomUUID(),
       initial_weight: initial_weight || null,
       next_workout: next_workout || getNextWorkoutExercise(this.usersProgress),
       last_workout: null,

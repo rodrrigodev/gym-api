@@ -1,5 +1,5 @@
 import { Prisma, User } from '@prisma/client'
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'node:crypto'
 import { UserRepository, UserDataToUpdate } from '../userRepository'
 import { hash } from 'bcryptjs'
 
@@ -10,8 +10,8 @@ export class InMemoryUserRepository implements UserRepository {
     const passwordHashed = await hash(data.password, 6)
 
     const user = {
+      id: randomUUID(),
       name: data.name,
-      id: randomUUID().toString(),
       email: data.email,
       password: passwordHashed,
       nickname: data.nickname || null,
@@ -20,6 +20,7 @@ export class InMemoryUserRepository implements UserRepository {
       height: data.height || null,
       image_URL: data.image_URL || null,
       created_at: new Date(),
+      lucky_numbers: [],
       plan_id: null,
     }
 
