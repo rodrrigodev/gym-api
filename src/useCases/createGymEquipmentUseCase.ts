@@ -1,7 +1,8 @@
-import { EquipmentAlreadyRegisteredError } from '@/errors/EquipmentAlreadyRegisteredError'
+import { EquipmentCodeAlreadyRegisteredError } from '@/errors/equipmentCodeAlreadyRegisteredError'
 import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
 
 interface CreateGymEquipmentRequest {
+  id?: string
   name: string
   category: string
   sets: number
@@ -16,10 +17,10 @@ export class CreateGymEquipmentUseCase {
 
   async execute(data: CreateGymEquipmentRequest) {
     const equipmentAlreadyRegistered =
-      await this.gymEquipmentRepository.checkNameAndCode(data.name, data.cod)
+      await this.gymEquipmentRepository.checkCode(data.cod)
 
     if (equipmentAlreadyRegistered) {
-      throw new EquipmentAlreadyRegisteredError()
+      throw new EquipmentCodeAlreadyRegisteredError()
     }
 
     const newEquipment =

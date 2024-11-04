@@ -1,7 +1,7 @@
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { CreateGymEquipmentUseCase } from './createGymEquipmentUseCase'
-import { EquipmentAlreadyRegisteredError } from '@/errors/EquipmentAlreadyRegisteredError'
+import { EquipmentCodeAlreadyRegisteredError } from '@/errors/equipmentCodeAlreadyRegisteredError'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
 let sut: CreateGymEquipmentUseCase
@@ -48,6 +48,6 @@ describe('create gym equipment test', () => {
         status: 'available',
         last_maintenance: new Date(),
       }),
-    ).rejects.toBeInstanceOf(EquipmentAlreadyRegisteredError)
+    ).rejects.toBeInstanceOf(EquipmentCodeAlreadyRegisteredError)
   })
 })
