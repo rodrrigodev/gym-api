@@ -1,6 +1,6 @@
 import { Prisma, User } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
-import { UserRepository, UserDataToUpdate } from '../userRepository'
+import { UserRepository } from '../userRepository'
 import { hash } from 'bcryptjs'
 
 export class InMemoryUserRepository implements UserRepository {
@@ -60,28 +60,22 @@ export class InMemoryUserRepository implements UserRepository {
     return userExists
   }
 
-  async updateUser(id: string, data: UserDataToUpdate) {
-    const userExists = await this.findUserById(id)
+  async updateUser(id: string, data: Prisma.UserUpdateInput) {
+    const usersUpdated = this.users.map((user) => {
+      if (user.id === id) {
+        return { ...user, ...data }
+      } else {
+        return user
+      }
+    })
 
-    if (!userExists) {
-      return null
-    }
+    this.users = usersUpdated as User[]
 
-    const checkedData = {
-      ...userExists,
-      ...data,
-    }
+    const UserUpdated = this.users.find((user) => {
+      return user.id === id
+    })
 
-    this.users = this.users.map((user) =>
-      user.id === userExists.id ? { ...user, ...checkedData } : user,
-    )
-
-    return {
-      ...checkedData,
-      password: userExists.password,
-      created_at: userExists.created_at,
-      plan_id: userExists.plan_id,
-    }
+    return UserUpdated || null
   }
 
   async fetchUsersOrSearch(page: number, query?: string) {

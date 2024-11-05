@@ -2,6 +2,7 @@ import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { CreateUserUseCase } from './createUserUseCase'
 import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
+import { compare } from 'bcryptjs'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: CreateUserUseCase
@@ -20,6 +21,17 @@ describe('create user test', () => {
     })
 
     expect(user.name).toBe('Rodrigo')
+  })
+
+  it('should be able to encrypt the user password', async () => {
+    const user = await sut.execute({
+      email: 'rodrigo@email.com',
+      name: 'Rodrigo',
+      password: '12345678',
+    })
+
+    const comparePassword = await compare('12345678', user.password)
+    expect(comparePassword).toBeTruthy()
   })
 
   it('should not be able to create a user', async () => {
