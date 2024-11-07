@@ -1,10 +1,20 @@
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { UserDataToUpdate, UserRepository } from '@/repositories/userRepository'
+import { UserRepository } from '@/repositories/userRepository'
+
+interface UpdateUserRequest {
+  email?: string
+  name?: string
+  nickname?: string
+  birthDate?: Date
+  weight?: number
+  height?: number
+  imageUrl?: string
+}
 
 export class UpdateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(id: string, data: UserDataToUpdate) {
+  async execute(id: string, data: UpdateUserRequest) {
     const userExists = await this.userRepository.findUserById(id)
 
     if (!userExists) {

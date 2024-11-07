@@ -29,12 +29,34 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
     return newWorkout
   }
 
-  async findUserProgressById(id: string) {
+  async findUserProgressByUserId(userId: string) {
     const userProgressAlreadyExists = this.usersProgress.find(
       (userProgress) => {
-        return userProgress.user_id === id
+        return userProgress.user_id === userId
       },
     )
+
     return userProgressAlreadyExists || null
+  }
+
+  async updateUserProgress(
+    userProgressId: string,
+    data: Prisma.UserProgressUpdateInput,
+  ) {
+    const usersProgressUpdated = this.usersProgress.map((progress) => {
+      if (progress.id === userProgressId) {
+        return { ...progress, ...data }
+      } else {
+        return progress
+      }
+    })
+
+    this.usersProgress = usersProgressUpdated as UserProgress[]
+
+    const userProgressUpdated = this.usersProgress.find((progress) => {
+      return progress.id === userProgressId
+    })
+
+    return userProgressUpdated || null
   }
 }

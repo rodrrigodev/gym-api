@@ -23,7 +23,7 @@ export class CreateUserProgressUseCase {
   }: CreateUserProgressRequest) {
     const userExists = await this.userRepository.findUserById(userId)
     const userProgressExists =
-      await this.userProgressRepository.findUserProgressById(userId)
+      await this.userProgressRepository.findUserProgressByUserId(userId)
 
     if (!userExists || userProgressExists) {
       throw new UserProgressError()
