@@ -31,7 +31,7 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
     return gymEquipment
   }
 
-  async checkCode(cod: string) {
+  async checkGymEquipmentCode(cod: string) {
     const equipmentAlreadyRegistered = this.gymEquipments.find((equipment) => {
       return equipment.cod === cod
     })
@@ -63,5 +63,13 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
     })
 
     return equipmentExists || null
+  }
+
+  async fetchGymEquipments(nextWorkout: string) {
+    const gymEquipments = this.gymEquipments.filter((equipment) => {
+      return equipment.category === nextWorkout
+    })
+
+    return gymEquipments || null
   }
 }

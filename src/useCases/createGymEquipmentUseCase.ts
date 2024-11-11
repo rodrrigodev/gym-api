@@ -17,7 +17,7 @@ export class CreateGymEquipmentUseCase {
 
   async execute(data: CreateGymEquipmentRequest) {
     const equipmentAlreadyRegistered =
-      await this.gymEquipmentRepository.checkCode(data.cod)
+      await this.gymEquipmentRepository.checkGymEquipmentCode(data.cod)
 
     if (equipmentAlreadyRegistered) {
       throw new EquipmentCodeAlreadyRegisteredError()

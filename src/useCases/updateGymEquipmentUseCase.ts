@@ -23,7 +23,7 @@ export class UpdateGymEquipmentUseCase {
     }
 
     const equipmentCodeAlreadyRegistered = data.cod
-      ? await this.gymEquipmentRepository.checkCode(data.cod)
+      ? await this.gymEquipmentRepository.checkGymEquipmentCode(data.cod)
       : null
 
     if (

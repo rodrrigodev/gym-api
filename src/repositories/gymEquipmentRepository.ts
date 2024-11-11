@@ -5,7 +5,7 @@ export interface GymEquipmentRepository {
     data: Prisma.GymEquipmentCreateInput,
   ) => Promise<GymEquipment | null>
 
-  checkCode: (cod: string) => Promise<GymEquipment | null>
+  checkGymEquipmentCode: (cod: string) => Promise<GymEquipment | null>
 
   updateGymEquipment: (
     id: string,
@@ -13,4 +13,6 @@ export interface GymEquipmentRepository {
   ) => Promise<GymEquipment | null>
 
   findGymEquipmentById: (id: string) => Promise<GymEquipment | null>
+
+  fetchGymEquipments: (nextWorkout: string) => Promise<GymEquipment[]>
 }

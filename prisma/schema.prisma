@@ -45,15 +45,16 @@ model UserProgress {
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
 
-  UserEquipmentTracking UserEquipmentTracking[]
+  EquipmentTracking EquipmentTracking[]
 
   @@map("user_progress")
 }
 
-model UserEquipmentTracking {
-  id          String    @id @default(uuid())
-  weight      Int
-  last_update DateTime?
+model EquipmentTracking {
+  id                    String    @id @default(uuid())
+  initial_weight        Int
+  actual_weight         Int
+  last_update           DateTime?
 
   userProgress     UserProgress @relation(fields: [user_progress_id], references: [id], onDelete: Cascade)
   user_progress_id String      
@@ -74,7 +75,7 @@ model GymEquipment {
   status           String
   last_maintenance DateTime
 
-  UserEquipmentTracking UserEquipmentTracking[]
+  EquipmentTracking EquipmentTracking[]
 
   @@map("gym_equipaments")
 }
