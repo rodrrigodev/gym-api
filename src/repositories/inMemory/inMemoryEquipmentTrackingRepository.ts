@@ -27,13 +27,44 @@ export class InMemoryEquipmentTrackingRepository
     return equipmentTracking
   }
 
-  async findGymEquipmentTracking(gym_equipment_id: string) {
+  async checkEquipmentAndUser(
+    gym_equipment_id: string,
+    user_progress_id: string,
+  ) {
     const equipmentTrackingExists = this.equipmentTrackings.find(
       (equipment) => {
-        return equipment.gym_equipment_id === gym_equipment_id
+        return (
+          equipment.user_progress_id === user_progress_id &&
+          equipment.gym_equipment_id === gym_equipment_id
+        )
       },
     )
 
     return equipmentTrackingExists || null
+  }
+
+  async updateEquipmentTracking(
+    gym_equipment_id: string,
+    data: Prisma.EquipmentTrackingUpdateInput,
+  ) {
+    const equipmentTrackingsUpdated = this.equipmentTrackings.map(
+      (equipmentTracking) => {
+        if (equipmentTracking.id === gym_equipment_id) {
+          return { ...equipmentTracking, ...data, last_update: new Date() }
+        } else {
+          return equipmentTracking
+        }
+      },
+    )
+
+    this.equipmentTrackings = equipmentTrackingsUpdated as EquipmentTracking[]
+
+    const equipmentTracking = this.equipmentTrackings.find(
+      (equipmentTracking) => {
+        return equipmentTracking.id === gym_equipment_id
+      },
+    )
+
+    return equipmentTracking || null
   }
 }

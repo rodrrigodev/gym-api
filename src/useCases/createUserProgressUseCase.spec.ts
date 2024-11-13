@@ -60,6 +60,7 @@ describe('create user progress test', () => {
   })
 
   it('should not be able to create a user progress', async () => {
+    console.log('fix this')
     const user = await createUserUseCase.execute({
       email: 'rodrigo@email.com',
       name: 'Rodrigo',

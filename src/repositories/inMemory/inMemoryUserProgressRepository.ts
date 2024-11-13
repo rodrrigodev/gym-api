@@ -1,6 +1,6 @@
 import { Prisma, UserProgress } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
-import { getNextWorkoutExercise } from '@/util/getNextWorkoutExercise'
+import { getNextWorkoutExercise } from '@/utils/getNextWorkoutExercise'
 import { UserProgressRepository } from '../userProgressRepository'
 
 export class InMemoryUserProgressRepository implements UserProgressRepository {
