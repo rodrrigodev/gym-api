@@ -49,7 +49,7 @@ export class InMemoryEquipmentTrackingRepository
   ) {
     const equipmentTrackingsUpdated = this.equipmentTrackings.map(
       (equipmentTracking) => {
-        if (equipmentTracking.id === gym_equipment_id) {
+        if (equipmentTracking.gym_equipment_id === gym_equipment_id) {
           return { ...equipmentTracking, ...data, last_update: new Date() }
         } else {
           return equipmentTracking
@@ -61,7 +61,7 @@ export class InMemoryEquipmentTrackingRepository
 
     const equipmentTracking = this.equipmentTrackings.find(
       (equipmentTracking) => {
-        return equipmentTracking.id === gym_equipment_id
+        return equipmentTracking.gym_equipment_id === gym_equipment_id
       },
     )
 

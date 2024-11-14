@@ -8,8 +8,8 @@ export class UpdateEquipmentTrackingUseCase {
 
   async execute(
     gym_equipment_id: string,
-    actual_weight: number,
     user_progress_id: string,
+    actual_weight: number,
   ) {
     const gymEquipmentTrackingExists =
       await this.equipmentTrackingRepository.checkEquipmentAndUser(
