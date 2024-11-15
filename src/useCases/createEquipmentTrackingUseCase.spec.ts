@@ -6,6 +6,8 @@ import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemory
 import { EquipmentTrackingAlreadyExistsError } from '@/errors/equipmentTrackingAlreadyExistsError'
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
 import { UserProgressError } from '@/errors/userProgressError'
+import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { createUserProgressTestHelper } from '@/utils/tests/createUserProgressTestHelper'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
 let inMemoryEquipmentTrackingRepository: InMemoryEquipmentTrackingRepository
@@ -27,24 +29,14 @@ describe('create gym equipment tracking test', () => {
   })
 
   it('should be able to create a gym equipment tracking', async () => {
-    const gymEquipment =
-      await inMemoryGymEquipmentRepository.createGymEquipment({
-        name: 'Leg Press Machine',
-        category: 'legs',
-        sets: 4,
-        reps: 12,
-        cod: 'LEG-001',
-        status: 'available',
-        last_maintenance: new Date(),
-      })
+    const gymEquipment = await createGymEquipmentTestHelper(
+      inMemoryGymEquipmentRepository,
+    )
 
-    const userProgress =
-      await inMemoryUserProgressRepository.createUserProgress({
-        current_goal: 'bulk up',
-        initial_weight: 88,
-        next_workout: null,
-        user_id: 'user_id',
-      })
+    const userProgress = await createUserProgressTestHelper(
+      inMemoryUserProgressRepository,
+      'user_id',
+    )
 
     const equipmentTracking = await sut.execute({
       initial_weight: 1,
@@ -57,24 +49,15 @@ describe('create gym equipment tracking test', () => {
     expect(equipmentTracking?.user_progress_id).toBe('user_id')
   })
 
-  it('should  not be able to create a gym equipment tracking passing same gym equipment', async () => {
-    const gymEquipment =
-      await inMemoryGymEquipmentRepository.createGymEquipment({
-        name: 'Leg Press Machine',
-        category: 'legs',
-        sets: 4,
-        reps: 12,
-        cod: 'LEG-001',
-        status: 'available',
-        last_maintenance: new Date(),
-      })
+  it('should  not be able to create a gym equipment tracking passing wrong user progress id', async () => {
+    const gymEquipment = await createGymEquipmentTestHelper(
+      inMemoryGymEquipmentRepository,
+    )
 
-    await inMemoryUserProgressRepository.createUserProgress({
-      current_goal: 'bulk up',
-      initial_weight: 88,
-      next_workout: null,
-      user_id: 'user_id',
-    })
+    await createUserProgressTestHelper(
+      inMemoryUserProgressRepository,
+      'user_id',
+    )
 
     await expect(
       sut.execute({
@@ -86,25 +69,15 @@ describe('create gym equipment tracking test', () => {
     ).rejects.toBeInstanceOf(UserProgressError)
   })
 
-  it('should  not be able to create a gym equipment tracking passing same gym equipment', async () => {
-    const gymEquipment =
-      await inMemoryGymEquipmentRepository.createGymEquipment({
-        name: 'Leg Press Machine',
-        category: 'legs',
-        sets: 4,
-        reps: 12,
-        cod: 'LEG-001',
-        status: 'available',
-        last_maintenance: new Date(),
-      })
+  it('should  not be able to create the same gym equipment tracking twice', async () => {
+    const gymEquipment = await createGymEquipmentTestHelper(
+      inMemoryGymEquipmentRepository,
+    )
 
-    const userProgress =
-      await inMemoryUserProgressRepository.createUserProgress({
-        current_goal: 'bulk up',
-        initial_weight: 88,
-        next_workout: null,
-        user_id: 'user_id',
-      })
+    const userProgress = await createUserProgressTestHelper(
+      inMemoryUserProgressRepository,
+      'user_id',
+    )
 
     await sut.execute({
       initial_weight: 1,
@@ -123,24 +96,13 @@ describe('create gym equipment tracking test', () => {
     ).rejects.toBeInstanceOf(EquipmentTrackingAlreadyExistsError)
   })
 
-  it('should  not be able to create a gym equipment tracking', async () => {
-    await inMemoryGymEquipmentRepository.createGymEquipment({
-      name: 'Leg Press Machine',
-      category: 'legs',
-      sets: 4,
-      reps: 12,
-      cod: 'LEG-001',
-      status: 'available',
-      last_maintenance: new Date(),
-    })
+  it('should  not be able to create a gym equipment tracking passing wrong equipment id', async () => {
+    await createGymEquipmentTestHelper(inMemoryGymEquipmentRepository)
 
-    const userProgress =
-      await inMemoryUserProgressRepository.createUserProgress({
-        current_goal: 'bulk up',
-        initial_weight: 88,
-        next_workout: null,
-        user_id: 'user_id',
-      })
+    const userProgress = await createUserProgressTestHelper(
+      inMemoryUserProgressRepository,
+      'user_id',
+    )
 
     await expect(
       sut.execute({

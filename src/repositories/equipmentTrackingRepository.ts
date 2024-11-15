@@ -3,7 +3,7 @@ import { EquipmentTracking, Prisma } from '@prisma/client'
 export interface EquipmentTrackingRepository {
   createEquipmentTracking: (
     data: Prisma.EquipmentTrackingUncheckedCreateInput,
-  ) => Promise<EquipmentTracking | null>
+  ) => Promise<EquipmentTracking>
 
   checkEquipmentAndUser: (
     gym_equipment_id: string,

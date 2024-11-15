@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { FetGymEquipmentUseCase } from './fetchGymEquipmentsUseCase'
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
+import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
 let sut: FetGymEquipmentUseCase
@@ -13,15 +14,7 @@ describe('fetch gym equipments test', () => {
   })
 
   it('should be able to fetch gym equipments', async () => {
-    await inMemoryGymEquipmentRepository.createGymEquipment({
-      name: 'Leg Press Machine',
-      category: 'legs',
-      sets: 4,
-      reps: 12,
-      cod: 'LEG-001',
-      status: 'available',
-      last_maintenance: new Date(),
-    })
+    await createGymEquipmentTestHelper(inMemoryGymEquipmentRepository)
 
     const gymEquipments = await sut.execute('legs')
 
@@ -31,16 +24,8 @@ describe('fetch gym equipments test', () => {
     )
   })
 
-  it('should not be able to fetch gym equipments', async () => {
-    await inMemoryGymEquipmentRepository.createGymEquipment({
-      name: 'Leg Press Machine',
-      category: 'legs',
-      sets: 4,
-      reps: 12,
-      cod: 'LEG-001',
-      status: 'available',
-      last_maintenance: new Date(),
-    })
+  it('should not be able to fetch gym equipments passing non-existent workout', async () => {
+    await createGymEquipmentTestHelper(inMemoryGymEquipmentRepository)
 
     await expect(sut.execute('noNextWorkout')).rejects.toBeInstanceOf(
       EquipmentsNotFoundError,

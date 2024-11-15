@@ -3,7 +3,7 @@ import { Prisma, UserProgress } from '@prisma/client'
 export interface UserProgressRepository {
   createUserProgress: (
     data: Prisma.UserProgressUncheckedCreateInput,
-  ) => Promise<UserProgress | null>
+  ) => Promise<UserProgress>
 
   findUserProgressByUserId: (userId: string) => Promise<UserProgress | null>
 

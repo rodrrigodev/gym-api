@@ -2,7 +2,6 @@ import { EquipmentCodeAlreadyRegisteredError } from '@/errors/equipmentCodeAlrea
 import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
 
 interface CreateGymEquipmentRequest {
-  id?: string
   name: string
   category: string
   sets: number

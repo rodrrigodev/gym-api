@@ -1,33 +1,28 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
-import { CreateUserUseCase } from './createUserUseCase'
 import { FetchUsersOrSearchUseCase } from './fetchUsersOrSearchUseCase'
 import { UsersNotFoundError } from '@/errors/usersNotFoundError'
+import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
-let createUserUseCase: CreateUserUseCase
 let sut: FetchUsersOrSearchUseCase
 
 describe('fetch users test', () => {
   beforeEach(() => {
     inMemoryUserRepository = new InMemoryUserRepository()
-    createUserUseCase = new CreateUserUseCase(inMemoryUserRepository)
     sut = new FetchUsersOrSearchUseCase(inMemoryUserRepository)
   })
 
   it('should be able to fetch a user', async () => {
-    await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+    await createUserTestHelper(inMemoryUserRepository)
 
     await Promise.all(
       Array.from({ length: 25 }, (_, i) =>
-        createUserUseCase.execute({
+        inMemoryUserRepository.createUser({
           email: `alex-${i}@email.com`,
           name: `Alex-${i}`,
           password: '12345678',
+          created_at: new Date(),
         }),
       ),
     )
@@ -39,18 +34,15 @@ describe('fetch users test', () => {
   })
 
   it('should be able to fetch a user', async () => {
-    await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+    await createUserTestHelper(inMemoryUserRepository)
 
     await Promise.all(
       Array.from({ length: 25 }, (_, i) =>
-        createUserUseCase.execute({
+        inMemoryUserRepository.createUser({
           email: `alex-${i}@email.com`,
           name: `Alex-${i}`,
           password: '12345678',
+          created_at: new Date(),
         }),
       ),
     )
@@ -64,19 +56,16 @@ describe('fetch users test', () => {
     )
   })
 
-  it('should not be able to fetch a user', async () => {
-    await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+  it('should not be able to fetch a user passing non-existent user', async () => {
+    await createUserTestHelper(inMemoryUserRepository)
 
     await Promise.all(
       Array.from({ length: 25 }, (_, i) =>
-        createUserUseCase.execute({
+        inMemoryUserRepository.createUser({
           email: `alex-${i}@email.com`,
           name: `Alex-${i}`,
           password: '12345678',
+          created_at: new Date(),
         }),
       ),
     )

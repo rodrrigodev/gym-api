@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { UserProgressError } from '@/errors/userProgressError'
 import { UpdateUserProgressUseCase } from './updateUserProgressUseCase'
+import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserProgressTestHelper } from '@/utils/tests/createUserProgressTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository
@@ -16,19 +18,12 @@ describe('update user progress test', () => {
   })
 
   it('should be able to update a user', async () => {
-    const user = await inMemoryUserRepository.createUser({
-      name: 'Rodrigo',
-      email: 'rodrigo@email.com',
-      password: '12345678',
-      created_at: new Date(),
-    })
+    const user = await createUserTestHelper(inMemoryUserRepository)
 
-    const progress = await inMemoryUserProgressRepository.createUserProgress({
-      user_id: user.id,
-      initial_weight: 44,
-      next_workout: 'back',
-      current_goal: 'slim down',
-    })
+    const progress = await createUserProgressTestHelper(
+      inMemoryUserProgressRepository,
+      user.id,
+    )
 
     const userProgressUpdated = await sut.execute(progress.user_id, {
       initial_weight: 82,
@@ -40,19 +35,9 @@ describe('update user progress test', () => {
   })
 
   it('should not be able to update user progress', async () => {
-    const user = await inMemoryUserRepository.createUser({
-      name: 'Rodrigo',
-      email: 'rodrigo@email.com',
-      password: '12345678',
-      created_at: new Date(),
-    })
+    const user = await createUserTestHelper(inMemoryUserRepository)
 
-    await inMemoryUserProgressRepository.createUserProgress({
-      user_id: user.id,
-      initial_weight: 44,
-      next_workout: 'back',
-      current_goal: 'slim down',
-    })
+    await createUserProgressTestHelper(inMemoryUserProgressRepository, user.id)
 
     await expect(
       sut.execute('progressId', {

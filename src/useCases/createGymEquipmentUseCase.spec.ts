@@ -27,7 +27,7 @@ describe('create gym equipment test', () => {
     expect(gymEquipment).toHaveProperty('id')
   })
 
-  it('should not be able to create a gym equipment', async () => {
+  it('should not be able to create a gym equipment with same machine code', async () => {
     await sut.execute({
       name: 'Leg Press Machine',
       category: 'legs',

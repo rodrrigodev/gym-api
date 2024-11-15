@@ -1,13 +1,12 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
-import { CreateUserUseCase } from './createUserUseCase'
 import { CreateUserProgressUseCase } from './createUserProgressUseCase'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { UserProgressError } from '@/errors/userProgressError'
+import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository
-let createUserUseCase: CreateUserUseCase
 let sut: CreateUserProgressUseCase
 
 describe('create user progress test', () => {
@@ -15,7 +14,6 @@ describe('create user progress test', () => {
     inMemoryUserRepository = new InMemoryUserRepository()
     inMemoryUserProgressRepository = new InMemoryUserProgressRepository()
 
-    createUserUseCase = new CreateUserUseCase(inMemoryUserRepository)
     sut = new CreateUserProgressUseCase(
       inMemoryUserProgressRepository,
       inMemoryUserRepository,
@@ -23,11 +21,7 @@ describe('create user progress test', () => {
   })
 
   it('should be able to create a user progress', async () => {
-    const user = await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+    const user = await createUserTestHelper(inMemoryUserRepository)
 
     const progress = await sut.execute({
       currentGoal: 'slim down',
@@ -42,11 +36,7 @@ describe('create user progress test', () => {
   })
 
   it('should be able to create a user progress without pass a nextWorkout', async () => {
-    const user = await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+    const user = await createUserTestHelper(inMemoryUserRepository)
 
     const progress = await sut.execute({
       currentGoal: 'bulk up',
@@ -59,13 +49,8 @@ describe('create user progress test', () => {
     expect(progress).toHaveProperty('last_workout', null)
   })
 
-  it('should not be able to create a user progress', async () => {
-    console.log('fix this')
-    const user = await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+  it('should not be able to create a user progress twice', async () => {
+    const user = await createUserTestHelper(inMemoryUserRepository)
 
     await sut.execute({
       currentGoal: 'bulk up',
@@ -84,12 +69,8 @@ describe('create user progress test', () => {
     ).rejects.toBeInstanceOf(UserProgressError)
   })
 
-  it('should not be able to create a user progress', async () => {
-    await createUserUseCase.execute({
-      email: 'rodrigo@email.com',
-      name: 'Rodrigo',
-      password: '12345678',
-    })
+  it('should not be able to create a user progress with wrong id', async () => {
+    await createUserTestHelper(inMemoryUserRepository)
 
     await expect(
       sut.execute({

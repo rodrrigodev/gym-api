@@ -3,7 +3,7 @@ import { GymEquipment, Prisma } from '@prisma/client'
 export interface GymEquipmentRepository {
   createGymEquipment: (
     data: Prisma.GymEquipmentCreateInput,
-  ) => Promise<GymEquipment | null>
+  ) => Promise<GymEquipment>
 
   checkGymEquipmentCode: (cod: string) => Promise<GymEquipment | null>
 

@@ -6,7 +6,6 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
   private gymEquipments: GymEquipment[] = []
 
   async createGymEquipment({
-    id,
     name,
     category,
     cod,
@@ -16,7 +15,7 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
     last_maintenance,
   }: Prisma.GymEquipmentCreateInput) {
     const gymEquipment = {
-      id: id || randomUUID(),
+      id: randomUUID(),
       name,
       category,
       cod,
