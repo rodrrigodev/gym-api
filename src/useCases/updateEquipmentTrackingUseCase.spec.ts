@@ -9,7 +9,7 @@ let inMemoryEquipmentTrackingRepository: InMemoryEquipmentTrackingRepository
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
 let sut: UpdateEquipmentTrackingUseCase
 
-describe('update gym equipment test', () => {
+describe('update gym equipment tracking test', () => {
   beforeEach(() => {
     inMemoryEquipmentTrackingRepository =
       new InMemoryEquipmentTrackingRepository()

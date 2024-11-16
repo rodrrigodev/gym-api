@@ -59,12 +59,12 @@ export class InMemoryEquipmentTrackingRepository
 
     this.equipmentTrackings = equipmentTrackingsUpdated as EquipmentTracking[]
 
-    const equipmentTracking = this.equipmentTrackings.find(
+    const equipmentTrackingUpdated = this.equipmentTrackings.find(
       (equipmentTracking) => {
         return equipmentTracking.gym_equipment_id === gym_equipment_id
       },
     )
 
-    return equipmentTracking || null
+    return equipmentTrackingUpdated || null
   }
 }
