@@ -1,5 +1,5 @@
 import { PrismaUserRepository } from '@/repositories/prisma/prismaUserRepository'
-import { CreateUserProgressUseCase } from '@/useCases/createUserProgressUseCase'
+import { CreateUserProgressUseCase } from '@/useCases/userProgress/createUserProgressUseCase'
 import { PrismaUserProgressRepository } from '@/repositories/prisma/prismaUserProgressRepository'
 
 export function useMakeCreateUserProgressUseCase() {

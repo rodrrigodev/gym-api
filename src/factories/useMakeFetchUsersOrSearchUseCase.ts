@@ -1,5 +1,5 @@
 import { PrismaUserRepository } from '@/repositories/prisma/prismaUserRepository'
-import { FetchUsersOrSearchUseCase } from '@/useCases/fetchUsersOrSearchUseCase'
+import { FetchUsersOrSearchUseCase } from '@/useCases/user/fetchUsersOrSearchUseCase'
 
 export function useMakeFetchUsersOrSearchUseCase() {
   const prismaUserRepository = new PrismaUserRepository()
