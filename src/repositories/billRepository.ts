@@ -8,9 +8,9 @@ export interface BillRepository {
     data: Prisma.BillUpdateInput,
   ) => Promise<Bill | null>
 
-  findBillById: (billId: string) => Promise<Bill | null>
+  findBill: (billId: string) => Promise<Bill | null>
 
-  deleteBillById: (billId: string) => Promise<string>
+  deleteBill: (billId: string) => Promise<string>
 
   fetchBills: (
     period: number,

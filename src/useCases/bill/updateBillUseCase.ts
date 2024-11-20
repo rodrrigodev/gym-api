@@ -11,7 +11,7 @@ export class UpdateBillUseCase {
   constructor(private billRepository: BillRepository) {}
 
   async execute(billId: string, data: UpdateBillRequest) {
-    const billExists = await this.billRepository.findBillById(billId)
+    const billExists = await this.billRepository.findBill(billId)
 
     if (!billExists) {
       throw new BillNotFoundError()

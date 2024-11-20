@@ -31,7 +31,7 @@ describe('update a bill test', () => {
     await expect(
       sut.execute('noId', {
         amount: '48.85',
-        name: 'Desinfetante',
+        name: 'Disinfectant',
       }),
     ).rejects.toBeInstanceOf(BillNotFoundError)
   })

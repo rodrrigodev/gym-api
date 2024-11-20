@@ -19,7 +19,7 @@ export class InMemoryBillRepository implements BillRepository {
     return bill
   }
 
-  async findBillById(billId: string) {
+  async findBill(billId: string) {
     const billExists = this.bills.find((bill) => {
       return bill.id === billId
     })
@@ -45,7 +45,7 @@ export class InMemoryBillRepository implements BillRepository {
     return billUpdated || null
   }
 
-  async deleteBillById(billId: string) {
+  async deleteBill(billId: string) {
     const billsFiltered = this.bills.filter((bill) => {
       return bill.id === billId
     })
