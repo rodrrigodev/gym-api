@@ -11,7 +11,7 @@ export class InMemoryBillRepository implements BillRepository {
       name: data.name,
       category: data.category,
       amount: new Prisma.Decimal(Number(data.amount)),
-      created_at: new Date(),
+      created_at: data.created_at ? new Date(data.created_at) : new Date(),
     }
 
     this.bills.push(bill)
@@ -43,5 +43,44 @@ export class InMemoryBillRepository implements BillRepository {
     })
 
     return billUpdated || null
+  }
+
+  async deleteBillById(billId: string) {
+    const billsFiltered = this.bills.filter((bill) => {
+      return bill.id === billId
+    })
+
+    this.bills = billsFiltered
+
+    return 'Success!'
+  }
+
+  async fetchBills(
+    period: number,
+    page: number,
+    name?: string,
+    category?: string,
+  ) {
+    const date = new Date()
+    const currentMonth = date.getMonth()
+    const monthThreshold = currentMonth - Math.floor(period / 30) + 1
+
+    const filteredBills = this.bills.filter((bill) => {
+      const billMonth = bill.created_at.getMonth()
+      const matchesCategory = category
+        ? bill.category.toLowerCase() === category.toLowerCase()
+        : true
+      const matchesName = name
+        ? bill.name.toLowerCase() === name.toLowerCase()
+        : true
+      const matchesPeriod = billMonth >= monthThreshold
+
+      return matchesCategory && matchesName && matchesPeriod
+    })
+
+    return {
+      bills: filteredBills.slice((page - 1) * 20, page * 20),
+      length: filteredBills.length,
+    }
   }
 }

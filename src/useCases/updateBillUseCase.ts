@@ -17,8 +17,9 @@ export class UpdateBillUseCase {
       throw new BillNotFoundError()
     }
 
-    console.log('tofix')
-    const amountToDecimal = data.amount.replace('.', '')
+    const amountToDecimal = data.amount
+      ? data.amount.replace('.', '')
+      : billExists.amount
 
     const billUpdated = await this.billRepository.updateBill(billId, {
       amount: amountToDecimal,

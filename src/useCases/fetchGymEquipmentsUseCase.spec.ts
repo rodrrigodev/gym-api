@@ -1,16 +1,16 @@
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
-import { FetGymEquipmentUseCase } from './fetchGymEquipmentsUseCase'
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
 import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { FetchGymEquipmentUseCase } from './fetchGymEquipmentsUseCase'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
-let sut: FetGymEquipmentUseCase
+let sut: FetchGymEquipmentUseCase
 
 describe('fetch gym equipments test', () => {
   beforeEach(() => {
     inMemoryGymEquipmentRepository = new InMemoryGymEquipmentRepository()
-    sut = new FetGymEquipmentUseCase(inMemoryGymEquipmentRepository)
+    sut = new FetchGymEquipmentUseCase(inMemoryGymEquipmentRepository)
   })
 
   it('should be able to fetch gym equipments', async () => {

@@ -9,4 +9,13 @@ export interface BillRepository {
   ) => Promise<Bill | null>
 
   findBillById: (billId: string) => Promise<Bill | null>
+
+  deleteBillById: (billId: string) => Promise<string>
+
+  fetchBills: (
+    period: number,
+    page: number,
+    name?: string,
+    category?: string,
+  ) => Promise<{ bills: Bill[]; length: number }>
 }

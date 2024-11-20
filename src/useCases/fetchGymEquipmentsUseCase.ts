@@ -1,7 +1,7 @@
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
 import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
 
-export class FetGymEquipmentUseCase {
+export class FetchGymEquipmentUseCase {
   constructor(private gymEquipmentRepository: GymEquipmentRepository) {}
 
   async execute(nextWorkout: string) {

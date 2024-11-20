@@ -45,19 +45,14 @@ export class InMemoryUserRepository implements UserRepository {
     return user || null
   }
 
-  async deleteUserById(id: string) {
-    const userExists = await this.findUserById(id)
-
-    if (!userExists) {
-      return null
-    }
-
+  async deleteUserById(userId: string) {
     const filteredUsers = this.users.filter((user) => {
-      return user.id !== id
+      return user.id !== userId
     })
 
     this.users = filteredUsers
-    return userExists
+
+    return 'Success!'
   }
 
   async updateUser(id: string, data: Prisma.UserUpdateInput) {
