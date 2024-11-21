@@ -10,7 +10,7 @@ export class InMemoryBillRepository implements BillRepository {
       id: randomUUID(),
       name: data.name,
       category: data.category,
-      amount: new Prisma.Decimal(Number(data.amount)),
+      price: new Prisma.Decimal(Number(data.price)),
       created_at: data.created_at ? new Date(data.created_at) : new Date(),
     }
 

@@ -10,6 +10,7 @@ interface CreateUserUseCaseRequest {
   weight?: number
   height?: number
   imageUrl?: string
+  experience_date?: Date
 }
 
 export class CreateUserUseCase {
@@ -34,6 +35,7 @@ export class CreateUserUseCase {
       image_URL: data.imageUrl || null,
       current_weight: data.weight || null,
       created_at: new Date(),
+      experience_date: data.experience_date || null,
     })
 
     return user

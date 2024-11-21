@@ -19,6 +19,7 @@ export class InMemoryUserRepository implements UserRepository {
       current_weight: data.current_weight || null,
       height: data.height || null,
       image_URL: data.image_URL || null,
+      experience_date: null,
       created_at: new Date(),
       lucky_numbers: [],
       plan_id: null,

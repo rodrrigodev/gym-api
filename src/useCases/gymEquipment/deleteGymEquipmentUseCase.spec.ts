@@ -13,7 +13,7 @@ describe('delete a gym equipment test', () => {
     sut = new DeleteGymEquipmentUseCase(inMemoryGymEquipmentRepository)
   })
 
-  it('should be able to update a gym equipment', async () => {
+  it('should be able to delete a gym equipment', async () => {
     const gymEquipment = await createGymEquipmentTestHelper(
       inMemoryGymEquipmentRepository,
     )
