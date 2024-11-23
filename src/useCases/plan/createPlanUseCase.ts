@@ -10,7 +10,7 @@ export class CreatePlanUseCase {
   constructor(private planRepository: PlanRepository) {}
 
   async execute({ name, price }: CreatePlanUseCaseRequest) {
-    const planAlreadyExists = await this.planRepository.findPlan(name)
+    const planAlreadyExists = await this.planRepository.findPlanByName(name)
     const priceToDecimal = price.replace('.', '')
 
     if (planAlreadyExists) {

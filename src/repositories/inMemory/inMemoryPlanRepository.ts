@@ -18,12 +18,20 @@ export class InMemoryPlanRepository implements PlanRepository {
     return plan
   }
 
-  async findPlan(name: string) {
+  async findPlanByName(name: string) {
     const planAlreadyExists = this.plans.find((plan) => {
       return plan.name === name
     })
 
     return planAlreadyExists || null
+  }
+
+  async findPlanById(id: string) {
+    const planExists = this.plans.find((plan) => {
+      return plan.id === id
+    })
+
+    return planExists || null
   }
 
   async deletePlan(id: string) {
@@ -55,6 +63,6 @@ export class InMemoryPlanRepository implements PlanRepository {
   }
 
   async fetchPlans() {
-    return this.plans
+    return this.plans || null
   }
 }
