@@ -9,7 +9,7 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
     const prizeDraw = {
       id: randomUUID(),
       prize: data.prize,
-      drawn_number: data.drawn_number,
+      drawn_number: null,
       status: data.status,
       created_at: new Date(),
       finished_at: null,

@@ -84,7 +84,7 @@ model GymEquipment {
 model PrizeDraw {
   id           String    @id @default(uuid())
   prize        String
-  drawn_number String
+  drawn_number String?
   status       String
   created_at   DateTime  @default(now())
   finished_at  DateTime?
