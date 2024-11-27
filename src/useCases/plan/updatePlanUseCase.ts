@@ -2,7 +2,7 @@ import { PlanAlreadyExistsError } from '@/errors/planAlreadyExistsError'
 import { PlanNotFoundError } from '@/errors/planNotFoundError'
 import { PlanRepository } from '@/repositories/planRepository'
 
-interface UpdatePlanRequest {
+interface UpdatePlanUseCaseRequest {
   id: string
   name?: string
   price?: string
@@ -11,7 +11,7 @@ interface UpdatePlanRequest {
 export class UpdatePlanUseCase {
   constructor(private planRepository: PlanRepository) {}
 
-  async execute({ id, name, price }: UpdatePlanRequest) {
+  async execute({ id, name, price }: UpdatePlanUseCaseRequest) {
     const planExistsInDatabase = await this.planRepository.findPlanById(id)
 
     if (!planExistsInDatabase) {

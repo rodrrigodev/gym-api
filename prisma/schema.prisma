@@ -34,14 +34,13 @@ model User {
 }
 
 model UserProgress {
-  id               String     @id @default(uuid())
-  initial_weight   Float?
-  next_workout     String?
-  last_workout     String?
-  ia_analyses      String?
-  ia_analyses_date DateTime?
-  current_goal     String?
-  streaks          DateTime[]
+  id                      String     @id @default(uuid())
+  initial_weight          Float?
+  next_workout            String?
+  last_workout            String?
+  ia_analyses             String?
+  ia_analyses_date        DateTime?
+  current_goal            String?
 
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
@@ -49,6 +48,18 @@ model UserProgress {
   EquipmentTracking EquipmentTracking[]
 
   @@map("user_progress")
+  Activity Activity[]
+}
+
+model Activity {
+  id               String     @id @default(uuid())
+  workout          String
+  created_at       DateTime
+  finished_at      DateTime
+  
+  userProgress     UserProgress @relation(fields: [user_progress_id], references: [id], onDelete: Cascade)
+  user_progress_id String      
+
 }
 
 model EquipmentTracking {
@@ -56,6 +67,7 @@ model EquipmentTracking {
   initial_weight        Int
   actual_weight         Int
   last_update           DateTime?
+  active                Boolean
 
   userProgress     UserProgress @relation(fields: [user_progress_id], references: [id], onDelete: Cascade)
   user_progress_id String      
@@ -87,7 +99,7 @@ model PrizeDraw {
   drawn_number String?
   status       String
   created_at   DateTime  @default(now())
-  finished_at  DateTime?
+  finished_at  DateTime
 
   user      User?   @relation(fields: [winner_id], references: [id], onDelete: Cascade)
   winner_id String?

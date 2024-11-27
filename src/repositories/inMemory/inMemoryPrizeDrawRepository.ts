@@ -12,7 +12,7 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
       drawn_number: null,
       status: data.status,
       created_at: new Date(),
-      finished_at: null,
+      finished_at: new Date(data.finished_at),
       winner_id: null,
     }
 
@@ -21,9 +21,9 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
     return prizeDraw
   }
 
-  async findPrizeDraw(id: string) {
+  async checkPrizeDraw(id: string) {
     const prizeDrawExists = this.prizeDraws.find((prizeDraw) => {
-      return prizeDraw.id === id
+      return prizeDraw.id !== id && prizeDraw.status !== 'finished'
     })
 
     return prizeDrawExists || null
