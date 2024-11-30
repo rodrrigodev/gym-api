@@ -1,4 +1,4 @@
-import { BillsNotFoundError } from '@/errors/BillsNotFoundError'
+import { BillsNotFoundError } from '@/errors/billsNotFoundError'
 import { BillRepository } from '@/repositories/billRepository'
 
 interface FetchBillsRequest {

@@ -2,7 +2,7 @@ import { InMemoryBillRepository } from '@/repositories/inMemory/inMemoryBillRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { FetchBillsUseCase } from './fetchBillsUseCase'
 import { createBillTestHelper } from '@/utils/tests/createBillTestHelper'
-import { BillsNotFoundError } from '@/errors/BillsNotFoundError'
+import { BillsNotFoundError } from '@/errors/billsNotFoundError'
 
 let inMemoryBillRepository: InMemoryBillRepository
 let sut: FetchBillsUseCase

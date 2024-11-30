@@ -21,9 +21,9 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
     return prizeDraw
   }
 
-  async checkPrizeDraw(id: string) {
+  async findPrizeDraw(id: string) {
     const prizeDrawExists = this.prizeDraws.find((prizeDraw) => {
-      return prizeDraw.id !== id && prizeDraw.status !== 'finished'
+      return prizeDraw.id === id
     })
 
     return prizeDrawExists || null

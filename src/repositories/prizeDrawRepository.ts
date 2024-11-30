@@ -7,6 +7,6 @@ export interface PrizeDrawRepository {
     id: string,
     data: Prisma.PrizeDrawUpdateInput,
   ) => Promise<PrizeDraw | null>
-  checkPrizeDraw: (id: string) => Promise<PrizeDraw | null>
+  findPrizeDraw: (id: string) => Promise<PrizeDraw | null>
   deletePrizeDraw: (id: string) => Promise<string>
 }
