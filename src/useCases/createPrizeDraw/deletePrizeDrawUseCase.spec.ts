@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryPrizeDrawRepository } from '@/repositories/inMemory/inMemoryPrizeDrawRepository'
 import { DeletePrizeDrawUseCase } from './deletePrizeDrawUseCase'
 import { createPrizeDrawTestHelper } from '@/utils/tests/createPrizeDrawTestHelper'
-import { PrizeDrawNotFoundError } from '@/errors/prizedrawNotFoundError'
+import { PrizeDrawNotFoundError } from '@/errors/prizeDrawNotFoundError'
 
 let inMemoryPrizeDrawRepository: InMemoryPrizeDrawRepository
 let sut: DeletePrizeDrawUseCase

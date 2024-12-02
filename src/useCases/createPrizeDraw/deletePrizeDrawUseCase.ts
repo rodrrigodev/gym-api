@@ -1,4 +1,4 @@
-import { PrizeDrawNotFoundError } from '@/errors/prizedrawNotFoundError'
+import { PrizeDrawNotFoundError } from '@/errors/prizeDrawNotFoundError'
 import { PrizeDrawRepository } from '@/repositories/prizeDrawRepository'
 
 export class DeletePrizeDrawUseCase {

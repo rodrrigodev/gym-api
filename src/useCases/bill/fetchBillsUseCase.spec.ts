@@ -1,5 +1,5 @@
 import { InMemoryBillRepository } from '@/repositories/inMemory/inMemoryBillRepository'
-import { beforeEach, describe, expect, it } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { FetchBillsUseCase } from './fetchBillsUseCase'
 import { createBillTestHelper } from '@/utils/tests/createBillTestHelper'
 import { BillsNotFoundError } from '@/errors/billsNotFoundError'
@@ -9,6 +9,7 @@ let sut: FetchBillsUseCase
 
 describe('fetch bills test', () => {
   beforeEach(() => {
+    jest.useFakeTimers({ now: new Date(2023, 10, 11) })
     inMemoryBillRepository = new InMemoryBillRepository()
     sut = new FetchBillsUseCase(inMemoryBillRepository)
   })
