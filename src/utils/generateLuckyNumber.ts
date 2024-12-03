@@ -5,7 +5,7 @@ interface GenerateUniqueLuckyCodeParams {
   type: string
 }
 
-export async function generateUniqueLuckyCode({
+export function generateUniqueLuckyNumber({
   users,
   type,
 }: GenerateUniqueLuckyCodeParams) {

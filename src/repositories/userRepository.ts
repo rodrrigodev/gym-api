@@ -7,5 +7,5 @@ export interface UserRepository {
   findUserById: (id: string) => Promise<User | null>
   updateUser: (id: string, data: Prisma.UserUpdateInput) => Promise<User | null>
   deleteUserById: (userId: string) => Promise<string>
-  getLuckyNumber: () => void
+  getLuckyNumber: (id: string, type: string) => Promise<string[] | null>
 }

@@ -2,6 +2,7 @@ import { Prisma, User } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { UserRepository } from '../userRepository'
 import { hash } from 'bcryptjs'
+import { generateUniqueLuckyNumber } from '@/utils/generateLuckyNumber'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
@@ -86,5 +87,29 @@ export class InMemoryUserRepository implements UserRepository {
           })
           .slice((page - 1) * 20, page * 20)
       : this.users.slice((page - 1) * 20, page * 20)
+  }
+
+  async getLuckyNumber(id: string, type: string) {
+    const generatedNumber = generateUniqueLuckyNumber({
+      users: this.users,
+      type,
+    })
+
+    this.users = this.users.map((user) => {
+      if (user.id === id) {
+        return {
+          ...user,
+          lucky_numbers: [...user.lucky_numbers, generatedNumber],
+        }
+      } else {
+        return user
+      }
+    })
+
+    const user = this.users.find((user) => {
+      return user.id === id
+    })
+
+    return user?.lucky_numbers || null
   }
 }
