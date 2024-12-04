@@ -5,7 +5,7 @@ export interface PrizeDrawRepository {
   fetchPrizeDraw: () => Promise<PrizeDraw[]>
   updatePrizeDraw: (
     id: string,
-    data: Prisma.PrizeDrawUpdateInput,
+    data: Prisma.PrizeDrawUncheckedUpdateInput,
   ) => Promise<PrizeDraw | null>
   findPrizeDraw: (id: string) => Promise<PrizeDraw | null>
   deletePrizeDraw: (id: string) => Promise<string>

@@ -112,4 +112,21 @@ export class InMemoryUserRepository implements UserRepository {
 
     return user?.lucky_numbers || null
   }
+
+  async generatePrizeDrawWinner() {
+    type prizeDrawInfoType = { winnerId: string; drawNumber: string }
+
+    const prizeDrawInfo: prizeDrawInfoType[] = []
+
+    this.users.forEach((user) => {
+      user.lucky_numbers.forEach((number) => {
+        prizeDrawInfo.push({ winnerId: user.id, drawNumber: number })
+      })
+    })
+
+    const prizeDrawWinner =
+      prizeDrawInfo[Math.floor(Math.random() * prizeDrawInfo.length)]
+
+    return prizeDrawWinner
+  }
 }

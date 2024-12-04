@@ -17,7 +17,7 @@ describe('get lucky number test', () => {
   it('should be able to get a lucky number', async () => {
     const user = await createUserTestHelper(inMemoryUserRepository)
 
-    await sut.execute({ id: user.id, type: 'const' })
+    await sut.execute({ id: user.id, type: 'plan' })
 
     const luckyNumbers = await sut.execute({
       id: user.id,
@@ -29,7 +29,7 @@ describe('get lucky number test', () => {
     }
 
     expect(luckyNumbers).toHaveLength(2)
-    expect(luckyNumbers[0]).toContain('const')
+    expect(luckyNumbers[0]).toContain('plan')
   })
 
   it('should not be able to get a lucky number', async () => {
@@ -37,10 +37,10 @@ describe('get lucky number test', () => {
 
     const user = await createUserTestHelper(inMemoryUserRepository)
 
-    await sut.execute({ id: user.id, type: 'const' })
+    await sut.execute({ id: user.id, type: 'plan' })
 
     await expect(
-      sut.execute({ id: user.id, type: 'const' }),
+      sut.execute({ id: user.id, type: 'plan' }),
     ).rejects.toBeInstanceOf(LuckyNumberAlreadyExistsError)
   })
 
@@ -49,7 +49,7 @@ describe('get lucky number test', () => {
 
     const user = await createUserTestHelper(inMemoryUserRepository)
 
-    await sut.execute({ id: user.id, type: 'const' })
+    await sut.execute({ id: user.id, type: 'plan' })
 
     await expect(
       sut.execute({ id: 'wrongId', type: 'str' }),

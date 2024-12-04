@@ -8,4 +8,8 @@ export interface UserRepository {
   updateUser: (id: string, data: Prisma.UserUpdateInput) => Promise<User | null>
   deleteUserById: (userId: string) => Promise<string>
   getLuckyNumber: (id: string, type: string) => Promise<string[] | null>
+  generatePrizeDrawWinner: () => Promise<{
+    winnerId: string
+    drawNumber: string
+  }>
 }
