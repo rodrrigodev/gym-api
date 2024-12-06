@@ -10,6 +10,7 @@ interface CreateEquipmentTrackingRequest {
   initial_weight: number
   gym_equipment_id: string
   user_progress_id: string
+  active: boolean
 }
 
 export class CreateEquipmentTrackingUseCase {
@@ -24,6 +25,7 @@ export class CreateEquipmentTrackingUseCase {
     gym_equipment_id,
     initial_weight,
     user_progress_id,
+    active,
   }: CreateEquipmentTrackingRequest) {
     const userProgressExists =
       await this.userProgressRepository.findUserProgressByUserId(
@@ -57,6 +59,7 @@ export class CreateEquipmentTrackingUseCase {
         initial_weight,
         user_progress_id,
         gym_equipment_id,
+        active,
       })
 
     return gymEquipmentTracking

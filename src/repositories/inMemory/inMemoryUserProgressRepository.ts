@@ -30,13 +30,19 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
   }
 
   async findUserProgressByUserId(userId: string) {
-    const userProgressAlreadyExists = this.usersProgress.find(
-      (userProgress) => {
-        return userProgress.user_id === userId
-      },
-    )
+    const userProgressExists = this.usersProgress.find((userProgress) => {
+      return userProgress.user_id === userId
+    })
 
-    return userProgressAlreadyExists || null
+    return userProgressExists || null
+  }
+
+  async findUserProgressByProgressId(progressId: string) {
+    const userProgressExists = this.usersProgress.find((userProgress) => {
+      return userProgress.id === progressId
+    })
+
+    return userProgressExists || null
   }
 
   async updateUserProgress(

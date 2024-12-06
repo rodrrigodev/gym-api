@@ -7,7 +7,7 @@ import { generateUniqueLuckyNumber } from '@/utils/generateLuckyNumber'
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
 
-  async createUser(data: Prisma.UserCreateInput) {
+  async createUser(data: Prisma.UserUncheckedCreateInput) {
     const passwordHashed = await hash(data.password, 6)
 
     const user = {
@@ -20,10 +20,12 @@ export class InMemoryUserRepository implements UserRepository {
       current_weight: data.current_weight || null,
       height: data.height || null,
       image_URL: data.image_URL || null,
-      experience_date: null,
+      experience_date: data.experience_date
+        ? new Date(data.experience_date)
+        : null,
       created_at: new Date(),
       lucky_numbers: [],
-      plan_id: null,
+      plan_id: data.plan_id || null,
     }
 
     this.users.push(user)

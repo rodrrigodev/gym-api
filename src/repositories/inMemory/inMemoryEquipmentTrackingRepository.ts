@@ -12,6 +12,7 @@ export class InMemoryEquipmentTrackingRepository
     gym_equipment_id,
     initial_weight,
     user_progress_id,
+    active,
   }: Prisma.EquipmentTrackingUncheckedCreateInput) {
     const equipmentTracking = {
       id: randomUUID(),
@@ -20,6 +21,7 @@ export class InMemoryEquipmentTrackingRepository
       initial_weight,
       user_progress_id,
       last_update: new Date(),
+      active,
     }
 
     this.equipmentTrackings.push(equipmentTracking)

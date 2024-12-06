@@ -7,6 +7,10 @@ export interface UserProgressRepository {
 
   findUserProgressByUserId: (userId: string) => Promise<UserProgress | null>
 
+  findUserProgressByProgressId: (
+    progressId: string,
+  ) => Promise<UserProgress | null>
+
   updateUserProgress: (
     id: string,
     data: Prisma.UserProgressUpdateInput,

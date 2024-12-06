@@ -43,6 +43,7 @@ describe('create gym equipment tracking test', () => {
       actual_weight: 5,
       gym_equipment_id: gymEquipment.id,
       user_progress_id: userProgress.user_id,
+      active: true,
     })
 
     expect(equipmentTracking?.actual_weight).toBe(5)
@@ -65,6 +66,7 @@ describe('create gym equipment tracking test', () => {
         actual_weight: 5,
         gym_equipment_id: gymEquipment.id,
         user_progress_id: 'wrong_userProgress_id',
+        active: true,
       }),
     ).rejects.toBeInstanceOf(UserProgressError)
   })
@@ -84,6 +86,7 @@ describe('create gym equipment tracking test', () => {
       actual_weight: 5,
       gym_equipment_id: gymEquipment.id,
       user_progress_id: userProgress.user_id,
+      active: true,
     })
 
     await expect(
@@ -92,6 +95,7 @@ describe('create gym equipment tracking test', () => {
         actual_weight: 5,
         gym_equipment_id: gymEquipment.id,
         user_progress_id: userProgress.user_id,
+        active: true,
       }),
     ).rejects.toBeInstanceOf(EquipmentTrackingAlreadyExistsError)
   })
@@ -110,6 +114,7 @@ describe('create gym equipment tracking test', () => {
         actual_weight: 5,
         gym_equipment_id: 'wrong_gymEquipment_id',
         user_progress_id: userProgress.user_id,
+        active: true,
       }),
     ).rejects.toBeInstanceOf(EquipmentsNotFoundError)
   })
