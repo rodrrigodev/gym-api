@@ -32,7 +32,6 @@ describe('create user progress test', () => {
 
     expect(progress?.current_goal).toBe('slim down')
     expect(progress?.user_id).toEqual(user.id)
-    expect(progress?.streaks).toHaveLength(0)
   })
 
   it('should be able to create a user progress without pass a nextWorkout', async () => {

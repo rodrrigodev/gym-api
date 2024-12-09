@@ -3,7 +3,7 @@ import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { ActivityRepository } from '@/repositories/activityRepository'
 import { UserProgressRepository } from '@/repositories/userProgressRepository'
 
-interface CreateActivityRequest {
+interface CreateActivityUseCaseRequest {
   userProgressId: string
   workout: string
 }
@@ -14,7 +14,7 @@ export class CreateActivityUseCase {
     private userProgressRepository: UserProgressRepository,
   ) {}
 
-  async execute({ userProgressId, workout }: CreateActivityRequest) {
+  async execute({ userProgressId, workout }: CreateActivityUseCaseRequest) {
     const userProgressExists =
       await this.userProgressRepository.findUserProgressByProgressId(
         userProgressId,

@@ -12,8 +12,6 @@ export function errorHandler(
     console.log(err)
   }
 
-  // console.log(env.NODE_ENV)
-
   if (err instanceof z.ZodError) {
     res.status(400).json({
       error: err.issues,

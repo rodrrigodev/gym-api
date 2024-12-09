@@ -6,22 +6,19 @@ import { UserProgressRepository } from '../userProgressRepository'
 export class InMemoryUserProgressRepository implements UserProgressRepository {
   private usersProgress: UserProgress[] = []
 
-  async createUserProgress({
-    user_id,
-    initial_weight,
-    current_goal,
-    next_workout,
-  }: Prisma.UserProgressUncheckedCreateInput) {
+  async createUserProgress(data: Prisma.UserProgressUncheckedCreateInput) {
     const newWorkout = {
       id: randomUUID(),
-      initial_weight: initial_weight || null,
-      next_workout: next_workout || getNextWorkoutExercise(this.usersProgress),
+      initial_weight: data.initial_weight || null,
+      next_workout:
+        data.next_workout || getNextWorkoutExercise(this.usersProgress),
       last_workout: null,
       ia_analyses: null,
       ia_analyses_date: null,
-      current_goal: current_goal || null,
-      streaks: [],
-      user_id,
+      current_goal: data.current_goal || null,
+      current_streak: data.current_streak,
+      max_streak_reached: data.max_streak_reached,
+      user_id: data.user_id,
     }
 
     this.usersProgress.push(newWorkout)

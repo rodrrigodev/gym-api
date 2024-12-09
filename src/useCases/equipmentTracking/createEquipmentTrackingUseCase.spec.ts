@@ -33,10 +33,10 @@ describe('create gym equipment tracking test', () => {
       inMemoryGymEquipmentRepository,
     )
 
-    const userProgress = await createUserProgressTestHelper(
-      inMemoryUserProgressRepository,
-      'user_id',
-    )
+    const userProgress = await createUserProgressTestHelper({
+      userProgressRepository: inMemoryUserProgressRepository,
+      userId: 'user_id',
+    })
 
     const equipmentTracking = await sut.execute({
       initial_weight: 1,
@@ -55,10 +55,10 @@ describe('create gym equipment tracking test', () => {
       inMemoryGymEquipmentRepository,
     )
 
-    await createUserProgressTestHelper(
-      inMemoryUserProgressRepository,
-      'user_id',
-    )
+    await createUserProgressTestHelper({
+      userProgressRepository: inMemoryUserProgressRepository,
+      userId: 'user_id',
+    })
 
     await expect(
       sut.execute({
@@ -76,10 +76,10 @@ describe('create gym equipment tracking test', () => {
       inMemoryGymEquipmentRepository,
     )
 
-    const userProgress = await createUserProgressTestHelper(
-      inMemoryUserProgressRepository,
-      'user_id',
-    )
+    const userProgress = await createUserProgressTestHelper({
+      userProgressRepository: inMemoryUserProgressRepository,
+      userId: 'user_id',
+    })
 
     await sut.execute({
       initial_weight: 1,
@@ -103,10 +103,10 @@ describe('create gym equipment tracking test', () => {
   it('should  not be able to create a gym equipment tracking passing wrong equipment id', async () => {
     await createGymEquipmentTestHelper(inMemoryGymEquipmentRepository)
 
-    const userProgress = await createUserProgressTestHelper(
-      inMemoryUserProgressRepository,
-      'user_id',
-    )
+    const userProgress = await createUserProgressTestHelper({
+      userProgressRepository: inMemoryUserProgressRepository,
+      userId: 'user_id',
+    })
 
     await expect(
       sut.execute({

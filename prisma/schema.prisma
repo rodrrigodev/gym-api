@@ -41,6 +41,8 @@ model UserProgress {
   ia_analyses             String?
   ia_analyses_date        DateTime?
   current_goal            String?
+  current_streak          Int
+  max_streak_reached      Int
 
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique

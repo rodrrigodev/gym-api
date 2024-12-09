@@ -20,10 +20,10 @@ describe('update user progress test', () => {
   it('should be able to update a user', async () => {
     const user = await createUserTestHelper(inMemoryUserRepository)
 
-    const progress = await createUserProgressTestHelper(
-      inMemoryUserProgressRepository,
-      user.id,
-    )
+    const progress = await createUserProgressTestHelper({
+      userProgressRepository: inMemoryUserProgressRepository,
+      userId: user.id,
+    })
 
     const userProgressUpdated = await sut.execute(progress.user_id, {
       initial_weight: 82,
@@ -37,7 +37,10 @@ describe('update user progress test', () => {
   it('should not be able to update user progress', async () => {
     const user = await createUserTestHelper(inMemoryUserRepository)
 
-    await createUserProgressTestHelper(inMemoryUserProgressRepository, user.id)
+    await createUserProgressTestHelper({
+      userProgressRepository: inMemoryUserProgressRepository,
+      userId: user.id,
+    })
 
     await expect(
       sut.execute('progressId', {

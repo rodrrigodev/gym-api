@@ -33,6 +33,8 @@ export class CreateUserProgressUseCase {
       current_goal: currentGoal,
       initial_weight: initialWeight,
       next_workout: nextWorkout,
+      current_streak: 0,
+      max_streak_reached: 0,
     })
 
     return progress

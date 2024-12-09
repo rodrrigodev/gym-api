@@ -26,6 +26,8 @@ describe('create activity test', () => {
       await inMemoryUserProgressRepository.createUserProgress({
         user_id: randomUUID(),
         next_workout: 'legs',
+        current_streak: 0,
+        max_streak_reached: 0,
       })
 
     const activity = await sut.execute({
@@ -50,6 +52,8 @@ describe('create activity test', () => {
       await inMemoryUserProgressRepository.createUserProgress({
         user_id: randomUUID(),
         next_workout: 'legs',
+        current_streak: 0,
+        max_streak_reached: 0,
       })
 
     await sut.execute({
