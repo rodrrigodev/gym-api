@@ -18,9 +18,10 @@ describe('delete a gym equipment test', () => {
       inMemoryGymEquipmentRepository,
     )
 
-    const message = await sut.execute(gymEquipment.id)
+    const { gymEquipments, length } = await sut.execute(gymEquipment.id)
 
-    expect(message).toBe('Success!')
+    expect(gymEquipments).toHaveLength(20)
+    expect(length).toBe(2)
   })
 
   it('should not be able to delete a gym equipment passing wrong id', async () => {

@@ -7,14 +7,14 @@ export class UpdateEquipmentTrackingUseCase {
   ) {}
 
   async execute(
-    gym_equipment_id: string,
-    user_progress_id: string,
+    gymEquipmentId: string,
+    userProgressId: string,
     actual_weight: number,
   ) {
     const gymEquipmentTrackingExists =
       await this.equipmentTrackingRepository.checkEquipmentAndUser(
-        gym_equipment_id,
-        user_progress_id,
+        gymEquipmentId,
+        userProgressId,
       )
 
     if (!gymEquipmentTrackingExists) {
@@ -23,7 +23,7 @@ export class UpdateEquipmentTrackingUseCase {
 
     const gymEquipmentTrackingUpdated =
       await this.equipmentTrackingRepository.updateEquipmentTracking(
-        gym_equipment_id,
+        gymEquipmentId,
         { actual_weight },
       )
 

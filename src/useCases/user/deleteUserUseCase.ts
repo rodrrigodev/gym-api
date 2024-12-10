@@ -11,8 +11,8 @@ export class DeleteUserUseCase {
       throw new UserNotFoundError()
     }
 
-    await this.userRepository.deleteUserById(userExists.id)
+    const usersUpdated = await this.userRepository.deleteUserById(userExists.id)
 
-    return 'Success!'
+    return usersUpdated
   }
 }

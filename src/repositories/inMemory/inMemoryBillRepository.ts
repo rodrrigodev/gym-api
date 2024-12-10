@@ -46,13 +46,16 @@ export class InMemoryBillRepository implements BillRepository {
   }
 
   async deleteBill(billId: string) {
-    const billsFiltered = this.bills.filter((bill) => {
-      return bill.id === billId
+    const filteredBills = this.bills.filter((bill) => {
+      return bill.id !== billId
     })
 
-    this.bills = billsFiltered
+    this.bills = filteredBills
 
-    return 'Success!'
+    return {
+      bills: filteredBills.slice(0, 20),
+      length: Math.ceil(filteredBills.length / 20),
+    }
   }
 
   async fetchBills(

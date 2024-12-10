@@ -16,5 +16,7 @@ export interface GymEquipmentRepository {
 
   fetchGymEquipments: (nextWorkout: string) => Promise<GymEquipment[]>
 
-  deleteGymEquipment: (equipmentId: string) => Promise<string>
+  deleteGymEquipment: (
+    equipmentId: string,
+  ) => Promise<{ gymEquipments: GymEquipment[]; length: number }>
 }

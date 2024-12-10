@@ -73,12 +73,15 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
   }
 
   async deleteGymEquipment(equipmentId: string) {
-    const gymEquipmentFiltered = this.gymEquipments.filter((equipment) => {
+    const FilteredGymEquipments = this.gymEquipments.filter((equipment) => {
       return equipment.id !== equipmentId
     })
 
-    this.gymEquipments = gymEquipmentFiltered
+    this.gymEquipments = FilteredGymEquipments
 
-    return 'Success!'
+    return {
+      gymEquipments: FilteredGymEquipments.slice(0, 20),
+      length: Math.ceil(FilteredGymEquipments.length / 20),
+    }
   }
 }

@@ -11,8 +11,8 @@ export class DeletePlanUseCase {
       throw new PlanNotFoundError()
     }
 
-    await this.planRepository.deletePlan(planExists.id)
+    const plansUpdated = await this.planRepository.deletePlan(planExists.id)
 
-    return 'Success!'
+    return plansUpdated
   }
 }

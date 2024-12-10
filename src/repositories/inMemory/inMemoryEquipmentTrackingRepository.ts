@@ -29,15 +29,12 @@ export class InMemoryEquipmentTrackingRepository
     return equipmentTracking
   }
 
-  async checkEquipmentAndUser(
-    gym_equipment_id: string,
-    user_progress_id: string,
-  ) {
+  async checkEquipmentAndUser(gymEquipmentId: string, userProgressId: string) {
     const equipmentTrackingExists = this.equipmentTrackings.find(
       (equipment) => {
         return (
-          equipment.user_progress_id === user_progress_id &&
-          equipment.gym_equipment_id === gym_equipment_id
+          equipment.user_progress_id === userProgressId &&
+          equipment.gym_equipment_id === gymEquipmentId
         )
       },
     )
@@ -68,5 +65,20 @@ export class InMemoryEquipmentTrackingRepository
     )
 
     return equipmentTrackingUpdated || null
+  }
+
+  async deleteEquipmentTracking(EquipmentTrackingId: string) {
+    const filteredEquipmentTracking = this.equipmentTrackings.filter(
+      (tracking) => {
+        return tracking.id !== EquipmentTrackingId
+      },
+    )
+
+    this.equipmentTrackings = filteredEquipmentTracking
+
+    return {
+      equipmentTrackings: filteredEquipmentTracking.slice(0, 20),
+      length: Math.ceil(filteredEquipmentTracking.length / 20),
+    }
   }
 }

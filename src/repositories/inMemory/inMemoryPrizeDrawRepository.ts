@@ -36,7 +36,10 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
 
     this.prizeDraws = filteredPrizeDraws
 
-    return 'Success!'
+    return {
+      prizeDraws: filteredPrizeDraws.slice(0, 20),
+      length: Math.ceil(filteredPrizeDraws.length / 20),
+    }
   }
 
   async updatePrizeDraw(id: string, data: Prisma.PrizeDrawUpdateInput) {

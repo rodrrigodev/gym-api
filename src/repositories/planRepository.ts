@@ -6,5 +6,5 @@ export interface PlanRepository {
   findPlanByName: (name: string) => Promise<Plan | null>
   findPlanById: (id: string) => Promise<Plan | null>
   updatePlan: (id: string, data: Prisma.PlanUpdateInput) => Promise<Plan | null>
-  deletePlan: (id: string) => Promise<string>
+  deletePlan: (id: string) => Promise<{ plans: Plan[]; length: number }>
 }

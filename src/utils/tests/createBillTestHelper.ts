@@ -33,18 +33,18 @@ export async function createBillTestHelper(billRepository: BillRepository) {
     created_at: '2023-09-15',
   })
 
-  const bill = await billRepository.createBill({
-    price: '38.25',
-    category: 'cleaning',
-    name: 'Products',
-    created_at: '2023-11-11',
-  })
-
   await billRepository.createBill({
     price: '381.25',
     category: 'maintenance',
     name: 'Leg press machine',
     created_at: '2023-10-15',
+  })
+
+  const bill = await billRepository.createBill({
+    price: '38.25',
+    category: 'cleaning',
+    name: 'Products',
+    created_at: '2023-11-11',
   })
 
   return bill

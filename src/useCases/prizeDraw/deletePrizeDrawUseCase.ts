@@ -10,10 +10,10 @@ export class DeletePrizeDrawUseCase {
     if (!prizeDrawExists) {
       throw new PrizeDrawNotFoundError()
     }
-    const message = await this.prizeDrawRepository.deletePrizeDraw(
+    const prizeDrawsUpdated = await this.prizeDrawRepository.deletePrizeDraw(
       prizeDrawExists.id,
     )
 
-    return message
+    return prizeDrawsUpdated
   }
 }

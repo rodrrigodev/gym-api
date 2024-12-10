@@ -24,6 +24,7 @@ export async function createUserTestHelper(userRepository: UserRepository) {
     name: 'Rodrigo',
     password: '12345678',
     created_at: new Date(),
+    current_weight: 75,
   })
 
   return user

@@ -10,7 +10,7 @@ export interface BillRepository {
 
   findBill: (billId: string) => Promise<Bill | null>
 
-  deleteBill: (billId: string) => Promise<string>
+  deleteBill: (billId: string) => Promise<{ bills: Bill[]; length: number }>
 
   fetchBills: (
     period: number,

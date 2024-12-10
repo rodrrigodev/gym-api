@@ -56,7 +56,10 @@ export class InMemoryUserRepository implements UserRepository {
 
     this.users = filteredUsers
 
-    return 'Success!'
+    return {
+      users: filteredUsers.slice(0, 20),
+      length: Math.ceil(filteredUsers.length / 20),
+    }
   }
 
   async updateUser(id: string, data: Prisma.UserUpdateInput) {
@@ -130,5 +133,13 @@ export class InMemoryUserRepository implements UserRepository {
       prizeDrawInfo[Math.floor(Math.random() * prizeDrawInfo.length)]
 
     return prizeDrawWinner
+  }
+
+  async fetchUserDetails(userId: string) {
+    const user = this.users.find((user) => {
+      return user.id === userId
+    })
+
+    return user || null
   }
 }

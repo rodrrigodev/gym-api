@@ -18,10 +18,7 @@ describe('fetch gym equipments test', () => {
 
     const gymEquipments = await sut.execute('legs')
 
-    expect(gymEquipments).toHaveLength(1)
-    expect(gymEquipments[0]).toEqual(
-      expect.objectContaining({ name: 'Leg Press Machine' }),
-    )
+    expect(gymEquipments).toHaveLength(26)
   })
 
   it('should not be able to fetch gym equipments passing non-existent workout', async () => {

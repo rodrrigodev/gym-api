@@ -14,4 +14,8 @@ export interface EquipmentTrackingRepository {
     gym_equipment_id: string,
     data: Prisma.EquipmentTrackingUpdateInput,
   ) => Promise<EquipmentTracking | null>
+
+  deleteEquipmentTracking: (
+    equipmentId: string,
+  ) => Promise<{ equipmentTrackings: EquipmentTracking[]; length: number }>
 }

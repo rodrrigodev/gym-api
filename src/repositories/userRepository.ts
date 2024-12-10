@@ -6,10 +6,11 @@ export interface UserRepository {
   findUserByEmail: (email: string) => Promise<User | null>
   findUserById: (id: string) => Promise<User | null>
   updateUser: (id: string, data: Prisma.UserUpdateInput) => Promise<User | null>
-  deleteUserById: (userId: string) => Promise<string>
+  deleteUserById: (userId: string) => Promise<{ users: User[]; length: number }>
   getLuckyNumber: (id: string, type: string) => Promise<string[] | null>
   generatePrizeDrawWinner: () => Promise<{
     winnerId: string
     drawNumber: string
   }>
+  fetchUserDetails: (userId: string) => Promise<User | null>
 }
