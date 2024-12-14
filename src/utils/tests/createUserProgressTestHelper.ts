@@ -1,4 +1,4 @@
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 interface CreateUserProgressTestHelper {
   userProgressRepository: UserProgressRepository

@@ -1,5 +1,5 @@
 import { InvalidDateError } from '@/errors/invalidDateError'
-import { PrizeDrawRepository } from '@/repositories/prizeDrawRepository'
+import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawRepository'
 import { getDateDifference } from '@/utils/getDateDifference'
 
 interface CreatePrizeDrawUseCaseRequest {

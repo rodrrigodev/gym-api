@@ -1,5 +1,5 @@
 import { EquipmentTrackingNotFoundError } from '@/errors/equipmentTrackingNotFoundError'
-import { EquipmentTrackingRepository } from '@/repositories/equipmentTrackingRepository'
+import { EquipmentTrackingRepository } from '@/repositories/interfaces/equipmentTrackingRepository'
 
 export class UpdateEquipmentTrackingUseCase {
   constructor(

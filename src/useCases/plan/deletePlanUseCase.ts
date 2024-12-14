@@ -1,5 +1,5 @@
 import { PlanNotFoundError } from '@/errors/planNotFoundError'
-import { PlanRepository } from '@/repositories/planRepository'
+import { PlanRepository } from '@/repositories/interfaces/planRepository'
 
 export class DeletePlanUseCase {
   constructor(private planRepository: PlanRepository) {}

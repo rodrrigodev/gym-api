@@ -1,7 +1,7 @@
 import { ActivityNotFoundError } from '@/errors/activityNotFoundError'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
-import { ActivityRepository } from '@/repositories/activityRepository'
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
+import { ActivityRepository } from '@/repositories/interfaces/activityRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 import { getDateDifference } from '@/utils/getDateDifference'
 
 interface UpdateActivityUseCaseRequest {
@@ -56,12 +56,6 @@ export class UpdateActivityUseCase {
             activityExists.user_progress_id,
             { current_streak: 1 },
           )
-
-    console.log(
-      await this.userProgressRepository.findUserProgressByProgressId(
-        activityExists.user_progress_id,
-      ),
-    )
 
     return { activityUpdated, userProgressUpdated }
   }

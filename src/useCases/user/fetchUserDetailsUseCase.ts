@@ -1,7 +1,7 @@
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
-import { UserRepository } from '@/repositories/userRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
+import { UserRepository } from '@/repositories/interfaces/userRepository'
 
 export class FetchUserDetailsUseCase {
   constructor(

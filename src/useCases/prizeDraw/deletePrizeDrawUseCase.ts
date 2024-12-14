@@ -1,5 +1,5 @@
 import { PrizeDrawNotFoundError } from '@/errors/prizeDrawNotFoundError'
-import { PrizeDrawRepository } from '@/repositories/prizeDrawRepository'
+import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawRepository'
 
 export class DeletePrizeDrawUseCase {
   constructor(private prizeDrawRepository: PrizeDrawRepository) {}

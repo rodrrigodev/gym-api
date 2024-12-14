@@ -1,4 +1,4 @@
-import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
+import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
 
 export async function createGymEquipmentTestHelper(
   gymEquipmentRepository: GymEquipmentRepository,

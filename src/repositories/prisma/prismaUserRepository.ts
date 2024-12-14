@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { UserDataToUpdate, UserRepository } from '../userRepository'
+import { UserDataToUpdate, UserRepository } from '../interfaces/userRepository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaUserRepository implements UserRepository {

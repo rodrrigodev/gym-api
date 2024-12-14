@@ -1,4 +1,4 @@
-import { PlanRepository } from '@/repositories/planRepository'
+import { PlanRepository } from '@/repositories/interfaces/planRepository'
 
 export class FetchPlansUseCase {
   constructor(private planRepository: PlanRepository) {}

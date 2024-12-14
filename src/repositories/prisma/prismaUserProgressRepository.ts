@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { UserProgressRepository } from '../userProgressRepository'
+import { UserProgressRepository } from '../interfaces/userProgressRepository'
 import { Prisma } from '@prisma/client'
 
 export class PrismaUserProgressRepository implements UserProgressRepository {

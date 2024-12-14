@@ -1,5 +1,5 @@
 import { BillsNotFoundError } from '@/errors/billsNotFoundError'
-import { BillRepository } from '@/repositories/billRepository'
+import { BillRepository } from '@/repositories/interfaces/billRepository'
 
 interface FetchBillsRequest {
   period: number

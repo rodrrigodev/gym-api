@@ -1,4 +1,4 @@
-import { BillRepository } from '@/repositories/billRepository'
+import { BillRepository } from '@/repositories/interfaces/billRepository'
 
 interface CreateBillRequest {
   name: string

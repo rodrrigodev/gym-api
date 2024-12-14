@@ -29,6 +29,7 @@ describe('update gym equipment tracking test', () => {
       actual_weight: 5,
       gym_equipment_id: gymEquipment.id,
       user_progress_id: 'user_id',
+      active: true,
     })
 
     const updatedEquipmentTracking = await sut.execute(
@@ -50,6 +51,7 @@ describe('update gym equipment tracking test', () => {
       actual_weight: 5,
       gym_equipment_id: gymEquipment.id,
       user_progress_id: 'user_id',
+      active: true,
     })
 
     await expect(
@@ -67,6 +69,7 @@ describe('update gym equipment tracking test', () => {
       actual_weight: 5,
       gym_equipment_id: gymEquipment.id,
       user_progress_id: 'user_id',
+      active: true,
     })
 
     await expect(

@@ -1,5 +1,5 @@
 import { EquipmentTrackingNotFoundError } from '@/errors/equipmentTrackingNotFoundError'
-import { EquipmentTrackingRepository } from '@/repositories/equipmentTrackingRepository'
+import { EquipmentTrackingRepository } from '@/repositories/interfaces/equipmentTrackingRepository'
 
 export class DeleteEquipmentTrackingUseCase {
   constructor(
@@ -19,7 +19,7 @@ export class DeleteEquipmentTrackingUseCase {
 
     const gymEquipmentTrackingUpdated =
       await this.equipmentTrackingRepository.deleteEquipmentTracking(
-        equipmentTrackingId,
+        gymEquipmentTrackingExists.id,
       )
 
     return gymEquipmentTrackingUpdated

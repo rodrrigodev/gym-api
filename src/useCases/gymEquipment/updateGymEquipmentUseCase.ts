@@ -1,6 +1,6 @@
 import { EquipmentCodeAlreadyRegisteredError } from '@/errors/equipmentCodeAlreadyRegisteredError'
 import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
-import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
+import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
 
 interface UpdateGymEquipmentRequest {
   name?: string

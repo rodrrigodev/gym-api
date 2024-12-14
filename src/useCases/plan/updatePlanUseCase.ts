@@ -1,6 +1,6 @@
 import { PlanAlreadyExistsError } from '@/errors/planAlreadyExistsError'
 import { PlanNotFoundError } from '@/errors/planNotFoundError'
-import { PlanRepository } from '@/repositories/planRepository'
+import { PlanRepository } from '@/repositories/interfaces/planRepository'
 
 interface UpdatePlanUseCaseRequest {
   id: string

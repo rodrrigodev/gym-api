@@ -1,5 +1,5 @@
 import { Activity, Prisma } from '@prisma/client'
-import { ActivityRepository } from '../activityRepository'
+import { ActivityRepository } from '../interfaces/activityRepository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryActivityRepository implements ActivityRepository {

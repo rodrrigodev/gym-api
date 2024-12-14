@@ -1,6 +1,6 @@
 import { UserProgressError } from '@/errors/userProgressError'
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
-import { UserRepository } from '@/repositories/userRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
+import { UserRepository } from '@/repositories/interfaces/userRepository'
 
 export interface CreateUserProgressRequest {
   userId: string

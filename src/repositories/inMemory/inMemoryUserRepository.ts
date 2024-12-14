@@ -1,6 +1,6 @@
 import { Prisma, User } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
-import { UserRepository } from '../userRepository'
+import { UserRepository } from '../interfaces/userRepository'
 import { hash } from 'bcryptjs'
 import { generateUniqueLuckyNumber } from '@/utils/generateLuckyNumber'
 
@@ -20,6 +20,7 @@ export class InMemoryUserRepository implements UserRepository {
       current_weight: data.current_weight || null,
       height: data.height || null,
       image_URL: data.image_URL || null,
+      role: data.role || 'USER',
       experience_date: data.experience_date
         ? new Date(data.experience_date)
         : null,

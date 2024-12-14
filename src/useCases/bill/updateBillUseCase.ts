@@ -1,5 +1,5 @@
 import { BillNotFoundError } from '@/errors/billNotFoundError'
-import { BillRepository } from '@/repositories/billRepository'
+import { BillRepository } from '@/repositories/interfaces/billRepository'
 
 interface UpdateBillRequest {
   name?: string

@@ -1,5 +1,5 @@
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { UserRepository } from '@/repositories/userRepository'
+import { UserRepository } from '@/repositories/interfaces/userRepository'
 
 interface UpdateUserRequest {
   email?: string

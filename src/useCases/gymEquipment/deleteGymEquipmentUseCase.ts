@@ -1,5 +1,5 @@
 import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
-import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
+import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
 
 export class DeleteGymEquipmentUseCase {
   constructor(private gymEquipmentRepository: GymEquipmentRepository) {}

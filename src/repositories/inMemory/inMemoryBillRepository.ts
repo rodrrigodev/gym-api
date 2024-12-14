@@ -1,5 +1,5 @@
 import { Bill, Prisma } from '@prisma/client'
-import { BillRepository } from '../billRepository'
+import { BillRepository } from '../interfaces/billRepository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryBillRepository implements BillRepository {

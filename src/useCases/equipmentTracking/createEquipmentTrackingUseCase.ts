@@ -1,9 +1,9 @@
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
 import { EquipmentTrackingAlreadyExistsError } from '@/errors/equipmentTrackingAlreadyExistsError'
 import { UserProgressError } from '@/errors/userProgressError'
-import { EquipmentTrackingRepository } from '@/repositories/equipmentTrackingRepository'
-import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
+import { EquipmentTrackingRepository } from '@/repositories/interfaces/equipmentTrackingRepository'
+import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 interface CreateEquipmentTrackingRequest {
   actual_weight: number

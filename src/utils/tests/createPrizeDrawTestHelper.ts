@@ -1,4 +1,4 @@
-import { PrizeDrawRepository } from '@/repositories/prizeDrawRepository'
+import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawRepository'
 
 export async function createPrizeDrawTestHelper(
   prizeDrawRepository: PrizeDrawRepository,

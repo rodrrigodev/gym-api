@@ -1,7 +1,7 @@
 import { DrawNotPossibleError } from '@/errors/drawNotPossibleError'
 import { PrizeDrawNotFoundError } from '@/errors/prizeDrawNotFoundError'
-import { PrizeDrawRepository } from '@/repositories/prizeDrawRepository'
-import { UserRepository } from '@/repositories/userRepository'
+import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawRepository'
+import { UserRepository } from '@/repositories/interfaces/userRepository'
 import { getDateDifference } from '@/utils/getDateDifference'
 
 export class GeneratePrizeDrawWinnerUseCase {

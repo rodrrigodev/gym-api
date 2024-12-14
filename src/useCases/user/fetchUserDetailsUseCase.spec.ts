@@ -32,8 +32,6 @@ describe('fetch user details test', () => {
 
     const { user, userProgress } = await sut.execute(newUser.id)
 
-    console.log(user, userProgress)
-
     expect(user.name).toBe('Rodrigo')
     expect(user.current_weight).toBe(75)
     expect(userProgress.current_goal).toBe('slim down')

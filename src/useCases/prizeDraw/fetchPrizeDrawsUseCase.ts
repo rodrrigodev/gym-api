@@ -1,4 +1,4 @@
-import { PrizeDrawRepository } from '@/repositories/prizeDrawRepository'
+import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawRepository'
 
 export class FetchPrizeDrawsUseCase {
   constructor(private prizeDrawRepository: PrizeDrawRepository) {}

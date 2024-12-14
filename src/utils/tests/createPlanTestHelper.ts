@@ -1,4 +1,4 @@
-import { PlanRepository } from '@/repositories/planRepository'
+import { PlanRepository } from '@/repositories/interfaces/planRepository'
 
 export async function createPlanTestHelper(planRepository: PlanRepository) {
   await planRepository.createPlan({ name: 'Gold', price: '300.00' })

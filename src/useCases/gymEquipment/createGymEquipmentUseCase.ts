@@ -1,5 +1,5 @@
 import { EquipmentCodeAlreadyRegisteredError } from '@/errors/equipmentCodeAlreadyRegisteredError'
-import { GymEquipmentRepository } from '@/repositories/gymEquipmentRepository'
+import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
 
 interface CreateGymEquipmentRequest {
   name: string

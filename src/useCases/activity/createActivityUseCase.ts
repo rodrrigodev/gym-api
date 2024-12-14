@@ -1,7 +1,7 @@
 import { ActivityPendingError } from '@/errors/activityPendingError'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
-import { ActivityRepository } from '@/repositories/activityRepository'
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
+import { ActivityRepository } from '@/repositories/interfaces/activityRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 interface CreateActivityUseCaseRequest {
   userProgressId: string

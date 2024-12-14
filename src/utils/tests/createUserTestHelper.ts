@@ -1,4 +1,4 @@
-import { UserRepository } from '@/repositories/userRepository'
+import { UserRepository } from '@/repositories/interfaces/userRepository'
 
 export async function createUserTestHelper(userRepository: UserRepository) {
   const users = await Promise.all(

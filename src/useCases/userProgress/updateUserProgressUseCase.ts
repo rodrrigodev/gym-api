@@ -1,5 +1,5 @@
 import { UserProgressError } from '@/errors/userProgressError'
-import { UserProgressRepository } from '@/repositories/userProgressRepository'
+import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 export interface UpdateUserProgressRequest {
   initial_weight?: number

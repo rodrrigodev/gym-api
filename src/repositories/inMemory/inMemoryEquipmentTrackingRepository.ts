@@ -1,5 +1,5 @@
 import { EquipmentTracking, Prisma } from '@prisma/client'
-import { EquipmentTrackingRepository } from '../equipmentTrackingRepository'
+import { EquipmentTrackingRepository } from '../interfaces/equipmentTrackingRepository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryEquipmentTrackingRepository

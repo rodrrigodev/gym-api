@@ -1,6 +1,6 @@
 import { Prisma, PrizeDraw } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
-import { PrizeDrawRepository } from '../prizeDrawRepository'
+import { PrizeDrawRepository } from '../interfaces/prizeDrawRepository'
 
 export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
   private prizeDraws: PrizeDraw[] = []

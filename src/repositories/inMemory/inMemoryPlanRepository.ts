@@ -1,6 +1,6 @@
 import { Plan, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
-import { PlanRepository } from '../planRepository'
+import { PlanRepository } from '../interfaces/planRepository'
 
 export class InMemoryPlanRepository implements PlanRepository {
   private plans: Plan[] = []
