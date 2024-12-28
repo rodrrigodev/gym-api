@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { UserDataToUpdate, UserRepository } from '../interfaces/userRepository'
+import { UserRepository } from '../interfaces/userRepository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaUserRepository implements UserRepository {
@@ -24,9 +24,9 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async deleteUserById(id: string) {
-    const deletedUser = await prisma.user.delete({ where: { id } })
+    await prisma.user.delete({ where: { id } })
 
-    return deletedUser
+    return 'Success!'
   }
 
   async updateUser(id: string, data: UserDataToUpdate) {
@@ -49,4 +49,12 @@ export class PrismaUserRepository implements UserRepository {
 
     return result
   }
+
+  async fetchUserDetails(userId: string) {
+    const user = prisma.user.findUnique({ where: { id: userId } })
+
+    return user
+  }
+
+  // getLuckyNumber: (id: string, type: string) => Promise<string[] | null>
 }

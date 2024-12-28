@@ -14,7 +14,7 @@ export async function createUserController(
     password: z.string().min(8),
     name: z.string().min(3),
     nickname: z.string().min(3).nullable(),
-    birthDate: z.date().nullable(),
+    birthDate: z.coerce.date().nullable(),
     weight: z.number().nullable(),
     height: z.number().nullable(),
     imageUrl: z.string().nullable(),

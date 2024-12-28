@@ -4,9 +4,7 @@ import { AuthenticateUseCase } from '@/useCases/user/authenticateUserUseCase'
 export function useMakeAuthenticateUserUseCase() {
   const prismaUserRepository = new PrismaUserRepository()
 
-  const createUserProgressRepository = new AuthenticateUseCase(
-    prismaUserRepository,
-  )
+  const authenticateUseCase = new AuthenticateUseCase(prismaUserRepository)
 
-  return createUserProgressRepository
+  return authenticateUseCase
 }

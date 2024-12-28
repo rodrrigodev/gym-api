@@ -25,6 +25,7 @@ export class InMemoryUserRepository implements UserRepository {
         ? new Date(data.experience_date)
         : null,
       created_at: new Date(),
+      last_login: null,
       lucky_numbers: [],
       plan_id: data.plan_id || null,
     }
@@ -57,10 +58,7 @@ export class InMemoryUserRepository implements UserRepository {
 
     this.users = filteredUsers
 
-    return {
-      users: filteredUsers.slice(0, 20),
-      length: Math.ceil(filteredUsers.length / 20),
-    }
+    return 'Success!'
   }
 
   async updateUser(id: string, data: Prisma.UserUpdateInput) {

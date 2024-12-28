@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
-import { useMakeCreateUserUseCase } from '@/factories/useMakeCreateUserUseCase'
-import jwt from 'jsonwebtoken'
-import { env } from '@/env'
+import { useMakeAuthenticateUserUseCase } from '@/factories/useMakeAuthenticateUserUseCase'
+import { InvalidCredencialError } from '@/errors/invalidCredencialError'
+import { generateTokenProvider } from '@/providers/generateTokenProvider'
+import { generateRefreshTokenProvider } from '@/providers/generateRefreshTokenProvider'
 
 export async function authenticateController(
   req: Request,
@@ -18,38 +18,30 @@ export async function authenticateController(
   try {
     const { email, password } = authenticateSchema.parse(req.body)
 
-    const user = await useMakeCreateUserUseCase().execute()
-
-    if (!user) {
-      return res.status(401).json({ error: 'Authentication failed' })
-    }
-
-    const accessToken = jwt.sign(
-      { userId: user.id, role: user.role },
-      env.accessToken,
-      {
-        expiresIn: '4h',
-      },
-    )
-
-    const refreshToken = jwt.sign(
-      { userId: user.id, role: user.role },
-      env.refreshToken,
-      {
-        expiresIn: '1d',
-      },
-    )
-
-    res.cookie('jwt', refreshToken, {
-      httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 24 * 60 * 60 * 1000, // 1d
+    const user = await useMakeAuthenticateUserUseCase().execute({
+      email,
+      password,
     })
 
-    return res.json({ accessToken })
-    // .json('😁👍 Logged successfully!')
+    const token = generateTokenProvider({ userId: user.id, role: user.role })
+
+    const refreshToken = generateRefreshTokenProvider({
+      userId: user.id,
+      role: user.role,
+    })
+
+    res
+      .cookie('refreshToken', refreshToken, {
+        path: '/',
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+        maxAge: 4 * 60 * 60 * 1000, // 4 hours
+      })
+      .status(200)
+      .send({ token })
   } catch (error) {
-    if (error instanceof UserAlreadyExistsError) {
+    if (error instanceof InvalidCredencialError) {
       res.status(409).json({
         message: error.message,
       })

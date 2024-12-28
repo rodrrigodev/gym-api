@@ -6,21 +6,17 @@ export function errorHandler(
   err: unknown,
   _req: Request,
   res: Response,
-  _: NextFunction,
+  _next: NextFunction,
 ): void {
-  if (env.NODE_ENV !== 'production') {
-    console.log(err)
-  }
-
   if (err instanceof z.ZodError) {
     res.status(400).json({
       error: err.issues,
     })
-  } else {
-    const error = err as Error
+  }
 
-    res.status(500).json({
-      message: error.message ?? 'Internal server error',
-    })
+  if (env.NODE_ENV !== 'production') {
+    console.log(err)
+  } else {
+    // TODO We should log to an external tool like DataDog/NewRelic/Sentry
   }
 }

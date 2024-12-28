@@ -23,6 +23,10 @@ export class AuthenticateUseCase {
       throw new InvalidCredencialError()
     }
 
-    return { ...userExists, password: null }
+    await this.userRepository.updateUser(userExists.id, {
+      last_login: new Date(),
+    })
+
+    return { ...userExists, password: null, last_login: null }
   }
 }

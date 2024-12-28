@@ -24,6 +24,7 @@ model User {
   progress       UserProgress?
   role            Role @default(USER)
   experience_date DateTime?
+  last_login      DateTime?
   created_at     DateTime
 
   plan    Plan?   @relation(fields: [plan_id], references: [id], onDelete: Cascade)
