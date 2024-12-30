@@ -11,8 +11,8 @@ export class CheckUserAndDateUseCase {
       throw new Error()
     }
 
-    const checkDifferenceBetweenDates = dayjs().diff(
-      dayjs(userExists.last_login),
+    const checkDifferenceBetweenDates = dayjs(userExists.last_login).diff(
+      dayjs(),
       'hours',
     )
 

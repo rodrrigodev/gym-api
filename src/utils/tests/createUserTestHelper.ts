@@ -9,6 +9,7 @@ export async function createUserTestHelper(userRepository: UserRepository) {
         password: '12345678',
         created_at: new Date(),
         lucky_numbers: [],
+        last_login: null,
       }),
     ),
   )
@@ -25,6 +26,7 @@ export async function createUserTestHelper(userRepository: UserRepository) {
     password: '12345678',
     created_at: new Date(),
     current_weight: 75,
+    last_login: new Date(),
   })
 
   return user

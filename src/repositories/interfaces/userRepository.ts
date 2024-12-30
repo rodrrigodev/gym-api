@@ -21,6 +21,4 @@ export interface UserRepository {
   }>
 
   fetchUserDetails: (userId: string) => Promise<User | null>
-
-  checkLoginDate: (userId: string) => Promise<boolean>
 }

@@ -16,10 +16,9 @@ describe('delete user test', () => {
   it('should be able to delete a user', async () => {
     const user = await createUserTestHelper(inMemoryUserRepository)
 
-    const { users, length } = await sut.execute(user.id)
+    const message = await sut.execute(user.id)
 
-    expect(users).toHaveLength(9)
-    expect(length).toBe(1)
+    expect(message).toBe('Successfully deleted! 👍😁')
   })
 
   it('should not be able to delete a user passing wrong id', async () => {

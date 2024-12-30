@@ -25,7 +25,7 @@ export class InMemoryUserRepository implements UserRepository {
         ? new Date(data.experience_date)
         : null,
       created_at: new Date(),
-      last_login: null,
+      last_login: data.last_login ? new Date(data.last_login) : null,
       lucky_numbers: [],
       plan_id: data.plan_id || null,
     }
@@ -58,7 +58,7 @@ export class InMemoryUserRepository implements UserRepository {
 
     this.users = filteredUsers
 
-    return 'Success!'
+    return 'Successfully deleted! 👍😁'
   }
 
   async updateUser(id: string, data: Prisma.UserUpdateInput) {
