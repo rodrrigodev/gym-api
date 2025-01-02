@@ -4,7 +4,7 @@ import { generateTokenProvider } from '@/providers/generateTokenProvider'
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 
-interface Decoded {
+export interface Decoded {
   userId: string
   role: string
   iat: number

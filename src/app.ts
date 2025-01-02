@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
@@ -11,13 +11,14 @@ import { createUserProgressController } from './controllers/createUserProgressCo
 import { authenticateController } from './controllers/authenticateController'
 import { isAuthenticate } from './middleware/isAuthenticate'
 import { refreshTokenController } from './controllers/refreshTokenController'
+import { checkUserRole } from './middleware/checkUserRole'
 
 export const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.post('/create-user', isAuthenticate, createUserController)
+app.post('/create-user', [isAuthenticate, checkUserRole], createUserController)
 
 app.post('/refresh-token', refreshTokenController)
 

@@ -20,8 +20,8 @@ export function isAuthenticate(
   }
 
   try {
-    verify(token, env.ACCESS_TOKEN)
-
+    const decoded = verify(token, env.ACCESS_TOKEN)
+    req.role = decoded.role
     next()
   } catch (error) {
     res.status(403).json({ message: 'Invalid token!' })

@@ -21,6 +21,7 @@ describe('create user test', () => {
       password: '12345678',
     })
 
+    expect(user).toHaveProperty('id')
     expect(user.name).toBe('Rodrigo')
     expect(user.email).toBe('rodrigo@email.com')
   })

@@ -12,6 +12,7 @@ interface CreateUserUseCaseRequest {
   imageUrl?: string
   experience_date?: Date
   planId?: string
+  role?: string
 }
 
 export class CreateUserUseCase {
@@ -38,6 +39,7 @@ export class CreateUserUseCase {
       created_at: new Date(),
       experience_date: data.experience_date || null,
       plan_id: data.planId || null,
+      role: data.role ? 'ADMIN' : undefined,
     })
 
     return user

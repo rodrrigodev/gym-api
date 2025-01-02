@@ -12,7 +12,7 @@ export function generateTokenProvider({
   role,
 }: GenerateTokenProviderParams) {
   const token = jwt.sign({ userId, role }, env.ACCESS_TOKEN, {
-    expiresIn: '1m',
+    expiresIn: '45m',
   })
 
   return token

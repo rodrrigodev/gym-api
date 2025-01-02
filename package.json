@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "build": "tsup src --out-dir --format .js",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test": "jest --testPathPattern=useCases/.*.spec.ts$",
+    "test:watch": "jest --testPathPattern=useCases/.*.spec.ts$ --watchAll",
+    "test:integration": "jest --testPathPattern=controllers/.*.spec.ts$",
+    "test:integration:watch": "jest --testPathPattern=controllers/.*.spec.ts$ --watchAll",
+    "test:all": "jest",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -15,9 +19,11 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^22.7.5",
+    "@types/supertest": "^6.0.2",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
     "prisma": "^5.22.0",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

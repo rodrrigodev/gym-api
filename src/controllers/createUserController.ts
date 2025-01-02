@@ -18,6 +18,7 @@ export async function createUserController(
     weight: z.number().nullable(),
     height: z.number().nullable(),
     imageUrl: z.string().nullable(),
+    role: z.string().nullable(),
   })
 
   try {
@@ -30,11 +31,14 @@ export async function createUserController(
       nickname,
       password,
       weight,
+      role,
     } = createUserSchema.parse(request.body)
 
     const hashedPassword = await hash(password, 6)
 
-    await useMakeCreateUserUseCase().execute({
+    console.log(request.role)
+
+    const user = await useMakeCreateUserUseCase().execute({
       email,
       password: hashedPassword,
       name,
@@ -43,6 +47,7 @@ export async function createUserController(
       height: height || undefined,
       weight: weight || undefined,
       imageUrl: imageUrl || undefined,
+      role: role || undefined,
     })
 
     response.status(201).send({ message: 'User created successfully!' })
