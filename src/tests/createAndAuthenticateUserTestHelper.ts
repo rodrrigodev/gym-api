@@ -1,14 +1,14 @@
 import { prisma } from '@/lib/prisma'
 import { Express } from 'express'
+import { hash } from 'bcryptjs'
 import request from 'supertest'
 
-export async function createAndAuthenticateUser(app: Express) {
-  console.log(12)
+export async function createAndAuthenticateUserTestHelper(app: Express) {
   await prisma.user.create({
     data: {
       name: 'john doe',
-      email: 'johnsdkskdjsljkd@email.com',
-      password: '12345678',
+      email: 'john@email.com',
+      password: await hash('12345678', 6),
       role: 'ADMIN',
       created_at: new Date(),
     },

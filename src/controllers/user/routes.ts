@@ -10,13 +10,11 @@ import { AuthenticateController } from './authenticateController'
 
 const router = Router()
 
-router.post('/create-user', createUserController)
-
-// router.post(
-//   '/create-user',
-//   [isAuthenticate, checkUserRole],
-//   createUserController,
-// )
+router.post(
+  '/create-user',
+  [isAuthenticate, checkUserRole],
+  createUserController,
+)
 
 router.get('/users', FetchUsersOrSearchController)
 
