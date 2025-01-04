@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { useMakeCreateUserProgressUseCase } from '@/factories/useMakeCreateUserProgressUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 
-export async function createUserProgressController(
+export async function CreateUserProgressController(
   request: Request,
   response: Response,
   next: NextFunction,

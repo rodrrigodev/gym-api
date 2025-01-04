@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryEquipmentTrackingRepository } from '@/repositories/inMemory/inMemoryEquipmentTrackingRepository'
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { EquipmentTrackingNotFoundError } from '@/errors/equipmentTrackingNotFoundError'
-import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
 import { DeleteEquipmentTrackingUseCase } from './deleteEquipmentTrackingUseCase'
-import { createEquipmentTrackingTestHelper } from '@/utils/tests/createEquipmentTrackingTestHelper'
+import { createEquipmentTrackingTestHelper } from '@/tests/createEquipmentTrackingTestHelper'
 
 let inMemoryEquipmentTrackingRepository: InMemoryEquipmentTrackingRepository
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository

@@ -12,6 +12,7 @@ const jestConfig: JestConfigWithTsJest = {
   transform: {
     '^.+\\.ts$': ['ts-jest', { isolatedModules: true }],
   },
+  setupFilesAfterEnv: ['<rootDir>/src/tests/jestSetup.ts'],
 }
 
 export default jestConfig

@@ -3,7 +3,7 @@ import { UpdateEquipmentTrackingUseCase } from './updateEquipmentTrackingUseCase
 import { InMemoryEquipmentTrackingRepository } from '@/repositories/inMemory/inMemoryEquipmentTrackingRepository'
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { EquipmentTrackingNotFoundError } from '@/errors/equipmentTrackingNotFoundError'
-import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
 
 let inMemoryEquipmentTrackingRepository: InMemoryEquipmentTrackingRepository
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository

@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { UpdateActivityUseCase } from './updateActivityUseCase'
 import { ActivityNotFoundError } from '@/errors/activityNotFoundError'
-import { createUserProgressTestHelper } from '@/utils/tests/createUserProgressTestHelper'
+import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 
 let inMemoryActivityRepository: InMemoryActivityRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository

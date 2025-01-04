@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { FetchUsersOrSearchUseCase } from './fetchUsersOrSearchUseCase'
 import { UsersNotFoundError } from '@/errors/usersNotFoundError'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: FetchUsersOrSearchUseCase

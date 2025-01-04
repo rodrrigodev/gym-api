@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryPlanRepository } from '@/repositories/inMemory/inMemoryPlanRepository'
-import { createPlanTestHelper } from '@/utils/tests/createPlanTestHelper'
+import { createPlanTestHelper } from '@/tests/createPlanTestHelper'
 import { UpdatePlanUseCase } from './updatePlanUseCase'
 import { PlanAlreadyExistsError } from '@/errors/planAlreadyExistsError'
 import { PlanNotFoundError } from '@/errors/planNotFoundError'

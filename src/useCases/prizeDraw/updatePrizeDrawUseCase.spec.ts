@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { InMemoryPrizeDrawRepository } from '@/repositories/inMemory/inMemoryPrizeDrawRepository'
 import { UpdatePrizeDrawUseCase } from './updatePrizeDrawUseCase'
-import { createPrizeDrawTestHelper } from '@/utils/tests/createPrizeDrawTestHelper'
+import { createPrizeDrawTestHelper } from '@/tests/createPrizeDrawTestHelper'
 import { InvalidDateError } from '@/errors/invalidDateError'
 
 let inMemoryPrizeDrawRepository: InMemoryPrizeDrawRepository

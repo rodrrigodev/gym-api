@@ -11,7 +11,7 @@ export interface Decoded {
   exp: number
 }
 
-export async function refreshTokenController(
+export async function RefreshTokenController(
   req: Request,
   res: Response,
   _: NextFunction,

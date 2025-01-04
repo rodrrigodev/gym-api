@@ -1,7 +1,7 @@
 import { InMemoryBillRepository } from '@/repositories/inMemory/inMemoryBillRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { DeleteBillUseCase } from './deleteBillUseCase'
-import { createBillTestHelper } from '@/utils/tests/createBillTestHelper'
+import { createBillTestHelper } from '@/tests/createBillTestHelper'
 
 let inMemoryBillRepository: InMemoryBillRepository
 let sut: DeleteBillUseCase

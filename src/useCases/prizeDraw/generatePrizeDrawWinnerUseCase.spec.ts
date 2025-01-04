@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { InMemoryPrizeDrawRepository } from '@/repositories/inMemory/inMemoryPrizeDrawRepository'
-import { createPrizeDrawTestHelper } from '@/utils/tests/createPrizeDrawTestHelper'
+import { createPrizeDrawTestHelper } from '@/tests/createPrizeDrawTestHelper'
 import { GeneratePrizeDrawWinnerUseCase } from './generatePrizeDrawWinnerUseCase'
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 import { DrawNotPossibleError } from '@/errors/drawNotPossibleError'
 
 let inMemoryPrizeDrawRepository: InMemoryPrizeDrawRepository

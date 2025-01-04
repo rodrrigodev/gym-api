@@ -1,6 +1,6 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 import { CheckUserAndDateUseCase } from './checkUserAndDateUseCase'
 
 let inMemoryUserRepository: InMemoryUserRepository

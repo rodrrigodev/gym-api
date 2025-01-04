@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { CreateUserProgressUseCase } from './createUserProgressUseCase'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { UserProgressError } from '@/errors/userProgressError'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository

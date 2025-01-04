@@ -36,9 +36,7 @@ export async function createUserController(
 
     const hashedPassword = await hash(password, 6)
 
-    console.log(request.role)
-
-    const user = await useMakeCreateUserUseCase().execute({
+    await useMakeCreateUserUseCase().execute({
       email,
       password: hashedPassword,
       name,

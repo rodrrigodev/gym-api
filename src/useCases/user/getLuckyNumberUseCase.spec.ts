@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 import { GetLuckyNumberUseCase } from './getLuckyNumberUseCase'
 import { LuckyNumberAlreadyExistsError } from '@/errors/luckyNumberAlreadyExistsError'
 

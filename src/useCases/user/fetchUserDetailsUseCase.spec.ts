@@ -1,9 +1,9 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 import { FetchUserDetailsUseCase } from './fetchUserDetailsUseCase'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
-import { createUserProgressTestHelper } from '@/utils/tests/createUserProgressTestHelper'
+import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 

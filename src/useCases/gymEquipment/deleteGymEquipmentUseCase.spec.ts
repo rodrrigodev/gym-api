@@ -1,6 +1,6 @@
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
-import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
 import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
 import { DeleteGymEquipmentUseCase } from './deleteGymEquipmentUseCase'
 

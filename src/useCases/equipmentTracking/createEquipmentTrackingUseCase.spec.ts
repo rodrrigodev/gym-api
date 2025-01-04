@@ -6,8 +6,8 @@ import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemory
 import { EquipmentTrackingAlreadyExistsError } from '@/errors/equipmentTrackingAlreadyExistsError'
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
 import { UserProgressError } from '@/errors/userProgressError'
-import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
-import { createUserProgressTestHelper } from '@/utils/tests/createUserProgressTestHelper'
+import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
+import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
 let inMemoryEquipmentTrackingRepository: InMemoryEquipmentTrackingRepository

@@ -5,7 +5,7 @@ import { InvalidCredencialError } from '@/errors/invalidCredencialError'
 import { generateTokenProvider } from '@/providers/generateTokenProvider'
 import { generateRefreshTokenProvider } from '@/providers/generateRefreshTokenProvider'
 
-export async function authenticateController(
+export async function AuthenticateController(
   req: Request,
   res: Response,
   next: NextFunction,

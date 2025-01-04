@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { AuthenticateUseCase } from './authenticateUserUseCase'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 import { InvalidCredencialError } from '@/errors/invalidCredencialError'
 
 let inMemoryUserRepository: InMemoryUserRepository

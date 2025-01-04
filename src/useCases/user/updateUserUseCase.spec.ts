@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UpdateUserUseCase } from './updateUserUseCase'
-import { createUserTestHelper } from '@/utils/tests/createUserTestHelper'
+import { createUserTestHelper } from '@/tests/createUserTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: UpdateUserUseCase

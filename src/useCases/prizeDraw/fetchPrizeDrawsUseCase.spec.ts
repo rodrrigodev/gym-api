@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryPrizeDrawRepository } from '@/repositories/inMemory/inMemoryPrizeDrawRepository'
-import { createPrizeDrawTestHelper } from '@/utils/tests/createPrizeDrawTestHelper'
+import { createPrizeDrawTestHelper } from '@/tests/createPrizeDrawTestHelper'
 import { FetchPrizeDrawsUseCase } from './fetchPrizeDrawsUseCase'
 
 let inMemoryPrizeDrawRepository: InMemoryPrizeDrawRepository

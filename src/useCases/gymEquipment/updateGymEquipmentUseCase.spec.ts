@@ -2,7 +2,7 @@ import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemory
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { EquipmentCodeAlreadyRegisteredError } from '@/errors/equipmentCodeAlreadyRegisteredError'
 import { UpdateGymEquipmentUseCase } from './updateGymEquipmentUseCase'
-import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
 import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository

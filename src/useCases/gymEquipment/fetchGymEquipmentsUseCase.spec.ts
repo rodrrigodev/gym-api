@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
-import { createGymEquipmentTestHelper } from '@/utils/tests/createGymEquipmentTestHelper'
+import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
 import { FetchGymEquipmentUseCase } from './fetchGymEquipmentsUseCase'
 
 let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
