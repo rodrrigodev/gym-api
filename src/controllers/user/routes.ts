@@ -7,6 +7,7 @@ import { UpdateUserController } from './updateUserController'
 import { FetchUsersOrSearchController } from './fetchUsersOrSearchController'
 import { CreateUserProgressController } from '../createUserProgressController'
 import { AuthenticateController } from './authenticateController'
+import { DeleteUserController } from './deleteUserController'
 
 const router = Router()
 
@@ -25,5 +26,7 @@ router.post('/login', AuthenticateController)
 router.post('/create-progress', CreateUserProgressController)
 
 router.patch('/update-user', UpdateUserController)
+
+router.delete('/delete-user', DeleteUserController)
 
 export { router as userRoutes }

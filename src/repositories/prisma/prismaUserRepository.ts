@@ -26,7 +26,7 @@ export class PrismaUserRepository implements UserRepository {
   async deleteUserById(id: string) {
     await prisma.user.delete({ where: { id } })
 
-    return 'Success!'
+    return 'User deleted successfully!!'
   }
 
   async updateUser(id: string, data: UserDataToUpdate) {

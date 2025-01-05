@@ -3,9 +3,9 @@ import { z } from 'zod'
 import { useMakeDeleteUserUseCase } from '@/factories/useMakeDeleteUserUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 
-export async function deleteUserController(
-  request: Request,
-  response: Response,
+export async function DeleteUserController(
+  req: Request,
+  res: Response,
   next: NextFunction,
 ) {
   const deleteUserSchema = z.object({
@@ -13,14 +13,14 @@ export async function deleteUserController(
   })
 
   try {
-    const { id } = deleteUserSchema.parse(request.body)
+    const { id } = deleteUserSchema.parse(req.body)
 
-    await useMakeDeleteUserUseCase().execute(id)
+    const message = await useMakeDeleteUserUseCase().execute(id)
 
-    response.status(204).send({ message: 'User deleted successfully!' })
+    res.status(200).send({ message })
   } catch (error) {
     if (error instanceof UserNotFoundError) {
-      response.status(404).json({
+      res.status(404).json({
         message: error.message,
       })
     } else {

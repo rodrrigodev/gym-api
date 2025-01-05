@@ -5,8 +5,8 @@ import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
 import { useMakeCreateUserUseCase } from '@/factories/useMakeCreateUserUseCase'
 
 export async function createUserController(
-  request: Request,
-  response: Response,
+  req: Request,
+  res: Response,
   next: NextFunction,
 ) {
   const createUserSchema = z.object({
@@ -32,7 +32,7 @@ export async function createUserController(
       password,
       weight,
       role,
-    } = createUserSchema.parse(request.body)
+    } = createUserSchema.parse(req.body)
 
     const hashedPassword = await hash(password, 6)
 
@@ -48,10 +48,10 @@ export async function createUserController(
       role: role || undefined,
     })
 
-    response.status(201).send({ message: 'User created successfully!' })
+    res.status(201).send({ message: 'User created successfully!' })
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
-      response.status(409).json({
+      res.status(409).json({
         message: error.message,
       })
     } else {

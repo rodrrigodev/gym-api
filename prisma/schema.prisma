@@ -17,6 +17,7 @@ model User {
   name           String
   nickname       String?
   birth_date     DateTime?
+  cell_phone     String?
   current_weight Float?
   height         Float?
   image_URL      String?

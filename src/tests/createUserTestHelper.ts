@@ -1,6 +1,6 @@
 import { UserRepository } from '@/repositories/interfaces/userRepository'
 
-export async function createUserTestHelper(userRepository: UserRepository) {
+export async function createUsersTestHelper(userRepository: UserRepository) {
   const users = await Promise.all(
     Array.from({ length: 9 }, (_, i) =>
       userRepository.createUser({

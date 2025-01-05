@@ -3,30 +3,23 @@ import request from 'supertest'
 import { app } from '@/app'
 import { controllerTestHelper } from '@/tests/controllerTestHelper'
 
-describe('create user test', () => {
-  it('should be able to create a user', async () => {
+describe('delete user test', () => {
+  it('should be able to delete a user', async () => {
+    const users = await controllerTestHelper.createRandomUsers()
     const token =
       await controllerTestHelper.createAndAuthenticateUserTestHelper(app)
 
     const { body, status } = await request(app)
-      .post('/create-user')
+      .delete('/delete-user')
       .send({
-        email: 'john_smith@email.com',
-        name: 'John Smith',
-        password: '12345678',
-        nickname: null,
-        birthDate: null,
-        weight: null,
-        height: null,
-        imageUrl: null,
-        role: 'USER',
+        id: users[0].id,
       })
       .set('Authorization', `Bearer ${token}`)
 
-    expect(status).toBe(201)
+    expect(status).toBe(200)
     expect(body).toHaveProperty('message')
     expect(body.message).toEqual(
-      expect.stringContaining('User created successfully!'),
+      expect.stringContaining('User deleted successfully!'),
     )
   })
 })
