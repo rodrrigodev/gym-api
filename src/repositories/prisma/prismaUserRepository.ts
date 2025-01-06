@@ -39,15 +39,33 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async fetchUsersOrSearch(page: number, query?: string) {
-    const result = query
-      ? await prisma.user.findMany({
-          where: { OR: [{ name: query }, { email: query }] },
-          skip: (page - 1) * 20,
-          take: 20,
-        })
-      : await prisma.user.findMany({ skip: (page - 1) * 20, take: 20 })
+    if (query) {
+      const length = Math.ceil(
+        (await prisma.user.count({
+          where: {
+            OR: [{ name: { contains: query } }, { email: { contains: query } }],
+          },
+        })) / 20,
+      )
 
-    return result
+      const users = await prisma.user.findMany({
+        where: {
+          OR: [{ name: { contains: query } }, { email: { contains: query } }],
+        },
+        skip: (page - 1) * 20,
+        take: 20,
+      })
+
+      return { users, length }
+    }
+    const length = Math.ceil((await prisma.user.count()) / 20)
+
+    const users = await prisma.user.findMany({
+      skip: (page - 1) * 20,
+      take: 20,
+    })
+
+    return { users, length }
   }
 
   async fetchUserDetails(userId: string) {

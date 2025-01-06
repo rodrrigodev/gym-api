@@ -3,7 +3,10 @@ import { Prisma, User } from '@prisma/client'
 export interface UserRepository {
   createUser: (data: Prisma.UserUncheckedCreateInput) => Promise<User>
 
-  fetchUsersOrSearch: (page: number, query?: string) => Promise<User[]>
+  fetchUsersOrSearch: (
+    page: number,
+    query?: string,
+  ) => Promise<{ users: User[]; length: number }>
 
   findUserByEmail: (email: string) => Promise<User | null>
 

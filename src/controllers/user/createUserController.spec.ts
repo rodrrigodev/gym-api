@@ -5,8 +5,7 @@ import { controllerTestHelper } from '@/tests/controllerTestHelper'
 
 describe('create user test', () => {
   it('should be able to create a user', async () => {
-    const token =
-      await controllerTestHelper.createAndAuthenticateUserTestHelper(app)
+    const token = await controllerTestHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
       .post('/create-user')

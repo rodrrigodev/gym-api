@@ -8,6 +8,7 @@ import { FetchUsersOrSearchController } from './fetchUsersOrSearchController'
 import { CreateUserProgressController } from '../createUserProgressController'
 import { AuthenticateController } from './authenticateController'
 import { DeleteUserController } from './deleteUserController'
+import { FetchUserDetailsController } from './fetchUserDetailsController'
 
 const router = Router()
 
@@ -18,6 +19,8 @@ router.post(
 )
 
 router.get('/users', FetchUsersOrSearchController)
+
+router.get('/user/:id', FetchUserDetailsController)
 
 router.post('/refresh-token', RefreshTokenController)
 

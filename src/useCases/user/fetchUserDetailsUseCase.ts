@@ -1,5 +1,4 @@
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 import { UserRepository } from '@/repositories/interfaces/userRepository'
 
@@ -20,9 +19,12 @@ export class FetchUserDetailsUseCase {
       await this.userProgressRepository.findUserProgressByUserId(user.id)
 
     if (!userProgress) {
-      throw new UserProgressNotFoundError()
+      return { user: { ...user, password: undefined } }
     }
 
-    return { user: { ...user, password: null }, userProgress }
+    return {
+      user: { ...user, password: undefined },
+      userProgress: { ...userProgress, user_id: undefined },
+    }
   }
 }

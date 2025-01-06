@@ -6,8 +6,7 @@ import { controllerTestHelper } from '@/tests/controllerTestHelper'
 describe('delete user test', () => {
   it('should be able to delete a user', async () => {
     const users = await controllerTestHelper.createRandomUsers()
-    const token =
-      await controllerTestHelper.createAndAuthenticateUserTestHelper(app)
+    const token = await controllerTestHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
       .delete('/delete-user')

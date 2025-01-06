@@ -5,7 +5,7 @@ import { controllerTestHelper } from '@/tests/controllerTestHelper'
 
 describe('authenticate user test', () => {
   it('should be able to authenticate a user', async () => {
-    await controllerTestHelper.createAndAuthenticateUserTestHelper(app)
+    await controllerTestHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app).post('/login').send({
       email: 'jane_smith@email.com',

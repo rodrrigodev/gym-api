@@ -10,15 +10,23 @@ export async function FetchUsersOrSearchController(
 ) {
   const createUserSchema = z.object({
     page: z.coerce.number().default(1),
-    query: z.string().min(3).email().nullable(),
+    query: z
+      .string()
+      .nullable()
+      .refine((val) => !val || val.length >= 3, {
+        message: z.ZodIssueCode.too_small,
+      }),
   })
 
   try {
     const { page, query } = createUserSchema.parse(request.query)
 
-    await useMakeFetchUsersOrSearchUseCase().execute(page, query || undefined)
+    const users = await useMakeFetchUsersOrSearchUseCase().execute(
+      page,
+      query || undefined,
+    )
 
-    response.status(200).send({ message: 'Users fetched successfully!' })
+    response.status(200).send(users)
   } catch (error) {
     if (error instanceof UsersNotFoundError) {
       response.status(404).json({
