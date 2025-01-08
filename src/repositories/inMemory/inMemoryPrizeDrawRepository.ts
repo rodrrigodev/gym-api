@@ -1,6 +1,7 @@
-import { Prisma, PrizeDraw } from '@prisma/client'
+import { Prisma, PrizeDraw, User } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { PrizeDrawRepository } from '../interfaces/prizeDrawRepository'
+import { getPrizeDrawWinner } from '@/utils/getPrizeDrawWinner'
 
 export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
   private prizeDraws: PrizeDraw[] = []
@@ -60,7 +61,11 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
     return prizeDrawUpdated || null
   }
 
-  async fetchPrizeDraw() {
+  async fetchPrizeDraws() {
     return this.prizeDraws || null
+  }
+
+  async drawParticipantWinnerUseCase(prizeDrawId: string, data: User[]) {
+    const { drawNumber, winnerId } = getPrizeDrawWinner(data)
   }
 }

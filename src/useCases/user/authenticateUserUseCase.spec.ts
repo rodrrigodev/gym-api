@@ -7,7 +7,7 @@ import { InvalidCredencialError } from '@/errors/invalidCredencialError'
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: AuthenticateUseCase
 
-describe('create user test', () => {
+describe('authenticate user test', () => {
   beforeEach(() => {
     inMemoryUserRepository = new InMemoryUserRepository()
     sut = new AuthenticateUseCase(inMemoryUserRepository)

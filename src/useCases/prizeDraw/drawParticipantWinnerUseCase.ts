@@ -3,8 +3,9 @@ import { PrizeDrawNotFoundError } from '@/errors/prizeDrawNotFoundError'
 import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawRepository'
 import { UserRepository } from '@/repositories/interfaces/userRepository'
 import { getDateDifference } from '@/utils/getDateDifference'
+import { getPrizeDrawWinner } from '@/utils/getPrizeDrawWinner'
 
-export class GeneratePrizeDrawWinnerUseCase {
+export class DrawParticipantWinnerUseCase {
   constructor(
     private prizeDrawRepository: PrizeDrawRepository,
     private userRepository: UserRepository,
@@ -24,8 +25,9 @@ export class GeneratePrizeDrawWinnerUseCase {
       throw new DrawNotPossibleError()
     }
 
-    const { drawNumber, winnerId } =
-      await this.userRepository.generatePrizeDrawWinner()
+    const drawnParticipants = await this.userRepository.fetchDrawParticipants()
+
+    const { drawNumber, winnerId } = getPrizeDrawWinner(drawnParticipants)
 
     const prizeDrawResult = await this.prizeDrawRepository.updatePrizeDraw(
       prizeDrawExists.id,

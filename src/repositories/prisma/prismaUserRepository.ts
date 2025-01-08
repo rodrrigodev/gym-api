@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { UserRepository } from '../interfaces/userRepository'
 import { prisma } from '@/lib/prisma'
+import { getRandomLuckyNumber } from '@/utils/getRandomLuckyNumber'
 
 export class PrismaUserRepository implements UserRepository {
   async createUser(data: Prisma.UserCreateInput) {
@@ -29,10 +30,10 @@ export class PrismaUserRepository implements UserRepository {
     return 'User deleted successfully!!'
   }
 
-  async updateUser(id: string, data: UserDataToUpdate) {
+  async updateUser(id: string, data: Prisma.UserUpdateInput) {
     const userUpdated = await prisma.user.update({
       where: { id },
-      data,
+      data: { ...data },
     })
 
     return userUpdated
@@ -74,5 +75,22 @@ export class PrismaUserRepository implements UserRepository {
     return user
   }
 
-  // getLuckyNumber: (id: string, type: string) => Promise<string[] | null>
+  async getLuckyNumber(id: string, type: string) {
+    const luckyCode = getRandomLuckyNumber(id, type)
+
+    const user = await prisma.user.update({
+      where: { id },
+      data: { lucky_numbers: [luckyCode] },
+    })
+
+    return user.lucky_numbers
+  }
+
+  async fetchDrawParticipants() {
+    const drawParticipants = await prisma.user.findMany({
+      where: { lucky_numbers: { isEmpty: false } },
+    })
+
+    return drawParticipants
+  }
 }

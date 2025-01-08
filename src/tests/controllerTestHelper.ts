@@ -39,11 +39,11 @@ export const controllerTestHelper = {
         name: `Richard Roe`,
         password: '12345678',
         created_at: new Date(`2023-06-${i}:15:${i + 12}:${i + 20}`),
+        lucky_numbers: i > 15 ? [`violetgym-${i}`] : undefined,
       })),
     })
 
     const users = await prisma.user.findMany()
-
     return users
   },
 
@@ -62,5 +62,12 @@ export const controllerTestHelper = {
     const progress = await prisma.userProgress.findMany()
 
     return progress
+  },
+
+  test: async (id: string) => {
+    await prisma.user.update({
+      where: { id },
+      data: { lucky_numbers: ['violet'] },
+    })
   },
 }

@@ -2,7 +2,7 @@ import { Prisma, User } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { UserRepository } from '../interfaces/userRepository'
 import { hash } from 'bcryptjs'
-import { generateUniqueLuckyNumber } from '@/utils/generateLuckyNumber'
+import { getRandomLuckyNumber } from '@/utils/getRandomLuckyNumber'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[] = []
@@ -94,16 +94,13 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async getLuckyNumber(id: string, type: string) {
-    const generatedNumber = generateUniqueLuckyNumber({
-      users: this.users,
-      type,
-    })
+    const luckyCode = getRandomLuckyNumber(id, type)
 
     this.users = this.users.map((user) => {
       if (user.id === id) {
         return {
           ...user,
-          lucky_numbers: [...user.lucky_numbers, generatedNumber],
+          lucky_numbers: [...user.lucky_numbers, luckyCode],
         }
       } else {
         return user
@@ -115,23 +112,6 @@ export class InMemoryUserRepository implements UserRepository {
     })
 
     return user?.lucky_numbers || null
-  }
-
-  async generatePrizeDrawWinner() {
-    type prizeDrawInfoType = { winnerId: string; drawNumber: string }
-
-    const prizeDrawInfo: prizeDrawInfoType[] = []
-
-    this.users.forEach((user) => {
-      user.lucky_numbers.forEach((number) => {
-        prizeDrawInfo.push({ winnerId: user.id, drawNumber: number })
-      })
-    })
-
-    const prizeDrawWinner =
-      prizeDrawInfo[Math.floor(Math.random() * prizeDrawInfo.length)]
-
-    return prizeDrawWinner
   }
 
   async fetchUserDetails(userId: string) {

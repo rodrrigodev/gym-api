@@ -6,7 +6,7 @@ import { CheckUserAndDateUseCase } from './checkUserAndDateUseCase'
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: CheckUserAndDateUseCase
 
-describe('create user test', () => {
+describe('check user role and last login test', () => {
   beforeEach(() => {
     jest.useFakeTimers({ now: new Date('2023-07-10T15:00:00') })
     inMemoryUserRepository = new InMemoryUserRepository()
