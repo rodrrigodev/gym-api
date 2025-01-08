@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { AuthenticateUseCase } from './authenticateUserUseCase'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 import { InvalidCredencialError } from '@/errors/invalidCredencialError'
 
 let inMemoryUserRepository: InMemoryUserRepository
@@ -14,7 +14,7 @@ describe('authenticate user test', () => {
   })
 
   it('should be able to authenticate user', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     const user = await sut.execute({
       email: 'rodrigo@email.com',
@@ -27,7 +27,7 @@ describe('authenticate user test', () => {
   })
 
   it('should not be able authenticate user passing wrong email', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await expect(
       sut.execute({
@@ -38,7 +38,7 @@ describe('authenticate user test', () => {
   })
 
   it('should not be able authenticate user passing wrong password', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await expect(
       sut.execute({

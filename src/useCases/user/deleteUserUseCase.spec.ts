@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { DeleteUserUseCase } from './deleteUserUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: DeleteUserUseCase
@@ -14,7 +14,7 @@ describe('delete user test', () => {
   })
 
   it('should be able to delete a user', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     const message = await sut.execute(user.id)
 
@@ -22,7 +22,7 @@ describe('delete user test', () => {
   })
 
   it('should not be able to delete a user passing wrong id', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await expect(sut.execute('nonExistentUserId')).rejects.toBeInstanceOf(
       UserNotFoundError,

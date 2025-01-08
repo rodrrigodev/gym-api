@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { CreateUserProgressUseCase } from './createUserProgressUseCase'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { UserProgressError } from '@/errors/userProgressError'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository
@@ -21,7 +21,7 @@ describe('create user progress test', () => {
   })
 
   it('should be able to create a user progress', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     const progress = await sut.execute({
       currentGoal: 'slim down',
@@ -35,7 +35,7 @@ describe('create user progress test', () => {
   })
 
   it('should be able to create a user progress without pass a nextWorkout', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     const progress = await sut.execute({
       currentGoal: 'bulk up',
@@ -49,7 +49,7 @@ describe('create user progress test', () => {
   })
 
   it('should not be able to create a user progress twice', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     await sut.execute({
       currentGoal: 'bulk up',
@@ -69,7 +69,7 @@ describe('create user progress test', () => {
   })
 
   it('should not be able to create a user progress with wrong id', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await expect(
       sut.execute({

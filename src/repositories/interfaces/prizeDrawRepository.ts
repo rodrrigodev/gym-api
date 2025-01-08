@@ -1,4 +1,4 @@
-import { Prisma, PrizeDraw, User } from '@prisma/client'
+import { Prisma, PrizeDraw } from '@prisma/client'
 
 export interface PrizeDrawRepository {
   createPrizeDraw: (data: Prisma.PrizeDrawCreateInput) => Promise<PrizeDraw>
@@ -15,12 +15,4 @@ export interface PrizeDrawRepository {
   deletePrizeDraw: (
     id: string,
   ) => Promise<{ prizeDraws: PrizeDraw[]; length: number }>
-
-  drawParticipantWinnerUseCase: (
-    prizeDrawId: string,
-    data: User[],
-  ) => Promise<{
-    winnerId: string
-    drawNumber: string
-  }>
 }

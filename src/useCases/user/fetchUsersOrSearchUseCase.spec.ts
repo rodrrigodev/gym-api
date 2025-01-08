@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { FetchUsersOrSearchUseCase } from './fetchUsersOrSearchUseCase'
 import { UsersNotFoundError } from '@/errors/usersNotFoundError'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: FetchUsersOrSearchUseCase
@@ -14,7 +14,7 @@ describe('fetch users test', () => {
   })
 
   it('should be able to fetch a user', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await Promise.all(
       Array.from({ length: 25 }, (_, i) =>
@@ -29,12 +29,12 @@ describe('fetch users test', () => {
 
     const usersResult = await sut.execute(1, undefined)
 
-    expect(usersResult).toHaveLength(20)
-    expect(usersResult[0]).toHaveProperty('name')
+    expect(usersResult.users).toHaveLength(20)
+    expect(usersResult.users[0]).toHaveProperty('name')
   })
 
   it('should be able to fetch a user', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await Promise.all(
       Array.from({ length: 25 }, (_, i) =>
@@ -50,14 +50,14 @@ describe('fetch users test', () => {
     const usersResult = await sut.execute(1, 'Rodrigo')
 
     expect(usersResult).toHaveLength(1)
-    expect(usersResult[0].name).toBe('Rodrigo')
-    expect(usersResult[0]).toEqual(
+    expect(usersResult.users[0].name).toBe('Rodrigo')
+    expect(usersResult.users[0]).toEqual(
       expect.objectContaining({ email: 'rodrigo@email.com' }),
     )
   })
 
   it('should not be able to fetch a user passing non-existent user', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await Promise.all(
       Array.from({ length: 25 }, (_, i) =>

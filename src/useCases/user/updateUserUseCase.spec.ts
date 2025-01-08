@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepo
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UpdateUserUseCase } from './updateUserUseCase'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let sut: UpdateUserUseCase
@@ -14,7 +14,7 @@ describe('update user test', () => {
   })
 
   it('should be able to update a user', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     const userUpdated = await sut.execute(user.id, {
       email: 'alex@email.com',
@@ -26,7 +26,7 @@ describe('update user test', () => {
   })
 
   it('should not be able to update a user', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await expect(
       sut.execute('nonExistentUserId', {

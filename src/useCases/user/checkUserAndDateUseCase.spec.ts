@@ -1,6 +1,6 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 import { CheckUserAndDateUseCase } from './checkUserAndDateUseCase'
 
 let inMemoryUserRepository: InMemoryUserRepository
@@ -14,7 +14,7 @@ describe('check user role and last login test', () => {
   })
 
   it('should be able to return userId and role', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     const user = await inMemoryUserRepository.createUser({
       email: 'alex@email.com',
@@ -32,7 +32,7 @@ describe('check user role and last login test', () => {
   })
 
   it('should not be able to return userId and role with 4 hours of difference from last login', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     const user = await inMemoryUserRepository.createUser({
       email: 'alex@email.com',
@@ -47,7 +47,7 @@ describe('check user role and last login test', () => {
   })
 
   it('should not be able to return userId and role passing wrong userId', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
+    await createUsersTestHelper(inMemoryUserRepository)
 
     await expect(sut.execute('wrongUserId')).rejects.toBeInstanceOf(Error)
   })

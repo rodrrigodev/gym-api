@@ -80,17 +80,30 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async fetchUsersOrSearch(page: number, query?: string) {
-    return query
-      ? this.users
-          .filter((user) => {
-            const lowerCaseQuery = query.toLowerCase()
-            return (
-              user.email.toLowerCase().includes(lowerCaseQuery) ||
-              user.name.toLowerCase().includes(lowerCaseQuery)
-            )
-          })
-          .slice((page - 1) * 20, page * 20)
-      : this.users.slice((page - 1) * 20, page * 20)
+    if (query) {
+      const length = this.users.filter((user) => {
+        return (
+          user.email.toLowerCase().includes(query.toLowerCase()) ||
+          user.name.toLowerCase().includes(query.toLowerCase())
+        )
+      }).length
+
+      const users = this.users
+        .filter((user) => {
+          return (
+            user.email.toLowerCase().includes(query.toLowerCase()) ||
+            user.name.toLowerCase().includes(query.toLowerCase())
+          )
+        })
+        .slice((page - 1) * 20, page * 20)
+
+      return { users, length }
+    }
+
+    const length = this.users.length
+    const users = this.users.slice((page - 1) * 20, page * 20)
+
+    return { users, length }
   }
 
   async getLuckyNumber(id: string, type: string) {
@@ -120,5 +133,13 @@ export class InMemoryUserRepository implements UserRepository {
     })
 
     return user || null
+  }
+
+  async fetchDrawParticipants() {
+    const drawParticipants = this.users.filter((user) => {
+      return user.lucky_numbers.length >= 1
+    })
+
+    return drawParticipants
   }
 }

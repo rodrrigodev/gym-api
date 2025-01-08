@@ -11,7 +11,7 @@ export async function createPrizeDrawTestHelper(
 
   await prizeDrawRepository.createPrizeDraw({
     prize: 'T-shirt violetfit',
-    status: 'waiting',
+    status: 'finished',
     finished_at: new Date(2023, 7, 10),
   })
 

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { UserProgressError } from '@/errors/userProgressError'
 import { UpdateUserProgressUseCase } from './updateUserProgressUseCase'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 
 let inMemoryUserRepository: InMemoryUserRepository
@@ -18,7 +18,7 @@ describe('update user progress test', () => {
   })
 
   it('should be able to update a user', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     const progress = await createUserProgressTestHelper({
       userProgressRepository: inMemoryUserProgressRepository,
@@ -35,7 +35,7 @@ describe('update user progress test', () => {
   })
 
   it('should not be able to update user progress', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     await createUserProgressTestHelper({
       userProgressRepository: inMemoryUserProgressRepository,

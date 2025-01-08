@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from '@/repositories/inMemory/inMemoryUserRepository'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { createUserTestHelper } from '@/tests/createUserTestHelper'
+import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 import { GetLuckyNumberUseCase } from './getLuckyNumberUseCase'
 import { LuckyNumberAlreadyExistsError } from '@/errors/luckyNumberAlreadyExistsError'
 
@@ -15,7 +15,7 @@ describe('get lucky number test', () => {
   })
 
   it('should be able to get a lucky number', async () => {
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     await sut.execute({ id: user.id, type: 'plan' })
 
@@ -33,9 +33,7 @@ describe('get lucky number test', () => {
   })
 
   it('should not be able to get a lucky number', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
-
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     await sut.execute({ id: user.id, type: 'plan' })
 
@@ -45,9 +43,7 @@ describe('get lucky number test', () => {
   })
 
   it('should not be able to get a lucky number', async () => {
-    await createUserTestHelper(inMemoryUserRepository)
-
-    const user = await createUserTestHelper(inMemoryUserRepository)
+    const user = await createUsersTestHelper(inMemoryUserRepository)
 
     await sut.execute({ id: user.id, type: 'plan' })
 
