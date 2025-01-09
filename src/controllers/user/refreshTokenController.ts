@@ -1,4 +1,5 @@
 import { env } from '@/env'
+import { InvalidCredencialError } from '@/errors/invalidCredencialError'
 import { useMakeCheckUserAndDateUseCase } from '@/factories/useMakeCheckUserAndDateUseCase'
 import { generateTokenProvider } from '@/providers/generateTokenProvider'
 import { NextFunction, Request, Response } from 'express'
@@ -14,7 +15,7 @@ export interface Decoded {
 export async function RefreshTokenController(
   req: Request,
   res: Response,
-  _: NextFunction,
+  next: NextFunction,
 ) {
   const refreshToken = req.cookies.refreshToken
 
@@ -28,6 +29,11 @@ export async function RefreshTokenController(
 
     res.status(200).json({ token })
   } catch (error) {
-    res.clearCookie('refreshToken').status(400).send('Invalid refresh token.')
+    if (error instanceof InvalidCredencialError) {
+      res.clearCookie('refreshToken').status(400).send('Invalid refresh token.')
+      res.status(401).json({ message: error.message })
+    } else {
+      next()
+    }
   }
 }

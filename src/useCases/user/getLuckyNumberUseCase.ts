@@ -1,6 +1,7 @@
 import { LuckyNumberAlreadyExistsError } from '@/errors/luckyNumberAlreadyExistsError'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UserRepository } from '@/repositories/interfaces/userRepository'
+import { getRandomLuckyNumber } from '@/utils/getRandomLuckyNumber'
 
 interface GetLuckyNumberUseCaseRequest {
   id: string
@@ -24,8 +25,14 @@ export class GetLuckyNumberUseCase {
     if (luckyNumberAlreadyExists) {
       throw new LuckyNumberAlreadyExistsError()
     }
+    const luckyNumbers = [
+      getRandomLuckyNumber(id, type),
+      ...userExists.lucky_numbers,
+    ]
 
-    const luckyNumbers = await this.userRepository.getLuckyNumber(id, type)
+    await this.userRepository.updateUser(id, {
+      lucky_numbers: luckyNumbers,
+    })
 
     return luckyNumbers
   }

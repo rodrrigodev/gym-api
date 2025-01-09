@@ -5,10 +5,10 @@ import { createUserController } from './createUserController'
 import { RefreshTokenController } from './refreshTokenController'
 import { UpdateUserController } from './updateUserController'
 import { FetchUsersOrSearchController } from './fetchUsersOrSearchController'
-import { CreateUserProgressController } from '../createUserProgressController'
 import { AuthenticateController } from './authenticateController'
 import { DeleteUserController } from './deleteUserController'
 import { FetchUserDetailsController } from './fetchUserDetailsController'
+import { GetLuckyNumberController } from './getLuckyNumberController'
 
 const router = Router()
 
@@ -26,7 +26,7 @@ router.post('/refresh-token', RefreshTokenController)
 
 router.post('/login', AuthenticateController)
 
-router.post('/create-progress', CreateUserProgressController)
+router.post('/lucky-number', GetLuckyNumberController)
 
 router.patch('/update-user', UpdateUserController)
 

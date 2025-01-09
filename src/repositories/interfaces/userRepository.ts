@@ -16,8 +16,6 @@ export interface UserRepository {
     query?: string,
   ) => Promise<{ users: User[]; length: number }>
 
-  getLuckyNumber: (id: string, type: string) => Promise<string[] | null>
-
   updateUser: (id: string, data: Prisma.UserUpdateInput) => Promise<User | null>
 
   deleteUserById: (userId: string) => Promise<string>

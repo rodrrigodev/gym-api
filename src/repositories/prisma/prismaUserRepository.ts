@@ -1,7 +1,6 @@
 import { Prisma } from '@prisma/client'
 import { UserRepository } from '../interfaces/userRepository'
 import { prisma } from '@/lib/prisma'
-import { getRandomLuckyNumber } from '@/utils/getRandomLuckyNumber'
 
 export class PrismaUserRepository implements UserRepository {
   async createUser(data: Prisma.UserCreateInput) {
@@ -73,17 +72,6 @@ export class PrismaUserRepository implements UserRepository {
     const user = prisma.user.findUnique({ where: { id: userId } })
 
     return user
-  }
-
-  async getLuckyNumber(id: string, type: string) {
-    const luckyCode = getRandomLuckyNumber(id, type)
-
-    const user = await prisma.user.update({
-      where: { id },
-      data: { lucky_numbers: [luckyCode] },
-    })
-
-    return user.lucky_numbers
   }
 
   async fetchDrawParticipants() {
