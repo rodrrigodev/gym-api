@@ -75,10 +75,11 @@ export class PrismaUserRepository implements UserRepository {
   }
 
   async fetchDrawParticipants() {
-    const drawParticipants = await prisma.user.findMany({
+    const participantsInfo = await prisma.user.findMany({
+      select: { id: true, lucky_numbers: true },
       where: { lucky_numbers: { isEmpty: false } },
     })
 
-    return drawParticipants
+    return participantsInfo
   }
 }

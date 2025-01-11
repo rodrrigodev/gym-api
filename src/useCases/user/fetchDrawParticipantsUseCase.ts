@@ -5,12 +5,12 @@ export class FetchDrawParticipantsUseCase {
   constructor(private userRepository: UserRepository) {}
 
   async execute() {
-    const drawnParticipants = await this.userRepository.fetchDrawParticipants()
+    const participantsInfo = await this.userRepository.fetchDrawParticipants()
 
-    if (!drawnParticipants.length) {
+    if (!participantsInfo.length) {
       throw new NoParticipantsFoundError()
     }
 
-    return drawnParticipants
+    return participantsInfo
   }
 }

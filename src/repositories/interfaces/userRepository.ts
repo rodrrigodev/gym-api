@@ -9,7 +9,9 @@ export interface UserRepository {
 
   fetchUserDetails: (userId: string) => Promise<User | null>
 
-  fetchDrawParticipants: () => Promise<User[]>
+  fetchDrawParticipants: () => Promise<
+    { id: string; lucky_numbers: string[] }[]
+  >
 
   fetchUsersOrSearch: (
     page: number,

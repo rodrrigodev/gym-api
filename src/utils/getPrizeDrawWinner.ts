@@ -1,13 +1,16 @@
-import { User } from '@prisma/client'
+interface GetPrizeDrawWinner {
+  id: string
+  lucky_numbers: string[]
+}
 
-export function getPrizeDrawWinner(data: User[]) {
+export function getPrizeDrawWinner(data: GetPrizeDrawWinner[]) {
   type prizeDrawInfoType = { winnerId: string; drawNumber: string }
 
   const prizeDrawInfo: prizeDrawInfoType[] = []
 
-  data.forEach((user) => {
-    user.lucky_numbers.forEach((number) => {
-      prizeDrawInfo.push({ winnerId: user.id, drawNumber: number })
+  data.forEach((info) => {
+    info.lucky_numbers.forEach((number) => {
+      prizeDrawInfo.push({ winnerId: info.id, drawNumber: number })
     })
   })
 

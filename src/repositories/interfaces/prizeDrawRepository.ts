@@ -3,7 +3,9 @@ import { Prisma, PrizeDraw } from '@prisma/client'
 export interface PrizeDrawRepository {
   createPrizeDraw: (data: Prisma.PrizeDrawCreateInput) => Promise<PrizeDraw>
 
-  fetchPrizeDraws: () => Promise<PrizeDraw[]>
+  fetchPrizeDraws: (
+    page: number,
+  ) => Promise<{ prizeDraws: PrizeDraw[]; length: number }>
 
   updatePrizeDraw: (
     id: string,
@@ -12,7 +14,5 @@ export interface PrizeDrawRepository {
 
   findPrizeDraw: (id: string) => Promise<PrizeDraw | null>
 
-  deletePrizeDraw: (
-    id: string,
-  ) => Promise<{ prizeDraws: PrizeDraw[]; length: number }>
+  deletePrizeDraw: (id: string) => Promise<string>
 }
