@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { useMakeGetLuckyNumberUseCase } from '@/factories/useMakeGetLuckyNumberUseCase'
+import { useMakeGetLuckyNumberUseCase } from '@/factories/users/useMakeGetLuckyNumberUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 
 export async function GetLuckyNumberController(

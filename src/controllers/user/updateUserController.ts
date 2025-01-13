@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { useMakeUpdateUserUseCase } from '@/factories/useMakeUpdateUserUseCase'
+import { useMakeUpdateUserUseCase } from '@/factories/users/useMakeUpdateUserUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 
 export async function UpdateUserController(

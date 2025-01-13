@@ -1,6 +1,6 @@
 import { env } from '@/env'
 import { InvalidCredencialError } from '@/errors/invalidCredencialError'
-import { useMakeCheckUserAndDateUseCase } from '@/factories/useMakeCheckUserAndDateUseCase'
+import { useMakeCheckUserAndDateUseCase } from '@/factories/users/useMakeCheckUserAndDateUseCase'
 import { generateTokenProvider } from '@/providers/generateTokenProvider'
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'

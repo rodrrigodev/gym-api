@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { useMakeAuthenticateUserUseCase } from '@/factories/useMakeAuthenticateUserUseCase'
+import { useMakeAuthenticateUserUseCase } from '@/factories/users/useMakeAuthenticateUserUseCase'
 import { InvalidCredencialError } from '@/errors/invalidCredencialError'
 import { generateTokenProvider } from '@/providers/generateTokenProvider'
 import { generateRefreshTokenProvider } from '@/providers/generateRefreshTokenProvider'

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from '@/errors/userAlreadyExistsError'
-import { useMakeCreateUserUseCase } from '@/factories/useMakeCreateUserUseCase'
+import { useMakeCreateUserUseCase } from '@/factories/users/useMakeCreateUserUseCase'
 
 export async function createUserController(
   req: Request,
@@ -18,7 +18,7 @@ export async function createUserController(
     weight: z.number().nullable(),
     height: z.number().nullable(),
     imageUrl: z.string().nullable(),
-    role: z.string().nullable(),
+    role: z.enum(['ADMIN', 'USER']).default('USER'),
   })
 
   try {
@@ -36,7 +36,7 @@ export async function createUserController(
 
     const hashedPassword = await hash(password, 6)
 
-    await useMakeCreateUserUseCase().execute({
+    const user = await useMakeCreateUserUseCase().execute({
       email,
       password: hashedPassword,
       name,
@@ -45,10 +45,10 @@ export async function createUserController(
       height: height || undefined,
       weight: weight || undefined,
       imageUrl: imageUrl || undefined,
-      role: role || undefined,
+      role,
     })
 
-    res.status(201).send({ message: 'User created successfully!' })
+    res.status(201).send(user)
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
       res.status(409).json({

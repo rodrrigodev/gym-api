@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { useMakeDeleteUserUseCase } from '@/factories/useMakeDeleteUserUseCase'
+import { useMakeDeleteUserUseCase } from '@/factories/users/useMakeDeleteUserUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 
 export async function DeleteUserController(

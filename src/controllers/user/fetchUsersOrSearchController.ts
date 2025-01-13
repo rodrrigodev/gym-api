@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { useMakeFetchUsersOrSearchUseCase } from '@/factories/useMakeFetchUsersOrSearchUseCase'
+import { useMakeFetchUsersOrSearchUseCase } from '@/factories/users/useMakeFetchUsersOrSearchUseCase'
 import { UsersNotFoundError } from '@/errors/usersNotFoundError'
 
 export async function FetchUsersOrSearchController(

@@ -1,5 +1,4 @@
-import { NextFunction, Request } from 'express'
-import { Response } from 'supertest'
+import { NextFunction, Request, Response } from 'express'
 
 export async function GeneratePrizeDrawWinnerController(
   req: Request,

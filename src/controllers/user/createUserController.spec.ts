@@ -23,9 +23,7 @@ describe('create user test', () => {
       .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(201)
-    expect(body).toHaveProperty('message')
-    expect(body.message).toEqual(
-      expect.stringContaining('User created successfully!'),
-    )
+    expect(body).toHaveProperty('email')
+    expect(body.name).toEqual(expect.stringContaining('John Smith'))
   })
 })

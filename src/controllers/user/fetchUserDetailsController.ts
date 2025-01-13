@@ -1,5 +1,5 @@
 import { UserNotFoundError } from '@/errors/userNotFoundError'
-import { useMakeFetchUserDetailsUseCase } from '@/factories/useMakeFetchUserDetailsUseCase'
+import { useMakeFetchUserDetailsUseCase } from '@/factories/users/useMakeFetchUserDetailsUseCase'
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 

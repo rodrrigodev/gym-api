@@ -1,3 +1,5 @@
+import { InvalidDateError } from '@/errors/invalidDateError'
+import { useMakeCreatePrizeDrawUseCase } from '@/factories/prizeDraw/useMakeCreatePrizeDrawUseCase'
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 
@@ -9,10 +11,25 @@ export async function createPrizeDrawController(
   const createPrizeDrawSchema = z.object({
     prize: z.string().min(4),
     status: z.enum(['finished', 'waiting']).default('waiting'),
-    finishedAt: z.date(),
+    finishedAt: z.coerce.date(),
   })
 
   try {
     const { prize, status, finishedAt } = createPrizeDrawSchema.parse(req.body)
-  } catch {}
+
+    const prizeDraw = await useMakeCreatePrizeDrawUseCase().execute({
+      prize,
+      finishedAt,
+      status,
+    })
+
+    res.status(201).send(prizeDraw)
+  } catch (error) {
+    console.log(error)
+    if (error instanceof InvalidDateError) {
+      res.status(400).json({ message: error.message })
+    } else {
+      next()
+    }
+  }
 }
