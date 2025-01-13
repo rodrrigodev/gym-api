@@ -2,10 +2,11 @@ import { UserProgressError } from '@/errors/userProgressError'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 export interface UpdateUserProgressRequest {
-  initial_weight?: number
-  next_workout?: string
-  current_goal?: string
-  streaks?: Date[]
+  initialWeight?: number
+  nextWorkout?: string
+  currentGoal?: string
+  currentStreak: number | null
+  maxStreakReached: number | null
 }
 
 export class UpdateUserProgressUseCase {
@@ -22,7 +23,17 @@ export class UpdateUserProgressUseCase {
     const userProgressUpdated =
       await this.userProgressRepository.updateUserProgress(
         userProgressExists.id,
-        data,
+        {
+          initial_weight:
+            data.initialWeight ?? userProgressExists.initial_weight,
+          next_workout: data.nextWorkout ?? userProgressExists.next_workout,
+          current_goal: data.currentGoal ?? userProgressExists.next_workout,
+          current_streak:
+            data.currentStreak ?? Number(userProgressExists.current_goal),
+          max_streak_reached:
+            data.maxStreakReached ??
+            Number(userProgressExists.max_streak_reached),
+        },
       )
 
     return userProgressUpdated

@@ -23,21 +23,6 @@ export class PrismaUserRepository implements UserRepository {
     return userExists
   }
 
-  async deleteUserById(id: string) {
-    await prisma.user.delete({ where: { id } })
-
-    return 'User deleted successfully!!'
-  }
-
-  async updateUser(id: string, data: Prisma.UserUpdateInput) {
-    const userUpdated = await prisma.user.update({
-      where: { id },
-      data: { ...data },
-    })
-
-    return userUpdated
-  }
-
   async fetchUsersOrSearch(page: number, query?: string) {
     if (query) {
       const length = Math.ceil(
@@ -81,5 +66,20 @@ export class PrismaUserRepository implements UserRepository {
     })
 
     return participantsInfo
+  }
+
+  async updateUser(id: string, data: Prisma.UserUpdateInput) {
+    const userUpdated = await prisma.user.update({
+      where: { id },
+      data: { ...data },
+    })
+
+    return userUpdated
+  }
+
+  async deleteUserById(id: string) {
+    await prisma.user.delete({ where: { id } })
+
+    return 'User deleted successfully!!'
   }
 }

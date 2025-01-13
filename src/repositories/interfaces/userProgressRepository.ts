@@ -7,9 +7,7 @@ export interface UserProgressRepository {
 
   findUserProgressByUserId: (userId: string) => Promise<UserProgress | null>
 
-  findUserProgressByProgressId: (
-    progressId: string,
-  ) => Promise<UserProgress | null>
+  findUserProgressById: (progressId: string) => Promise<UserProgress | null>
 
   updateUserProgress: (
     id: string,

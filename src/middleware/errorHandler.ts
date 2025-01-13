@@ -6,7 +6,7 @@ export function errorHandler(
   err: unknown,
   _req: Request,
   res: Response,
-  _next: NextFunction,
+  next: NextFunction,
 ): void {
   if (err instanceof z.ZodError) {
     res.status(400).json({
@@ -17,6 +17,6 @@ export function errorHandler(
   if (env.NODE_ENV !== 'production') {
     console.log(err)
   } else {
-    // TODO We should log to an external tool like DataDog/NewRelic/Sentry
+    next()
   }
 }

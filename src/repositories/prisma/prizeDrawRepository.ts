@@ -11,6 +11,7 @@ export class PrismaPrizeDrawRepository implements PrizeDrawRepository {
         status: data.status,
       },
     })
+
     return prize
   }
 

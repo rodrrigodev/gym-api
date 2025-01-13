@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { UserProgressRepository } from '../interfaces/userProgressRepository'
-import { Prisma, UserProgress } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 
 export class PrismaUserProgressRepository implements UserProgressRepository {
   async createUserProgress({
@@ -25,11 +25,28 @@ export class PrismaUserProgressRepository implements UserProgressRepository {
     return userProgress
   }
 
-  async findUserProgressByUserId(userId: string) {
+  async findUserProgressById(userId: string) {
     const progress = await prisma.userProgress.findFirst({
       where: { user_id: userId },
     })
 
     return progress
+  }
+
+  async findUserProgressByUserId(userId: string) {
+    const userProgress = await prisma.userProgress.findFirst({
+      where: { id: userId },
+    })
+
+    return userProgress
+  }
+
+  async updateUserProgress(id: string, data: Prisma.UserProgressUpdateInput) {
+    const userProgressUpdated = await prisma.userProgress.update({
+      where: { id },
+      data,
+    })
+
+    return userProgressUpdated
   }
 }
