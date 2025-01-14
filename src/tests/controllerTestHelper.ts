@@ -3,6 +3,7 @@ import { Express } from 'express'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
 import { User } from '@prisma/client'
+import { setDate } from './setDate'
 
 export const controllerTestHelper = {
   createAndAuthenticateUser: async (app: Express) => {
@@ -64,10 +65,35 @@ export const controllerTestHelper = {
     return progress
   },
 
-  test: async (id: string) => {
-    await prisma.user.update({
-      where: { id },
-      data: { lucky_numbers: ['violet'] },
+  createPrizeDraw: async () => {
+    const date = setDate(15)
+
+    await prisma.prizeDraw.createMany({
+      data: [
+        {
+          prize: 'Garrafa violetfit 1.5',
+          status: 'waiting',
+          finished_at: date,
+        },
+        {
+          prize: 'Capinha violetfit',
+          status: 'waiting',
+          finished_at: new Date(date),
+        },
+        {
+          prize: 'T-shirt violetfit',
+          status: 'finished',
+          finished_at: new Date(date),
+        },
+      ],
     })
+
+    const prize = await prisma.prizeDraw.findFirst()
+
+    if (!prize) {
+      throw Error()
+    }
+
+    return prize
   },
 }

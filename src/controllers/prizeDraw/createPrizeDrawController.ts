@@ -3,7 +3,7 @@ import { useMakeCreatePrizeDrawUseCase } from '@/factories/prizeDraw/useMakeCrea
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 
-export async function createPrizeDrawController(
+export async function CreatePrizeDrawController(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -25,7 +25,6 @@ export async function createPrizeDrawController(
 
     res.status(201).send(prizeDraw)
   } catch (error) {
-    console.log(error)
     if (error instanceof InvalidDateError) {
       res.status(400).json({ message: error.message })
     } else {

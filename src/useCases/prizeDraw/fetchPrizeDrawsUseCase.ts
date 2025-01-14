@@ -4,8 +4,8 @@ import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawReposito
 export class FetchPrizeDrawsUseCase {
   constructor(private prizeDrawRepository: PrizeDrawRepository) {}
 
-  async execute() {
-    const prizeDraws = await this.prizeDrawRepository.fetchPrizeDraws()
+  async execute(page: number) {
+    const prizeDraws = await this.prizeDrawRepository.fetchPrizeDraws(page)
 
     if (!prizeDraws.length) {
       throw new PrizeDrawNotFoundError()

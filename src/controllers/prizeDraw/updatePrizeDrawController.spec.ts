@@ -4,21 +4,25 @@ import { app } from '@/app'
 import { controllerTestHelper } from '@/tests/controllerTestHelper'
 import { setDate } from '@/tests/setDate'
 
-describe('create prize draw test', () => {
+describe('update prize draw test', () => {
   it('should be able to create a prize draw', async () => {
     const token = await controllerTestHelper.createAndAuthenticateUser(app)
+    const prize = await controllerTestHelper.createPrizeDraw()
 
     const { body, status } = await request(app)
-      .post('/create-prize')
+      .patch('/update-prize')
       .send({
+        id: prize.id,
         prize: 'Protein kit',
-        status: 'waiting',
         finishedAt: setDate(25),
+        status: 'waiting',
+        drawNumber: null,
+        winnerId: null,
       })
       .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(201)
-    expect(body).toHaveProperty('prize')
+    expect(body.prize).toEqual(expect.stringContaining('Protein kit'))
     expect(body.status).toEqual(expect.stringContaining('waiting'))
   })
 })

@@ -8,13 +8,13 @@ export async function GetLuckyNumberController(
   response: Response,
   next: NextFunction,
 ) {
-  const createUserSchema = z.object({
+  const getLuckyNumberSchema = z.object({
     id: z.string().uuid(),
     type: z.enum(['str', 'plan', 'ind']),
   })
 
   try {
-    const { id, type } = createUserSchema.parse(request.body)
+    const { id, type } = getLuckyNumberSchema.parse(request.body)
 
     const numbers = await useMakeGetLuckyNumberUseCase().execute({ id, type })
 

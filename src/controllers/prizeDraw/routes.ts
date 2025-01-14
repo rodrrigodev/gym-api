@@ -1,14 +1,17 @@
-import { checkUserRole } from '@/middleware/checkUserRole'
-import { isAuthenticate } from '@/middleware/isAuthenticate'
 import { Router } from 'express'
-import { createPrizeDrawController } from './createPrizeDrawController'
+import { DrawParticipantWinnerController } from './drawParticipantWinnerController'
+import { CreatePrizeDrawController } from './createPrizeDrawController'
+import { FetchPrizeDrawsControllers } from './fetchPrizeDrawsControllers'
+import { UpdatePrizeDrawController } from './updatePrizeDrawController'
 
 const router = Router()
 
-router.post(
-  '/create-prize',
-  [isAuthenticate, checkUserRole],
-  createPrizeDrawController,
-)
+router.get('/prize-draws', FetchPrizeDrawsControllers)
+
+router.post('/create-prize', CreatePrizeDrawController)
+
+router.post('/draw-participant', DrawParticipantWinnerController)
+
+router.patch('/update-prize', UpdatePrizeDrawController)
 
 export { router as prizeDrawRoutes }

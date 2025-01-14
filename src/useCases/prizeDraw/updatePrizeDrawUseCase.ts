@@ -7,9 +7,9 @@ interface CreatePrizeDrawUseCaseRequest {
   id: string
   prize?: string
   finishedAt?: Date
-  status: string
-  drawNumber: string
-  winnerId: string
+  status?: string
+  drawNumber?: string
+  winnerId?: string
 }
 
 export class UpdatePrizeDrawUseCase {
@@ -41,8 +41,8 @@ export class UpdatePrizeDrawUseCase {
         prize: prize ?? prizeDrawExists.prize,
         finished_at: finishedAt ?? prizeDrawExists.finished_at,
         status: status ?? prizeDrawExists.status,
-        drawn_number: drawNumber ?? prizeDrawExists.drawn_number,
-        winner_id: winnerId ?? prizeDrawExists.winner_id,
+        drawn_number: prizeDrawExists.drawn_number ?? drawNumber,
+        winner_id: prizeDrawExists.winner_id ?? winnerId,
       },
     )
 

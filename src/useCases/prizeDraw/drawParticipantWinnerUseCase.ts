@@ -20,7 +20,6 @@ export class DrawParticipantWinnerUseCase {
     }
 
     const checkDateDifference = getDateDifference(prizeDrawExists.finished_at)
-
     if (checkDateDifference <= 5 || prizeDrawExists.status === 'finished') {
       throw new DrawNotPossibleError()
     }

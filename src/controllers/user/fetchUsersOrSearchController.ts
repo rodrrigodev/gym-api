@@ -8,7 +8,7 @@ export async function FetchUsersOrSearchController(
   response: Response,
   next: NextFunction,
 ) {
-  const createUserSchema = z.object({
+  const fetchUserOrSearchSchema = z.object({
     page: z.coerce.number().default(1),
     query: z
       .string()
@@ -19,7 +19,7 @@ export async function FetchUsersOrSearchController(
   })
 
   try {
-    const { page, query } = createUserSchema.parse(request.query)
+    const { page, query } = fetchUserOrSearchSchema.parse(request.query)
 
     const users = await useMakeFetchUsersOrSearchUseCase().execute(
       page,
