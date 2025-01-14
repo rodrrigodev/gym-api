@@ -39,7 +39,7 @@ export const controllerTestHelper = {
         email: `richard_roe${i}@email.com`,
         name: `Richard Roe`,
         password: '12345678',
-        created_at: new Date(`2023-06-${i}:15:${i + 12}:${i + 20}`),
+        created_at: new Date(`2024-06-${i}:15:${i + 12}:${i + 20}`),
         lucky_numbers: i > 15 ? [`ind-${i}`] : undefined,
       })),
     })

@@ -14,26 +14,34 @@ export async function UpdateUserController(
     name: z.string().min(3).nullable(),
     nickname: z.string().min(3).nullable(),
     birthDate: z.date().nullable(),
-    weight: z.number().nullable(),
+    currentWeight: z.number().nullable(),
     height: z.number().nullable(),
-    imageUrl: z.string().nullable(),
+    imageURL: z.string().nullable(),
   })
 
   try {
-    const { id, birthDate, email, height, imageUrl, name, nickname, weight } =
-      createUserSchema.parse(request.body)
+    const {
+      id,
+      birthDate,
+      email,
+      height,
+      imageURL,
+      name,
+      nickname,
+      currentWeight,
+    } = createUserSchema.parse(request.body)
 
-    await useMakeUpdateUserUseCase().execute(id, {
+    const userUpdated = await useMakeUpdateUserUseCase().execute(id, {
       email: email || undefined,
       name: name || undefined,
       nickname: nickname || undefined,
       birthDate: birthDate || undefined,
       height: height || undefined,
-      weight: weight || undefined,
-      imageUrl: imageUrl || undefined,
+      currentWeight: currentWeight || undefined,
+      imageURL: imageURL || undefined,
     })
 
-    response.status(200).send({ message: 'User updated successfully!' })
+    response.status(200).send(userUpdated)
   } catch (error) {
     if (error instanceof UserNotFoundError) {
       response.status(404).json({

@@ -6,9 +6,9 @@ interface UpdateUserRequest {
   name?: string
   nickname?: string
   birthDate?: Date
-  weight?: number
+  currentWeight?: number
   height?: number
-  imageUrl?: string
+  imageURL?: string
 }
 
 export class UpdateUserUseCase {
@@ -21,7 +21,15 @@ export class UpdateUserUseCase {
       throw new UserNotFoundError()
     }
 
-    const userUpdated = await this.userRepository.updateUser(id, data)
+    const userUpdated = await this.userRepository.updateUser(id, {
+      email: data.email ?? userExists.email,
+      name: data.name ?? userExists.name,
+      birth_date: data.birthDate ?? userExists.birth_date,
+      nickname: data.nickname ?? userExists.nickname,
+      current_weight: data.currentWeight ?? userExists.current_weight,
+      height: data.height ?? userExists.height,
+      image_URL: data.imageURL ?? userExists.image_URL,
+    })
 
     return userUpdated
   }

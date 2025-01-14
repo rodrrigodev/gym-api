@@ -40,13 +40,7 @@ export class PrismaPrizeDrawRepository implements PrizeDrawRepository {
   ) {
     const prizeDrawUpdated = await prisma.prizeDraw.update({
       where: { id },
-      data: {
-        status: data.status,
-        finished_at: data.finished_at,
-        prize: data.prize,
-        drawn_number: data.drawn_number,
-        winner_id: data.winner_id,
-      },
+      data,
     })
 
     return prizeDrawUpdated
