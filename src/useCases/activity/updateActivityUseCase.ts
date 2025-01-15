@@ -19,16 +19,15 @@ export class UpdateActivityUseCase {
     const activityExists =
       await this.activityRepository.findActivity(activityId)
 
-    if (!activityExists) {
+    if (!activityExists || !activityExists.finished_at) {
       throw new ActivityNotFoundError()
     }
 
     const userProgress = await this.userProgressRepository.findUserProgressById(
       activityExists.user_progress_id,
     )
-    const activityPending = await this.activityRepository.checkActivities()
 
-    if (!activityPending || !userProgress) {
+    if (!userProgress) {
       throw new UserProgressNotFoundError()
     }
 

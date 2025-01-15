@@ -5,7 +5,6 @@ import { UserProgressRepository } from '@/repositories/interfaces/userProgressRe
 
 interface CreateActivityUseCaseRequest {
   userProgressId: string
-  workout: string
 }
 
 export class CreateActivityUseCase {
@@ -14,13 +13,11 @@ export class CreateActivityUseCase {
     private userProgressRepository: UserProgressRepository,
   ) {}
 
-  async execute({ userProgressId, workout }: CreateActivityUseCaseRequest) {
+  async execute({ userProgressId }: CreateActivityUseCaseRequest) {
     const userProgressExists =
-      await this.userProgressRepository.findUserProgressByProgressId(
-        userProgressId,
-      )
+      await this.userProgressRepository.findUserProgressById(userProgressId)
 
-    if (!userProgressExists) {
+    if (!userProgressExists || !userProgressExists.next_workout) {
       throw new UserProgressNotFoundError()
     }
 
@@ -32,7 +29,7 @@ export class CreateActivityUseCase {
 
     const activity = await this.activityRepository.createActivity({
       user_progress_id: userProgressId,
-      workout,
+      workout: userProgressExists.next_workout,
       created_at: new Date(),
     })
 

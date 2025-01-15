@@ -56,6 +56,7 @@ export const controllerTestHelper = {
           initial_weight: 65 + i,
           current_streak: i,
           max_streak_reached: i + 5,
+          next_workout: i % 2 === 0 ? 'legs' : 'chest',
         },
       })
     })

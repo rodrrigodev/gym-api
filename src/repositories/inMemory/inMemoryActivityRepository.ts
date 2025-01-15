@@ -44,12 +44,4 @@ export class InMemoryActivityRepository implements ActivityRepository {
 
     return activityUpdated || null
   }
-
-  async checkActivities() {
-    const activityPending = this.activities.find((activity) => {
-      return !activity.finished_at
-    })
-
-    return activityPending || null
-  }
 }
