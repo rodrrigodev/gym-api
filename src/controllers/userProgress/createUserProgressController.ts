@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { useMakeCreateUserProgressUseCase } from '@/factories/useMakeCreateUserProgressUseCase'
+import { useMakeCreateUserProgressUseCase } from '@/factories/userProgress/useMakeCreateUserProgressUseCase'
 import { UserNotFoundError } from '@/errors/userNotFoundError'
 
 export async function CreateUserProgressController(
@@ -19,16 +19,14 @@ export async function CreateUserProgressController(
     const { currentGoal, initialWeight, nextWorkout, userId } =
       createUserProgressSchema.parse(request.body)
 
-    await useMakeCreateUserProgressUseCase().execute({
+    const userProgress = await useMakeCreateUserProgressUseCase().execute({
       currentGoal,
       initialWeight,
       nextWorkout,
       userId,
     })
 
-    response
-      .status(201)
-      .send({ message: 'User progress created successfully!' })
+    response.status(201).send(userProgress)
   } catch (error) {
     if (error instanceof UserNotFoundError) {
       response.status(404).json({

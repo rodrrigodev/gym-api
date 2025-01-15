@@ -2,9 +2,9 @@ import { UserProgressError } from '@/errors/userProgressError'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 export interface UpdateUserProgressRequest {
-  initialWeight?: number
-  nextWorkout?: string
-  currentGoal?: string
+  initialWeight: number | null
+  nextWorkout: string | null
+  currentGoal: string | null
   currentStreak: number | null
   maxStreakReached: number | null
 }

@@ -34,7 +34,7 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
     return userProgressExists || null
   }
 
-  async findUserProgressByProgressId(progressId: string) {
+  async findUserProgressById(progressId: string) {
     const userProgressExists = this.usersProgress.find((userProgress) => {
       return userProgress.id === progressId
     })

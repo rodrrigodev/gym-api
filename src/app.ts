@@ -8,6 +8,7 @@ import { userRoutes } from './controllers/user/routes'
 import { prizeDrawRoutes } from './controllers/prizeDraw/routes'
 import { checkUserRole } from './middleware/checkUserRole'
 import { isAuthenticate } from './middleware/isAuthenticate'
+import { userProgressRoutes } from './controllers/userProgress/routes'
 
 export const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -15,6 +16,7 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 
 app.use('/', userRoutes)
+app.use('/', userProgressRoutes)
 
 app.use('/', [isAuthenticate, checkUserRole], prizeDrawRoutes)
 
