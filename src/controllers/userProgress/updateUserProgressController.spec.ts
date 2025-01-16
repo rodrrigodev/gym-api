@@ -7,7 +7,7 @@ describe('update user progress test', () => {
   it('should be able to update a user progress', async () => {
     const users = await controllerTestHelper.createRandomUsers()
 
-    const response = await request(app).post('/create-progress').send({
+    await request(app).post('/create-progress').send({
       userId: users[5].id,
       initialWeight: 74,
       currentGoal: 'bulk up',
@@ -15,7 +15,7 @@ describe('update user progress test', () => {
     })
 
     const { body, status } = await request(app).patch('/update-progress').send({
-      id: response.body.id,
+      id: users[5].id,
       initialWeight: 76,
       nextWorkout: 'back',
       currentGoal: null,

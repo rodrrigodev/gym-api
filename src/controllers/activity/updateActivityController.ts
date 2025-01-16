@@ -15,7 +15,6 @@ export async function UpdateActivityController(
 
   try {
     const { activityId, finishedAt } = updateActivitySchema.parse(req.body)
-
     const activityUpdated = await useMakeUpdateActivityUseCase().execute({
       activityId,
       finishedAt: finishedAt ?? new Date(),

@@ -25,9 +25,9 @@ export class PrismaUserProgressRepository implements UserProgressRepository {
     return userProgress
   }
 
-  async findUserProgressById(userId: string) {
+  async findUserProgressById(progressId: string) {
     const progress = await prisma.userProgress.findFirst({
-      where: { user_id: userId },
+      where: { id: progressId },
     })
 
     return progress
@@ -35,7 +35,7 @@ export class PrismaUserProgressRepository implements UserProgressRepository {
 
   async findUserProgressByUserId(userId: string) {
     const userProgress = await prisma.userProgress.findFirst({
-      where: { id: userId },
+      where: { user_id: userId },
     })
 
     return userProgress

@@ -9,13 +9,17 @@ describe('update activity test', () => {
     const usersProgresses =
       await controllerTestHelper.createRandomUsersProgress(users)
 
-    const { body, status } = await request(app).post('/update-activity').send({
+    const activity = await request(app).post('/create-activity').send({
       userProgressId: usersProgresses[5].id,
+    })
+
+    const { body, status } = await request(app).patch('/update-activity').send({
+      activityId: activity.body.id,
       finishedAt: null,
     })
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('workout')
-    expect(body.finished_at).toEqual(expect.any(Date))
+    expect(new Date(body.finished_at)).toEqual(expect.any(Date))
   })
 })

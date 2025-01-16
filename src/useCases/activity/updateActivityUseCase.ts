@@ -19,7 +19,9 @@ export class UpdateActivityUseCase {
     const activityExists =
       await this.activityRepository.findActivity(activityId)
 
-    if (!activityExists || !activityExists.finished_at) {
+    console.log(activityExists)
+
+    if (!activityExists || activityExists.finished_at) {
       throw new ActivityNotFoundError()
     }
 
@@ -38,23 +40,22 @@ export class UpdateActivityUseCase {
       },
     )
 
-    const userProgressUpdated =
-      getDateDifference(activityExists.created_at) <= 3
-        ? await this.userProgressRepository.updateUserProgress(
-            activityExists.user_progress_id,
-            {
-              current_streak: ++userProgress.current_streak,
-              max_streak_reached:
-                userProgress.max_streak_reached < userProgress.current_streak
-                  ? userProgress.current_streak
-                  : userProgress.max_streak_reached,
-            },
-          )
-        : await this.userProgressRepository.updateUserProgress(
-            activityExists.user_progress_id,
-            { current_streak: 1 },
-          )
+    getDateDifference(activityExists.created_at) <= 3
+      ? await this.userProgressRepository.updateUserProgress(
+          activityExists.user_progress_id,
+          {
+            current_streak: ++userProgress.current_streak,
+            max_streak_reached:
+              userProgress.max_streak_reached < userProgress.current_streak
+                ? userProgress.current_streak
+                : userProgress.max_streak_reached,
+          },
+        )
+      : await this.userProgressRepository.updateUserProgress(
+          activityExists.user_progress_id,
+          { current_streak: 1 },
+        )
 
-    return { activityUpdated, userProgressUpdated }
+    return activityUpdated
   }
 }
