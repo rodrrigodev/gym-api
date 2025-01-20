@@ -5,9 +5,9 @@ export interface UserProgressRepository {
     data: Prisma.UserProgressUncheckedCreateInput,
   ) => Promise<UserProgress>
 
-  findUserProgressByUserId: (userId: string) => Promise<UserProgress | null>
+  findUserProgressByUserId: (id: string) => Promise<UserProgress | null>
 
-  findUserProgressById: (progressId: string) => Promise<UserProgress | null>
+  findUserProgressById: (id: string) => Promise<UserProgress | null>
 
   updateUserProgress: (
     id: string,

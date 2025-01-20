@@ -4,8 +4,8 @@ import { BillRepository } from '@/repositories/interfaces/billRepository'
 export class DeleteBillUseCase {
   constructor(private billRepository: BillRepository) {}
 
-  async execute(billId: string) {
-    const billExists = await this.billRepository.findBill(billId)
+  async execute(id: string) {
+    const billExists = await this.billRepository.findBill(id)
 
     if (!billExists) {
       throw new BillNotFoundError()

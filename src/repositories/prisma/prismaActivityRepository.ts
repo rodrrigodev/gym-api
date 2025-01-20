@@ -15,10 +15,10 @@ export class PrismaActivityRepository implements ActivityRepository {
     return activityExists
   }
 
-  async updateActivity(activityId: string, data: Prisma.ActivityUpdateInput) {
+  async updateActivity(id: string, data: Prisma.ActivityUpdateInput) {
     const activityUpdated = await prisma.activity.update({
       data,
-      where: { id: activityId },
+      where: { id },
     })
 
     return activityUpdated

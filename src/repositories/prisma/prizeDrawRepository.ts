@@ -16,7 +16,7 @@ export class PrismaPrizeDrawRepository implements PrizeDrawRepository {
   }
 
   async findPrizeDraw(id: string) {
-    const prizeDraw = await prisma.prizeDraw.findFirst({
+    const prizeDraw = await prisma.prizeDraw.findUnique({
       where: {
         id,
       },

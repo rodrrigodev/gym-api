@@ -43,6 +43,7 @@ export class PrismaUserRepository implements UserRepository {
 
       return { users, length }
     }
+
     const length = Math.ceil((await prisma.user.count()) / 20)
 
     const users = await prisma.user.findMany({
@@ -53,8 +54,8 @@ export class PrismaUserRepository implements UserRepository {
     return { users, length }
   }
 
-  async fetchUserDetails(userId: string) {
-    const user = prisma.user.findUnique({ where: { id: userId } })
+  async fetchUserDetails(id: string) {
+    const user = prisma.user.findUnique({ where: { id } })
 
     return user
   }
@@ -80,6 +81,6 @@ export class PrismaUserRepository implements UserRepository {
   async deleteUserById(id: string) {
     await prisma.user.delete({ where: { id } })
 
-    return 'User deleted successfully!!'
+    return 'User deleted successfully!'
   }
 }

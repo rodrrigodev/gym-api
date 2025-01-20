@@ -9,7 +9,9 @@ export async function CreateBillController(
 ) {
   const createBillSchema = z.object({
     name: z.string(),
-    category: z.string(),
+    category: z
+      .enum(['revenue', 'cleaning', 'maintenance', 'others'])
+      .default('others'),
     price: z.string(),
   })
 

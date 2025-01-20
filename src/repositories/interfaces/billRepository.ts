@@ -1,21 +1,19 @@
 import { Bill, Prisma } from '@prisma/client'
 
+export interface FetchBills {
+  period: Date
+  page: number
+  name?: string
+  category?: string
+}
 export interface BillRepository {
   createBill: (data: Prisma.BillCreateInput) => Promise<Bill>
 
-  updateBill: (
-    billId: string,
-    data: Prisma.BillUpdateInput,
-  ) => Promise<Bill | null>
+  updateBill: (id: string, data: Prisma.BillUpdateInput) => Promise<Bill | null>
 
-  findBill: (billId: string) => Promise<Bill | null>
+  findBill: (id: string) => Promise<Bill | null>
 
-  deleteBill: (billId: string) => Promise<{ bills: Bill[]; length: number }>
+  deleteBill: (id: string) => Promise<string>
 
-  fetchBills: (
-    period: number,
-    page: number,
-    name?: string,
-    category?: string,
-  ) => Promise<{ bills: Bill[]; length: number }>
+  fetchBills: (data: FetchBills) => Promise<{ bills: Bill[]; length: number }>
 }

@@ -97,4 +97,39 @@ export const controllerTestHelper = {
 
     return prize
   },
+
+  createBills: async () => {
+    const bills = await prisma.bill.createMany({
+      data: [
+        {
+          name: 'Assinatura trimestral',
+          price: '400.00',
+          category: 'revenue',
+          created_at: new Date('2024-11-10'),
+        },
+        {
+          name: 'Sabão liquido',
+          category: 'cleaning',
+          price: '15.66',
+          created_at: new Date('2025-1-10'),
+        },
+
+        {
+          name: 'Products',
+          category: 'cleaning',
+          price: '38.25',
+          created_at: new Date('2024-11-11'),
+        },
+
+        {
+          name: 'Leg press machine',
+          category: 'maintenance',
+          price: '381.25',
+          created_at: new Date('2024-10-15'),
+        },
+      ],
+    })
+
+    return bills
+  },
 }

@@ -25,17 +25,17 @@ export class PrismaUserProgressRepository implements UserProgressRepository {
     return userProgress
   }
 
-  async findUserProgressById(progressId: string) {
-    const progress = await prisma.userProgress.findFirst({
-      where: { id: progressId },
+  async findUserProgressById(id: string) {
+    const progress = await prisma.userProgress.findUnique({
+      where: { id },
     })
 
     return progress
   }
 
-  async findUserProgressByUserId(userId: string) {
-    const userProgress = await prisma.userProgress.findFirst({
-      where: { user_id: userId },
+  async findUserProgressByUserId(id: string) {
+    const userProgress = await prisma.userProgress.findUnique({
+      where: { user_id: id },
     })
 
     return userProgress

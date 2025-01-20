@@ -19,8 +19,6 @@ export class UpdateActivityUseCase {
     const activityExists =
       await this.activityRepository.findActivity(activityId)
 
-    console.log(activityExists)
-
     if (!activityExists || activityExists.finished_at) {
       throw new ActivityNotFoundError()
     }
