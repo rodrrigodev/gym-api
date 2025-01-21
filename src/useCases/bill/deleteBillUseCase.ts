@@ -11,8 +11,8 @@ export class DeleteBillUseCase {
       throw new BillNotFoundError()
     }
 
-    const billsUpdated = await this.billRepository.deleteBill(billExists.id)
+    const message = await this.billRepository.deleteBill(billExists.id)
 
-    return billsUpdated
+    return message
   }
 }

@@ -99,7 +99,7 @@ export const controllerTestHelper = {
   },
 
   createBills: async () => {
-    const bills = await prisma.bill.createMany({
+    await prisma.bill.createMany({
       data: [
         {
           name: 'Assinatura trimestral',
@@ -129,6 +129,8 @@ export const controllerTestHelper = {
         },
       ],
     })
+
+    const bills = await prisma.bill.findMany()
 
     return bills
   },

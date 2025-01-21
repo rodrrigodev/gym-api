@@ -3,7 +3,7 @@ import { useMakeDeleteBillsUseCase } from '@/factories/bill/useMakeDeleteBillUse
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 
-export async function DeleteBillsController(
+export async function DeleteBillController(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -16,7 +16,7 @@ export async function DeleteBillsController(
     const { id } = deleteBillsSchema.parse(req.body)
     const message = await useMakeDeleteBillsUseCase().execute(id)
 
-    res.status(200).send(message)
+    res.status(200).send({ message })
   } catch (error) {
     if (error instanceof BillNotFoundError) {
       res.status(400).json({ message: error.message })
