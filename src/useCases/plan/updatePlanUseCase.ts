@@ -12,7 +12,7 @@ export class UpdatePlanUseCase {
   constructor(private planRepository: PlanRepository) {}
 
   async execute({ id, name, price }: UpdatePlanUseCaseRequest) {
-    const planExistsInDatabase = await this.planRepository.findPlanById(id)
+    const planExistsInDatabase = await this.planRepository.findPlan(id)
 
     if (!planExistsInDatabase) {
       throw new PlanNotFoundError()

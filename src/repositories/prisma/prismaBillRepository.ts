@@ -36,7 +36,7 @@ export class PrismaBillRepository implements BillRepository {
   async deleteBill(id: string) {
     await prisma.bill.delete({ where: { id } })
 
-    return 'User deleted successfully!'
+    return 'Bill deleted successfully!'
   }
 
   async findBill(id: string) {

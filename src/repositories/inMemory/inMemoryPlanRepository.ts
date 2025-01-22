@@ -41,10 +41,7 @@ export class InMemoryPlanRepository implements PlanRepository {
 
     this.plans = filteredPlans
 
-    return {
-      plans: filteredPlans.slice(0, 20),
-      length: Math.ceil(filteredPlans.length / 20),
-    }
+    return 'Plan deleted successfully!'
   }
 
   async updatePlan(id: string, data: Prisma.PlanUpdateInput) {
