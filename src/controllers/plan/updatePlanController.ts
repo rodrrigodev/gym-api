@@ -3,7 +3,7 @@ import { useMakeUpdatePlanUseCase } from '@/factories/plan/useMakeUpdatePlanUseC
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 
-export async function CreatePlanController(
+export async function UpdatePlanController(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -13,7 +13,7 @@ export async function CreatePlanController(
     name: z
       .enum(['basic', 'standard', 'premium', 'premium++'])
       .default('standard'),
-    price: z.string(),
+    price: z.coerce.string(),
   })
 
   try {

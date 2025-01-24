@@ -134,4 +134,15 @@ export const controllerTestHelper = {
 
     return bills
   },
+
+  createPlans: async () => {
+    await prisma.plan.createMany({
+      data: [
+        { name: 'basic', price: 120.0 },
+        { name: 'premium', price: 180 },
+      ],
+    })
+
+    return await prisma.plan.findMany()
+  },
 }

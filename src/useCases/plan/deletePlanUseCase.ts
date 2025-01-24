@@ -5,14 +5,14 @@ export class DeletePlanUseCase {
   constructor(private planRepository: PlanRepository) {}
 
   async execute(id: string) {
-    const planExists = await this.planRepository.findPlanById(id)
+    const planExists = await this.planRepository.findPlan(id)
 
     if (!planExists) {
       throw new PlanNotFoundError()
     }
 
-    const plansUpdated = await this.planRepository.deletePlan(planExists.id)
+    const message = await this.planRepository.deletePlan(planExists.id)
 
-    return plansUpdated
+    return message
   }
 }

@@ -16,7 +16,7 @@ export class PrismaPlanRepository implements PlanRepository {
   }
 
   async fetchPlans() {
-    return await prisma.bill.findMany()
+    return await prisma.plan.findMany()
   }
 
   async findPlan(id: string) {

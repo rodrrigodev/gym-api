@@ -14,10 +14,9 @@ export async function DeletePlanController(
 
   try {
     const { id } = deletePlanSchema.parse(req.body)
-
     const message = await useMakeDeletePlanUseCase().execute(id)
 
-    res.status(200).send(message)
+    res.status(200).send({ message })
   } catch (error) {
     if (error instanceof PlanNotFoundError) {
       res.status(400).json({ message: error.message })

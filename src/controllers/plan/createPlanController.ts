@@ -12,12 +12,11 @@ export async function CreatePlanController(
     name: z
       .enum(['basic', 'standard', 'premium', 'premium++'])
       .default('standard'),
-    price: z.string(),
+    price: z.coerce.string(),
   })
 
   try {
     const { name, price } = createPlanSchema.parse(req.body)
-
     const plan = await useMakeCreatePlanUseCase().execute({
       name,
       price,
