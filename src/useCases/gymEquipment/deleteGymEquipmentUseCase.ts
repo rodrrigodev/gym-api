@@ -6,7 +6,7 @@ export class DeleteGymEquipmentUseCase {
 
   async execute(gymEquipmentId: string) {
     const gymEquipmentExists =
-      await this.gymEquipmentRepository.findGymEquipmentById(gymEquipmentId)
+      await this.gymEquipmentRepository.findGymEquipment(gymEquipmentId)
 
     if (!gymEquipmentExists) {
       throw new EquipmentNotFoundError()

@@ -12,11 +12,9 @@ export interface GymEquipmentRepository {
     data: Prisma.GymEquipmentUpdateInput,
   ) => Promise<GymEquipment | null>
 
-  findGymEquipmentById: (id: string) => Promise<GymEquipment | null>
+  findGymEquipment: (id: string) => Promise<GymEquipment | null>
 
-  fetchGymEquipments: (nextWorkout: string) => Promise<GymEquipment[]>
+  fetchGymEquipments: (category: string) => Promise<GymEquipment[]>
 
-  deleteGymEquipment: (
-    equipmentId: string,
-  ) => Promise<{ gymEquipments: GymEquipment[]; length: number }>
+  deleteGymEquipment: (id: string) => Promise<string>
 }

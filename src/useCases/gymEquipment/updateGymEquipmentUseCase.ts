@@ -9,6 +9,7 @@ interface UpdateGymEquipmentRequest {
   reps?: number
   cod?: string
   status?: string
+  last_maintenance?: Date
 }
 
 export class UpdateGymEquipmentUseCase {
@@ -16,11 +17,13 @@ export class UpdateGymEquipmentUseCase {
 
   async execute(id: string, data: UpdateGymEquipmentRequest) {
     const gymEquipmentExists =
-      await this.gymEquipmentRepository.findGymEquipmentById(id)
+      await this.gymEquipmentRepository.findGymEquipment(id)
 
     if (!gymEquipmentExists) {
       throw new EquipmentNotFoundError()
     }
+
+    console.log('refazer logica')
 
     const equipmentCodeAlreadyRegistered = data.cod
       ? await this.gymEquipmentRepository.checkGymEquipmentCode(data.cod)
