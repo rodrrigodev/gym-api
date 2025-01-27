@@ -145,4 +145,40 @@ export const controllerTestHelper = {
 
     return await prisma.plan.findMany()
   },
+
+  createGymEquipments: async () => {
+    await prisma.gymEquipment.createMany({
+      data: [
+        {
+          name: 'Leg Press 45',
+          category: 'legs',
+          sets: 12,
+          reps: 4,
+          cod: '1',
+          last_maintenance: new Date(),
+          status: 'available',
+        },
+        {
+          name: 'Chest Press Machine',
+          category: 'chest',
+          sets: 12,
+          reps: 4,
+          cod: '2',
+          last_maintenance: new Date(),
+          status: 'available',
+        },
+        {
+          name: 'Back Extension Machine',
+          category: 'chest',
+          sets: 12,
+          reps: 4,
+          cod: '3',
+          last_maintenance: new Date(),
+          status: 'available',
+        },
+      ],
+    })
+
+    return await prisma.gymEquipment.findMany()
+  },
 }

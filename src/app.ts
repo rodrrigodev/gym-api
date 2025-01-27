@@ -12,6 +12,7 @@ import { userProgressRoutes } from './controllers/userProgress/routes'
 import { activityRoutes } from './controllers/activity/routes'
 import { billRoutes } from './controllers/bill/routes'
 import { planRoutes } from './controllers/plan/routes'
+import { gymEquipmentRoutes } from './controllers/gymEquipment/routes'
 
 export const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -27,6 +28,8 @@ app.use('/', billRoutes)
 app.use('/', activityRoutes)
 
 app.use('/', planRoutes)
+
+app.use('/', gymEquipmentRoutes)
 
 app.use('/', [isAuthenticate, checkUserRole], prizeDrawRoutes)
 

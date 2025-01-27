@@ -17,7 +17,7 @@ export async function DeleteGymEquipmentController(
 
     const message = await useMakeDeleteGymEquipmentUseCase().execute(id)
 
-    res.status(200).send(message)
+    res.status(200).send({ message })
   } catch (error) {
     if (error instanceof EquipmentNotFoundError) {
       res.status(400).json({ message: error.message })

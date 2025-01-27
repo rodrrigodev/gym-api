@@ -14,14 +14,13 @@ export async function UpdateGymEquipmentController(
     category: z.enum(['chest', 'legs', 'back']).nullable(),
     sets: z.number().nullable(),
     reps: z.number().nullable(),
-    cod: z.string().nullable(),
+    cod: z.coerce.string().nullable(),
     status: z.string().nullable(),
-    last_maintenance: z.date().nullable(),
+    last_maintenance: z.coerce.date().nullable(),
   })
 
   try {
     const gymEquipmentData = updateGymEquipmentSchema.parse(req.body)
-
     const gymEquipment = await useMakeUpdateGymEquipmentUseCase().execute(
       gymEquipmentData.id,
       {

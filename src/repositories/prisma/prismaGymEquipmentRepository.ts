@@ -31,6 +31,6 @@ export class PrismaGymEquipmentRepository implements GymEquipmentRepository {
   async deleteGymEquipment(id: string) {
     await prisma.gymEquipment.delete({ where: { id } })
 
-    return 'Bill deleted successfully!'
+    return 'Gym equipment deleted successfully!'
   }
 }

@@ -13,9 +13,9 @@ export async function CreateGymEquipmentController(
     category: z.enum(['chest', 'legs', 'back']),
     sets: z.number(),
     reps: z.number(),
-    cod: z.string(),
-    status: z.string(),
-    last_maintenance: z.date(),
+    cod: z.coerce.string(),
+    status: z.enum(['available', 'broken', 'maintenance']).default('available'),
+    last_maintenance: z.date().default(new Date()),
   })
 
   try {

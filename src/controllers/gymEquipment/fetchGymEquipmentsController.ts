@@ -3,7 +3,7 @@ import { useMakeFetchGymEquipmentUseCase } from '@/factories/gymEquipment/useMak
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 
-export async function FetchGymEquipmentController(
+export async function FetchGymEquipmentsController(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -12,9 +12,12 @@ export async function FetchGymEquipmentController(
     category: z.enum(['chest', 'legs', 'back']),
   })
 
+  const { category } = fetchGymEquipmentSchema.parse(req.query)
+  console.log(
+    '5484861564847745174515sksjshfuslçjkjshjkakdçafnhjakfhbakljgbhfjagfjhalbhjfbgfathgkdjaçdnqiuwyh7wt627e7hejng673unbqdnbywdq:',
+    category,
+  )
   try {
-    const { category } = fetchGymEquipmentSchema.parse(req.params)
-
     const gymEquipment =
       await useMakeFetchGymEquipmentUseCase().execute(category)
 
