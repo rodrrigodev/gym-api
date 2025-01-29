@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 
 describe('delete a gym equipment test', () => {
   it('should be able to delete a gym equipment', async () => {
-    const gymEquipments = await controllerTestHelper.createGymEquipments()
+    const gymEquipments = await testHelper.createGymEquipments()
 
     const { body, status } = await request(app)
       .delete('/delete-gym-equipment')

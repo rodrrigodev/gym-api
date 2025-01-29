@@ -54,6 +54,6 @@ export class UpdateActivityUseCase {
           { current_streak: 1 },
         )
 
-    return { activityUpdated }
+    return activityUpdated
   }
 }

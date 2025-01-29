@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 
 describe('fetch users test', () => {
   it('should be able to fetch users', async () => {
-    await controllerTestHelper.createRandomUsers()
+    await testHelper.createRandomUsers()
 
     const { body, status } = await request(app)
       .get('/users')
@@ -19,7 +19,7 @@ describe('fetch users test', () => {
   })
 
   it('should be able to fetch users', async () => {
-    await controllerTestHelper.createRandomUsers()
+    await testHelper.createRandomUsers()
 
     const { body, status } = await request(app)
       .get('/users')

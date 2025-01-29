@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 
 describe('fetch plans test', () => {
   it('should be able to fetch plans', async () => {
-    await controllerTestHelper.createPlans()
+    await testHelper.createPlans()
 
     const { body, status } = await request(app).get('/fetch-plans')
 

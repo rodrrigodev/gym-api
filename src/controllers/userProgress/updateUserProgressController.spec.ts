@@ -1,11 +1,11 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 
 describe('update user progress test', () => {
   it('should be able to update a user progress', async () => {
-    const users = await controllerTestHelper.createRandomUsers()
+    const users = await testHelper.createRandomUsers()
 
     await request(app).post('/create-progress').send({
       userId: users[5].id,

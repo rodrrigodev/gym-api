@@ -1,14 +1,13 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 
 describe('create an equipment tracking test', () => {
   it('should be able to create an equipment tracking', async () => {
-    const users = await controllerTestHelper.createRandomUsers()
-    const userProgress =
-      await controllerTestHelper.createRandomUsersProgress(users)
-    const gymEquipments = await controllerTestHelper.createGymEquipments()
+    const users = await testHelper.createRandomUsers()
+    const userProgress = await testHelper.createRandomUsersProgress(users)
+    const gymEquipments = await testHelper.createGymEquipments()
 
     const { body, status } = await request(app)
       .post('/create-equipment-tracking')

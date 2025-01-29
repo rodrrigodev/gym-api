@@ -1,13 +1,13 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 import { setDate } from '@/tests/setDate'
 
 describe('update prize draw test', () => {
   it('should be able to create a prize draw', async () => {
-    const token = await controllerTestHelper.createAndAuthenticateUser(app)
-    const prize = await controllerTestHelper.createPrizeDraw()
+    const token = await testHelper.createAndAuthenticateUser(app)
+    const prize = await testHelper.createPrizeDraw()
 
     const { body, status } = await request(app)
       .patch('/update-prize')

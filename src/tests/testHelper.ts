@@ -5,7 +5,7 @@ import request from 'supertest'
 import { User } from '@prisma/client'
 import { setDate } from './setDate'
 
-export const controllerTestHelper = {
+export const testHelper = {
   createAndAuthenticateUser: async (app: Express) => {
     await prisma.user.createMany({
       data: [
@@ -183,11 +183,10 @@ export const controllerTestHelper = {
   },
 
   createEquipmentTracking: async () => {
-    const users = await controllerTestHelper.createRandomUsers()
-    const userProgress =
-      await controllerTestHelper.createRandomUsersProgress(users)
+    const users = await testHelper.createRandomUsers()
+    const userProgress = await testHelper.createRandomUsersProgress(users)
 
-    const gymEquipments = await controllerTestHelper.createGymEquipments()
+    const gymEquipments = await testHelper.createGymEquipments()
 
     for (let i = 0; i < gymEquipments.length; i++) {
       await prisma.equipmentTracking.createMany({

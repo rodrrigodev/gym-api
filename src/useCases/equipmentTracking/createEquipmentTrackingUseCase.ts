@@ -28,7 +28,7 @@ export class CreateEquipmentTrackingUseCase {
     active,
   }: CreateEquipmentTrackingRequest) {
     const userProgressExists =
-      await this.userProgressRepository.findUserProgressByUserId(userProgressId)
+      await this.userProgressRepository.findUserProgressById(userProgressId)
 
     if (!userProgressExists) {
       throw new UserProgressError()

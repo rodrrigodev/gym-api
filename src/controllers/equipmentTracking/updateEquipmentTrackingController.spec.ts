@@ -1,12 +1,11 @@
 import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
-import { controllerTestHelper } from '@/tests/controllerTestHelper'
+import { testHelper } from '@/tests/testHelper'
 
 describe('update an equipment tracking test', () => {
   it('should be able to update an equipment tracking', async () => {
-    const gymEquipmentTracking =
-      await controllerTestHelper.createEquipmentTracking()
+    const gymEquipmentTracking = await testHelper.createEquipmentTracking()
 
     const { body, status } = await request(app)
       .patch('/update-equipment-tracking')
