@@ -49,8 +49,8 @@ export const controllerTestHelper = {
   },
 
   createRandomUsersProgress: async (users: User[]) => {
-    users.forEach(async (user, i) => {
-      return await prisma.userProgress.create({
+    for (const [i, user] of users.entries()) {
+      await prisma.userProgress.create({
         data: {
           user_id: user.id,
           initial_weight: 65 + i,
@@ -59,7 +59,7 @@ export const controllerTestHelper = {
           next_workout: i % 2 === 0 ? 'legs' : 'chest',
         },
       })
-    })
+    }
 
     const progress = await prisma.userProgress.findMany()
 
@@ -180,5 +180,29 @@ export const controllerTestHelper = {
     })
 
     return await prisma.gymEquipment.findMany()
+  },
+
+  createEquipmentTracking: async () => {
+    const users = await controllerTestHelper.createRandomUsers()
+    const userProgress =
+      await controllerTestHelper.createRandomUsersProgress(users)
+
+    const gymEquipments = await controllerTestHelper.createGymEquipments()
+
+    for (let i = 0; i < gymEquipments.length; i++) {
+      await prisma.equipmentTracking.createMany({
+        data: [
+          {
+            actual_weight: i + 2,
+            initial_weight: i + 2,
+            user_progress_id: userProgress[i].id,
+            gym_equipment_id: gymEquipments[i].id,
+            active: true,
+          },
+        ],
+      })
+    }
+
+    return await prisma.equipmentTracking.findMany()
   },
 }

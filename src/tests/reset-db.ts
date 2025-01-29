@@ -5,18 +5,18 @@ const prisma = new PrismaClient()
 const resetDb = {
   reset: async () => {
     await prisma.$transaction([
+      prisma.user.deleteMany(),
+      prisma.prizeDraw.deleteMany(),
+      prisma.userProgress.deleteMany(),
+      prisma.gymEquipment.deleteMany(),
+      prisma.equipmentTracking.deleteMany(),
       prisma.activity.deleteMany(),
       prisma.bill.deleteMany(),
-      prisma.equipmentTracking.deleteMany(),
-      prisma.gymEquipment.deleteMany(),
       prisma.plan.deleteMany(),
-      prisma.prizeDraw.deleteMany(),
-      prisma.user.deleteMany(),
-      prisma.userProgress.deleteMany(),
     ])
   },
-  dropSchema: async () => {
-    await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS test CASCADE`)
+
+  clear: async () => {
     await prisma.$disconnect()
   },
 }

@@ -6,16 +6,16 @@ export interface EquipmentTrackingRepository {
   ) => Promise<EquipmentTracking>
 
   checkEquipmentAndUser: (
-    gym_equipment_id: string,
-    user_progress_id: string,
+    gymEquipmentId: string,
+    userProgressId: string,
   ) => Promise<EquipmentTracking | null>
 
+  findEquipmentTracking: (id: string) => Promise<EquipmentTracking | null>
+
   updateEquipmentTracking: (
-    gym_equipment_id: string,
+    id: string,
     data: Prisma.EquipmentTrackingUpdateInput,
   ) => Promise<EquipmentTracking | null>
 
-  deleteEquipmentTracking: (
-    equipmentId: string,
-  ) => Promise<{ equipmentTrackings: EquipmentTracking[]; length: number }>
+  deleteEquipmentTracking: (id: string) => Promise<string>
 }

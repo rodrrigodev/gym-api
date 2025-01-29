@@ -6,6 +6,7 @@ const jestConfig: JestConfigWithTsJest = {
   moduleDirectories: ['node_modules', '<rootDir>'],
   verbose: true,
   testEnvironment: 'node',
+  // globalTeardown: '<rootDir>/src/tests/jest.teardown.ts',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),

@@ -6,12 +6,9 @@ export class DeleteEquipmentTrackingUseCase {
     private equipmentTrackingRepository: EquipmentTrackingRepository,
   ) {}
 
-  async execute(equipmentTrackingId: string, userProgressId: string) {
+  async execute(id: string) {
     const gymEquipmentTrackingExists =
-      await this.equipmentTrackingRepository.checkEquipmentAndUser(
-        equipmentTrackingId,
-        userProgressId,
-      )
+      await this.equipmentTrackingRepository.findEquipmentTracking(id)
 
     if (!gymEquipmentTrackingExists) {
       throw new EquipmentTrackingNotFoundError()

@@ -7,6 +7,6 @@ beforeEach(async () => {
   }
 })
 
-// afterAll(async () => {
-//   await resetDb.dropSchema()
-// })
+afterAll(async () => {
+  await resetDb.clear()
+})

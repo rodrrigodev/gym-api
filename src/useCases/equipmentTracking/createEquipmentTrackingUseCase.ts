@@ -6,10 +6,10 @@ import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRe
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 interface CreateEquipmentTrackingRequest {
-  actual_weight: number
-  initial_weight: number
-  gym_equipment_id: string
-  user_progress_id: string
+  actualWeight: number
+  initialWeight: number
+  gymEquipmentId: string
+  userProgressId: string
   active: boolean
 }
 
@@ -21,16 +21,14 @@ export class CreateEquipmentTrackingUseCase {
   ) {}
 
   async execute({
-    actual_weight,
-    gym_equipment_id,
-    initial_weight,
-    user_progress_id,
+    actualWeight,
+    gymEquipmentId,
+    initialWeight,
+    userProgressId,
     active,
   }: CreateEquipmentTrackingRequest) {
     const userProgressExists =
-      await this.userProgressRepository.findUserProgressByUserId(
-        user_progress_id,
-      )
+      await this.userProgressRepository.findUserProgressById(userProgressId)
 
     if (!userProgressExists) {
       throw new UserProgressError()
@@ -38,8 +36,8 @@ export class CreateEquipmentTrackingUseCase {
 
     const gymEquipmentTrackingExists =
       await this.equipmentTrackingRepository.checkEquipmentAndUser(
-        gym_equipment_id,
-        user_progress_id,
+        gymEquipmentId,
+        userProgressId,
       )
 
     if (gymEquipmentTrackingExists) {
@@ -47,7 +45,7 @@ export class CreateEquipmentTrackingUseCase {
     }
 
     const gymEquipmentExists =
-      await this.gymEquipmentRepository.findGymEquipmentById(gym_equipment_id)
+      await this.gymEquipmentRepository.findGymEquipment(gymEquipmentId)
 
     if (!gymEquipmentExists) {
       throw new EquipmentsNotFoundError()
@@ -55,10 +53,10 @@ export class CreateEquipmentTrackingUseCase {
 
     const gymEquipmentTracking =
       await this.equipmentTrackingRepository.createEquipmentTracking({
-        actual_weight,
-        initial_weight,
-        user_progress_id,
-        gym_equipment_id,
+        actual_weight: actualWeight,
+        initial_weight: initialWeight,
+        user_progress_id: userProgressId,
+        gym_equipment_id: gymEquipmentId,
         active,
       })
 

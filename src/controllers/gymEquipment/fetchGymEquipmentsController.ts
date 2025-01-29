@@ -12,12 +12,8 @@ export async function FetchGymEquipmentsController(
     category: z.enum(['chest', 'legs', 'back']),
   })
 
-  const { category } = fetchGymEquipmentSchema.parse(req.query)
-  console.log(
-    '5484861564847745174515sksjshfuslçjkjshjkakdçafnhjakfhbakljgbhfjagfjhalbhjfbgfathgkdjaçdnqiuwyh7wt627e7hejng673unbqdnbywdq:',
-    category,
-  )
   try {
+    const { category } = fetchGymEquipmentSchema.parse(req.query)
     const gymEquipment =
       await useMakeFetchGymEquipmentUseCase().execute(category)
 

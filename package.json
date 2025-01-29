@@ -9,9 +9,8 @@
     "test": "jest --testPathPattern=useCases/.*.spec.ts$",
     "test:watch": "jest --testPathPattern=useCases/.*.spec.ts$ --watchAll",
     "test:migrations": "dotenv -e .env.test -- npx prisma migrate deploy",
-    "test:integration": "dotenv -e .env.test -- jest -i --testPathPattern=controllers/.*.spec.ts$",
+    "test:integration": "dotenv -e .env.test -- jest -i --testPathPattern=controllers/.*.spec.ts$  --watchAll",
     "test:start:integration": "run-s test:migrations test:integration",
-    "test:start:integration:watch": "dotenv -e .env.test -- jest -i --testPathPattern=controllers/.*.spec.ts$ --watchAll",
     "test:all": "jest",
     "test:coverage": "jest --coverage"
   },

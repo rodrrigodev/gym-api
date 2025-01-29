@@ -6,26 +6,18 @@ export class UpdateEquipmentTrackingUseCase {
     private equipmentTrackingRepository: EquipmentTrackingRepository,
   ) {}
 
-  async execute(
-    gymEquipmentId: string,
-    userProgressId: string,
-    actual_weight: number,
-  ) {
+  async execute(id: string, actualWeight: number) {
     const gymEquipmentTrackingExists =
-      await this.equipmentTrackingRepository.checkEquipmentAndUser(
-        gymEquipmentId,
-        userProgressId,
-      )
+      await this.equipmentTrackingRepository.findEquipmentTracking(id)
 
     if (!gymEquipmentTrackingExists) {
       throw new EquipmentTrackingNotFoundError()
     }
 
     const gymEquipmentTrackingUpdated =
-      await this.equipmentTrackingRepository.updateEquipmentTracking(
-        gymEquipmentId,
-        { actual_weight },
-      )
+      await this.equipmentTrackingRepository.updateEquipmentTracking(id, {
+        actual_weight: actualWeight,
+      })
 
     return gymEquipmentTrackingUpdated
   }
