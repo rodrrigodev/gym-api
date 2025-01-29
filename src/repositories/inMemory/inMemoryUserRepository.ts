@@ -15,6 +15,7 @@ export class InMemoryUserRepository implements UserRepository {
       name: data.name,
       email: data.email,
       password: passwordHashed,
+      cell_phone: data.cell_phone || null,
       nickname: data.nickname || null,
       birth_date: data.birth_date ? new Date(data.birth_date) : null,
       current_weight: data.current_weight || null,

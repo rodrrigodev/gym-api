@@ -24,19 +24,16 @@ describe('update gym equipment tracking test', () => {
       inMemoryGymEquipmentRepository,
     )
 
-    await inMemoryEquipmentTrackingRepository.createEquipmentTracking({
-      initial_weight: 1,
-      actual_weight: 5,
-      gym_equipment_id: gymEquipment.id,
-      user_progress_id: 'user_id',
-      active: true,
-    })
+    const equipmentTracking =
+      await inMemoryEquipmentTrackingRepository.createEquipmentTracking({
+        initial_weight: 1,
+        actual_weight: 5,
+        gym_equipment_id: gymEquipment.id,
+        user_progress_id: 'user_id',
+        active: true,
+      })
 
-    const updatedEquipmentTracking = await sut.execute(
-      gymEquipment.id,
-      'user_id',
-      6,
-    )
+    const updatedEquipmentTracking = await sut.execute(equipmentTracking.id, 6)
 
     expect(updatedEquipmentTracking?.actual_weight).toBe(6)
   })
@@ -54,9 +51,9 @@ describe('update gym equipment tracking test', () => {
       active: true,
     })
 
-    await expect(
-      sut.execute(gymEquipment.id, 'wrong_user_id', 6),
-    ).rejects.toBeInstanceOf(EquipmentTrackingNotFoundError)
+    await expect(sut.execute(gymEquipment.id, 6)).rejects.toBeInstanceOf(
+      EquipmentTrackingNotFoundError,
+    )
   })
 
   it('should not be able to update a equipment tracking passing wrong gym_id', async () => {
@@ -72,8 +69,8 @@ describe('update gym equipment tracking test', () => {
       active: true,
     })
 
-    await expect(
-      sut.execute('wrong_gym_id', 'user_id', 6),
-    ).rejects.toBeInstanceOf(EquipmentTrackingNotFoundError)
+    await expect(sut.execute('wrong_gym_id', 6)).rejects.toBeInstanceOf(
+      EquipmentTrackingNotFoundError,
+    )
   })
 })

@@ -56,7 +56,7 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
     return gymEquipmentUpdated || null
   }
 
-  async findGymEquipmentById(id: string) {
+  async findGymEquipment(id: string) {
     const equipmentExists = this.gymEquipments.find((equipment) => {
       return equipment.id === id
     })
@@ -79,9 +79,6 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
 
     this.gymEquipments = FilteredGymEquipments
 
-    return {
-      gymEquipments: FilteredGymEquipments.slice(0, 20),
-      length: Math.ceil(FilteredGymEquipments.length / 20),
-    }
+    return 'Gym equipment deleted successfully!'
   }
 }

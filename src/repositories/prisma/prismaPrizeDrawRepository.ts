@@ -49,6 +49,6 @@ export class PrismaPrizeDrawRepository implements PrizeDrawRepository {
   async deletePrizeDraw(id: string) {
     await prisma.prizeDraw.delete({ where: { id } })
 
-    return 'Prize draw deleted successfully.'
+    return 'Prize draw deleted successfully!'
   }
 }

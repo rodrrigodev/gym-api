@@ -18,6 +18,7 @@ describe('create user test', () => {
       email: 'rodrigo@email.com',
       name: 'Rodrigo',
       password: '12345678',
+      role: 'USER',
     })
 
     expect(user.name).toBe('Rodrigo')
@@ -28,6 +29,7 @@ describe('create user test', () => {
       email: 'rodrigo@email.com',
       name: 'Rodrigo',
       password: '12345678',
+      role: 'USER',
     })
 
     const comparePassword = await compare('12345678', user.password)
@@ -39,6 +41,7 @@ describe('create user test', () => {
       email: 'rodrigo@email.com',
       name: 'Rodrigo',
       password: '12345678',
+      role: 'USER',
     })
 
     await expect(
@@ -46,6 +49,7 @@ describe('create user test', () => {
         email: 'rodrigo@email.com',
         name: 'Rodrigo',
         password: '12345678',
+        role: 'USER',
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })

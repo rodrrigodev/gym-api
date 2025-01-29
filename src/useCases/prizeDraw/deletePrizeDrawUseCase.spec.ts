@@ -18,10 +18,11 @@ describe('delete a prize draw test', () => {
       inMemoryPrizeDrawRepository,
     )
 
-    const { prizeDraws, length } = await sut.execute(prizeDraw.id)
+    const message = await sut.execute(prizeDraw.id)
 
-    expect(prizeDraws).toHaveLength(2)
-    expect(length).toBe(1)
+    expect(message).toEqual(
+      expect.stringContaining('Prize draw deleted successfully!'),
+    )
   })
 
   it('should not be able to delete a prize draw passing wrong id', async () => {

@@ -26,8 +26,11 @@ describe('update user progress test', () => {
     })
 
     const userProgressUpdated = await sut.execute(progress.user_id, {
-      initial_weight: 82,
-      next_workout: 'legs',
+      initialWeight: 82,
+      nextWorkout: 'legs',
+      currentGoal: 'slim down',
+      currentStreak: 0,
+      maxStreakReached: 15,
     })
 
     expect(userProgressUpdated?.initial_weight).toBe(82)
@@ -44,8 +47,11 @@ describe('update user progress test', () => {
 
     await expect(
       sut.execute('progressId', {
-        initial_weight: 82,
-        next_workout: 'legs',
+        initialWeight: 82,
+        nextWorkout: 'chest',
+        currentGoal: 'slim down',
+        currentStreak: 1,
+        maxStreakReached: 5,
       }),
     ).rejects.toBeInstanceOf(UserProgressError)
   })

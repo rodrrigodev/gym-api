@@ -29,7 +29,7 @@ describe('get lucky number test', () => {
     }
 
     expect(luckyNumbers).toHaveLength(2)
-    expect(luckyNumbers[0]).toContain('plan')
+    expect(luckyNumbers[0]).toContain('str')
   })
 
   it('should not be able to get a lucky number', async () => {

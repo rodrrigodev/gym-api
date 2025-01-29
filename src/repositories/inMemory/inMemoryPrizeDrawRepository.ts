@@ -36,10 +36,7 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
 
     this.prizeDraws = filteredPrizeDraws
 
-    return {
-      prizeDraws: filteredPrizeDraws.slice(0, 20),
-      length: Math.ceil(filteredPrizeDraws.length / 20),
-    }
+    return 'Prize draw deleted successfully!'
   }
 
   async updatePrizeDraw(
@@ -63,7 +60,10 @@ export class InMemoryPrizeDrawRepository implements PrizeDrawRepository {
     return prizeDrawUpdated || null
   }
 
-  async fetchPrizeDraws() {
-    return this.prizeDraws || null
+  async fetchPrizeDraws(page: number) {
+    const length = Math.ceil(this.prizeDraws.length / 20)
+    const prizeDraws = this.prizeDraws.slice((page - 1) * 20, page * 20)
+
+    return { prizeDraws, length }
   }
 }

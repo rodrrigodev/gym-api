@@ -13,6 +13,7 @@ export async function createUserController(
     email: z.string().min(3).email(),
     password: z.string().min(8),
     name: z.string().min(3),
+    cellPhone: z.string().min(11).nullable(),
     nickname: z.string().min(3).nullable(),
     birthDate: z.coerce.date().nullable(),
     weight: z.number().nullable(),
@@ -32,6 +33,7 @@ export async function createUserController(
       password,
       weight,
       role,
+      cellPhone,
     } = createUserSchema.parse(req.body)
 
     const hashedPassword = await hash(password, 6)
@@ -41,6 +43,7 @@ export async function createUserController(
       password: hashedPassword,
       name,
       nickname: nickname || undefined,
+      cellPhone: cellPhone || undefined,
       birthDate: birthDate || undefined,
       height: height || undefined,
       weight: weight || undefined,

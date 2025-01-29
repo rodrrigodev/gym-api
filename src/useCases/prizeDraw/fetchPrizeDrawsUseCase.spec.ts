@@ -16,13 +16,13 @@ describe('fetch prize draws test', () => {
   it('should be able to fetch prize draws', async () => {
     await createPrizeDrawTestHelper(inMemoryPrizeDrawRepository)
 
-    const prizeDraws = await sut.execute()
+    const prizeDraws = await sut.execute(1)
 
-    expect(prizeDraws).toHaveLength(3)
-    expect(prizeDraws[0].prize).toBe('Garrafa violetfit 1.5')
+    expect(prizeDraws).toHaveLength(1)
+    expect(prizeDraws.prizeDraws[0].prize).toBe('Garrafa violetfit 1.5')
   })
 
   it('should not be able to fetch prize draws', async () => {
-    await expect(sut.execute()).rejects.toBeInstanceOf(PrizeDrawNotFoundError)
+    await expect(sut.execute(1)).rejects.toBeInstanceOf(PrizeDrawNotFoundError)
   })
 })

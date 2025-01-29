@@ -1,5 +1,5 @@
 import { Bill, Prisma } from '@prisma/client'
-import { BillRepository } from '../interfaces/billRepository'
+import { BillRepository, FetchBills } from '../interfaces/billRepository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryBillRepository implements BillRepository {
@@ -19,17 +19,17 @@ export class InMemoryBillRepository implements BillRepository {
     return bill
   }
 
-  async findBill(billId: string) {
+  async findBill(id: string) {
     const billExists = this.bills.find((bill) => {
-      return bill.id === billId
+      return bill.id === id
     })
 
     return billExists || null
   }
 
-  async updateBill(billId: string, data: Prisma.BillUpdateInput) {
+  async updateBill(id: string, data: Prisma.BillUpdateInput) {
     const billsUpdated = this.bills.map((bill) => {
-      if (bill.id === billId) {
+      if (bill.id === id) {
         return { ...bill, ...data }
       } else {
         return bill
@@ -39,7 +39,7 @@ export class InMemoryBillRepository implements BillRepository {
     this.bills = billsUpdated as Bill[]
 
     const billUpdated = this.bills.find((bill) => {
-      return bill.id === billId
+      return bill.id === id
     })
 
     return billUpdated || null
@@ -52,38 +52,25 @@ export class InMemoryBillRepository implements BillRepository {
 
     this.bills = filteredBills
 
-    return {
-      bills: filteredBills.slice(0, 20),
-      length: Math.ceil(filteredBills.length / 20),
-    }
+    return 'Bill deleted successfully!'
   }
 
-  async fetchBills(
-    period: number,
-    page: number,
-    name?: string,
-    category?: string,
-  ) {
-    const date = new Date()
-    const currentMonth = date.getMonth()
-    const monthThreshold = currentMonth - Math.floor(period / 30) + 1
-
+  async fetchBills({ page, period, category, name }: FetchBills) {
     const filteredBills = this.bills.filter((bill) => {
-      const billMonth = bill.created_at.getMonth()
       const matchesCategory = category
         ? bill.category.toLowerCase() === category.toLowerCase()
         : true
       const matchesName = name
         ? bill.name.toLowerCase() === name.toLowerCase()
         : true
-      const matchesPeriod = billMonth >= monthThreshold
+      const matchesPeriod = bill.created_at >= period
 
       return matchesCategory && matchesName && matchesPeriod
     })
 
     return {
       bills: filteredBills.slice((page - 1) * 20, page * 20),
-      length: filteredBills.length,
+      length: Math.ceil(filteredBills.length / 20),
     }
   }
 }

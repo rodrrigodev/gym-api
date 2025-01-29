@@ -5,6 +5,7 @@ interface CreateUserUseCaseRequest {
   email: string
   password: string
   name: string
+  cellPhone?: string
   nickname?: string
   birthDate?: Date
   weight?: number
@@ -32,6 +33,7 @@ export class CreateUserUseCase {
       email: data.email,
       password: data.password,
       birth_date: data.birthDate || null,
+      cell_phone: data.cellPhone || null,
       nickname: data.nickname || null,
       height: data.height || null,
       image_URL: data.imageUrl || null,
@@ -42,6 +44,6 @@ export class CreateUserUseCase {
       role: data.role,
     })
 
-    return { ...user, password: undefined }
+    return user
   }
 }

@@ -1,4 +1,4 @@
-import { PrismaPrizeDrawRepository } from '@/repositories/prisma/prizeDrawRepository'
+import { PrismaPrizeDrawRepository } from '@/repositories/prisma/prismaPrizeDrawRepository'
 import { CreatePrizeDrawUseCase } from '@/useCases/prizeDraw/createPrizeDrawUseCase'
 
 export function useMakeCreatePrizeDrawUseCase() {

@@ -7,21 +7,17 @@ export class InMemoryEquipmentTrackingRepository
 {
   private equipmentTrackings: EquipmentTracking[] = []
 
-  async createEquipmentTracking({
-    actual_weight,
-    gym_equipment_id,
-    initial_weight,
-    user_progress_id,
-    active,
-  }: Prisma.EquipmentTrackingUncheckedCreateInput) {
+  async createEquipmentTracking(
+    data: Prisma.EquipmentTrackingUncheckedCreateInput,
+  ) {
     const equipmentTracking = {
       id: randomUUID(),
-      gym_equipment_id,
-      actual_weight,
-      initial_weight,
-      user_progress_id,
+      gym_equipment_id: data.gym_equipment_id,
+      actual_weight: data.actual_weight,
+      initial_weight: data.initial_weight,
+      user_progress_id: data.user_progress_id,
       last_update: new Date(),
-      active,
+      active: data.active,
     }
 
     this.equipmentTrackings.push(equipmentTracking)
@@ -43,12 +39,12 @@ export class InMemoryEquipmentTrackingRepository
   }
 
   async updateEquipmentTracking(
-    gym_equipment_id: string,
+    id: string,
     data: Prisma.EquipmentTrackingUpdateInput,
   ) {
     const equipmentTrackingsUpdated = this.equipmentTrackings.map(
       (equipmentTracking) => {
-        if (equipmentTracking.gym_equipment_id === gym_equipment_id) {
+        if (equipmentTracking.id === id) {
           return { ...equipmentTracking, ...data, last_update: new Date() }
         } else {
           return equipmentTracking
@@ -60,25 +56,30 @@ export class InMemoryEquipmentTrackingRepository
 
     const equipmentTrackingUpdated = this.equipmentTrackings.find(
       (equipmentTracking) => {
-        return equipmentTracking.gym_equipment_id === gym_equipment_id
+        return equipmentTracking.id === id
       },
     )
 
     return equipmentTrackingUpdated || null
   }
 
-  async deleteEquipmentTracking(EquipmentTrackingId: string) {
+  async deleteEquipmentTracking(id: string) {
     const filteredEquipmentTracking = this.equipmentTrackings.filter(
       (tracking) => {
-        return tracking.id !== EquipmentTrackingId
+        return tracking.id !== id
       },
     )
 
     this.equipmentTrackings = filteredEquipmentTracking
 
-    return {
-      equipmentTrackings: filteredEquipmentTracking.slice(0, 20),
-      length: Math.ceil(filteredEquipmentTracking.length / 20),
-    }
+    return 'Equipment tracking deleted successfully!'
+  }
+
+  async findEquipmentTracking(id: string) {
+    const equipmentTracking = this.equipmentTrackings.find((tracking) => {
+      return tracking.id === id
+    })
+
+    return equipmentTracking || null
   }
 }

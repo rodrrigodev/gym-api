@@ -39,10 +39,10 @@ describe('create gym equipment tracking test', () => {
     })
 
     const equipmentTracking = await sut.execute({
-      initial_weight: 1,
-      actual_weight: 5,
-      gym_equipment_id: gymEquipment.id,
-      user_progress_id: userProgress.user_id,
+      initialWeight: 1,
+      actualWeight: 5,
+      gymEquipmentId: gymEquipment.id,
+      userProgressId: userProgress.user_id,
       active: true,
     })
 
@@ -62,10 +62,10 @@ describe('create gym equipment tracking test', () => {
 
     await expect(
       sut.execute({
-        initial_weight: 1,
-        actual_weight: 5,
-        gym_equipment_id: gymEquipment.id,
-        user_progress_id: 'wrong_userProgress_id',
+        initialWeight: 1,
+        actualWeight: 5,
+        gymEquipmentId: gymEquipment.id,
+        userProgressId: 'wrong_userProgress_id',
         active: true,
       }),
     ).rejects.toBeInstanceOf(UserProgressError)
@@ -82,19 +82,19 @@ describe('create gym equipment tracking test', () => {
     })
 
     await sut.execute({
-      initial_weight: 1,
-      actual_weight: 5,
-      gym_equipment_id: gymEquipment.id,
-      user_progress_id: userProgress.user_id,
+      initialWeight: 1,
+      actualWeight: 5,
+      gymEquipmentId: gymEquipment.id,
+      userProgressId: userProgress.user_id,
       active: true,
     })
 
     await expect(
       sut.execute({
-        initial_weight: 1,
-        actual_weight: 5,
-        gym_equipment_id: gymEquipment.id,
-        user_progress_id: userProgress.user_id,
+        initialWeight: 1,
+        actualWeight: 5,
+        gymEquipmentId: gymEquipment.id,
+        userProgressId: userProgress.user_id,
         active: true,
       }),
     ).rejects.toBeInstanceOf(EquipmentTrackingAlreadyExistsError)
@@ -110,10 +110,10 @@ describe('create gym equipment tracking test', () => {
 
     await expect(
       sut.execute({
-        initial_weight: 1,
-        actual_weight: 5,
-        gym_equipment_id: 'wrong_gymEquipment_id',
-        user_progress_id: userProgress.user_id,
+        initialWeight: 1,
+        actualWeight: 5,
+        gymEquipmentId: 'wrong_gymEquipment_id',
+        userProgressId: userProgress.user_id,
         active: true,
       }),
     ).rejects.toBeInstanceOf(EquipmentsNotFoundError)

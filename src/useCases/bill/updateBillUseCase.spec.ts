@@ -17,12 +17,12 @@ describe('update a bill test', () => {
     const bill = await createBillTestHelper(inMemoryBillRepository)
 
     const billUpdated = await sut.execute(bill.id, {
-      amount: '48.85',
+      price: '48.85',
       name: 'Desinfetante',
     })
 
     expect(billUpdated?.name).toBe('Desinfetante')
-    expect(Number(billUpdated?.amount) / 100).toBeCloseTo(48.85, 2)
+    expect(Number(billUpdated?.price) / 100).toBeCloseTo(48.85, 2)
   })
 
   it('should not be able to update a bill with wrong id', async () => {
@@ -30,7 +30,7 @@ describe('update a bill test', () => {
 
     await expect(
       sut.execute('noId', {
-        amount: '48.85',
+        price: '48.85',
         name: 'Disinfectant',
       }),
     ).rejects.toBeInstanceOf(BillNotFoundError)

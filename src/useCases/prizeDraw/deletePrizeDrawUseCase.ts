@@ -14,6 +14,6 @@ export class DeletePrizeDrawUseCase {
       prizeDrawExists.id,
     )
 
-    return { message }
+    return message
   }
 }

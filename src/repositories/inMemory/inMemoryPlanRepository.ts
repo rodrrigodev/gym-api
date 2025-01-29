@@ -26,7 +26,7 @@ export class InMemoryPlanRepository implements PlanRepository {
     return planAlreadyExists || null
   }
 
-  async findPlanById(id: string) {
+  async findPlan(id: string) {
     const planExists = this.plans.find((plan) => {
       return plan.id === id
     })

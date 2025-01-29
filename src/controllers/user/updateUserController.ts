@@ -11,6 +11,7 @@ export async function UpdateUserController(
   const createUserSchema = z.object({
     id: z.string().uuid(),
     email: z.string().min(3).email().nullable(),
+    cellPhone: z.string().min(11).nullable(),
     name: z.string().min(3).nullable(),
     nickname: z.string().min(3).nullable(),
     birthDate: z.date().nullable(),
@@ -20,26 +21,21 @@ export async function UpdateUserController(
   })
 
   try {
-    const {
-      id,
-      birthDate,
-      email,
-      height,
-      imageURL,
-      name,
-      nickname,
-      currentWeight,
-    } = createUserSchema.parse(request.body)
+    const userDataUpdated = createUserSchema.parse(request.body)
 
-    const userUpdated = await useMakeUpdateUserUseCase().execute(id, {
-      email: email || undefined,
-      name: name || undefined,
-      nickname: nickname || undefined,
-      birthDate: birthDate || undefined,
-      height: height || undefined,
-      currentWeight: currentWeight || undefined,
-      imageURL: imageURL || undefined,
-    })
+    const userUpdated = await useMakeUpdateUserUseCase().execute(
+      userDataUpdated.id,
+      {
+        email: userDataUpdated.email || undefined,
+        name: userDataUpdated.name || undefined,
+        nickname: userDataUpdated.nickname || undefined,
+        birthDate: userDataUpdated.birthDate || undefined,
+        height: userDataUpdated.height || undefined,
+        currentWeight: userDataUpdated.currentWeight || undefined,
+        imageURL: userDataUpdated.imageURL || undefined,
+        cellPhone: userDataUpdated.cellPhone || undefined,
+      },
+    )
 
     response.status(200).send(userUpdated)
   } catch (error) {

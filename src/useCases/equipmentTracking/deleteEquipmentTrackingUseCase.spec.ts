@@ -25,19 +25,17 @@ describe('update gym equipment tracking test', () => {
       inMemoryGymEquipmentRepository,
     )
 
-    await createEquipmentTrackingTestHelper(
+    const equipmentTracking = await createEquipmentTrackingTestHelper(
       inMemoryEquipmentTrackingRepository,
       gymEquipment.id,
       'user_id',
     )
 
-    const { equipmentTrackings, length } = await sut.execute(
-      gymEquipment.id,
-      'user_id',
-    )
+    const message = await sut.execute(equipmentTracking.id)
 
-    expect(equipmentTrackings).toHaveLength(2)
-    expect(length).toBe(1)
+    expect(message).toEqual(
+      expect.stringContaining('Equipment tracking deleted successfully!'),
+    )
   })
 
   it('should not be able to delete an equipment tracking passing wrong user_id', async () => {
@@ -51,9 +49,9 @@ describe('update gym equipment tracking test', () => {
       'user_id',
     )
 
-    await expect(
-      sut.execute(gymEquipment.id, 'wrongId'),
-    ).rejects.toBeInstanceOf(EquipmentTrackingNotFoundError)
+    await expect(sut.execute(gymEquipment.id)).rejects.toBeInstanceOf(
+      EquipmentTrackingNotFoundError,
+    )
   })
 
   it('should not be able to delete an equipment tracking passing wrong equipmentTrackingId', async () => {
@@ -70,7 +68,7 @@ describe('update gym equipment tracking test', () => {
     })
 
     await expect(
-      sut.execute('wrong_equipmentTrackingId', 'user_id'),
+      sut.execute('wrong_equipmentTrackingId'),
     ).rejects.toBeInstanceOf(EquipmentTrackingNotFoundError)
   })
 })

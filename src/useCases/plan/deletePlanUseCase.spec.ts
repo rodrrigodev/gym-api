@@ -16,10 +16,11 @@ describe('delete plan test', () => {
   it('should be able to delete a plan', async () => {
     const plan = await createPlanTestHelper(inMemoryPlanRepository)
 
-    const { plans, length } = await sut.execute(plan.id)
+    const message = await sut.execute(plan.id)
 
-    expect(plans).toHaveLength(1)
-    expect(length).toBe(1)
+    expect(message).toEqual(
+      expect.stringContaining('Plan deleted successfully!'),
+    )
   })
 
   it('should not be able to delete a plan passing wrong id', async () => {

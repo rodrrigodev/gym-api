@@ -15,9 +15,10 @@ describe('delete a bill test', () => {
   it('should be able to delete a bill', async () => {
     const bill = await createBillTestHelper(inMemoryBillRepository)
 
-    const { bills, length } = await sut.execute(bill.id)
+    const message = await sut.execute(bill.id)
 
-    expect(bills).toHaveLength(20)
-    expect(length).toBe(2)
+    expect(message).toEqual(
+      expect.stringContaining('Bill deleted successfully!'),
+    )
   })
 })

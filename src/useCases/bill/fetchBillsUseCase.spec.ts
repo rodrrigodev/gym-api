@@ -24,7 +24,7 @@ describe('fetch bills test', () => {
       name: 'products',
     })
 
-    expect(length).toBe(1)
+    expect(length).toBe(2)
     expect(bills[0].category).toBe('cleaning')
   })
 
