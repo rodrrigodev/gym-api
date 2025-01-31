@@ -26,7 +26,7 @@ export const testHelper = {
     })
 
     const authResponse = await request(app)
-      .post('/login')
+      .post('/user/auth')
       .send({ email: 'john@email.com', password: '12345678' })
 
     const { token } = authResponse.body

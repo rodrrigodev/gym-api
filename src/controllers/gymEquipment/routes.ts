@@ -3,15 +3,29 @@ import { CreateGymEquipmentController } from './createGymEquipmentController'
 import { UpdateGymEquipmentController } from './updateGymEquipmentController'
 import { FetchGymEquipmentsController } from './fetchGymEquipmentsController'
 import { DeleteGymEquipmentController } from './deleteGymEquipmentController'
+import { isAuthenticate } from '@/middleware/isAuthenticate'
+import { checkUserRole } from '@/middleware/checkUserRole'
 
 const router = Router()
 
-router.post('/create-gym-equipment', CreateGymEquipmentController)
+router.post(
+  '/create',
+  [isAuthenticate, checkUserRole],
+  CreateGymEquipmentController,
+)
 
-router.get('/fetch-gym-equipments', FetchGymEquipmentsController)
+router.get('/all', isAuthenticate, FetchGymEquipmentsController)
 
-router.patch('/update-gym-equipment', UpdateGymEquipmentController)
+router.patch(
+  '/update',
+  [isAuthenticate, checkUserRole],
+  UpdateGymEquipmentController,
+)
 
-router.delete('/delete-gym-equipment', DeleteGymEquipmentController)
+router.delete(
+  '/delete',
+  [isAuthenticate, checkUserRole],
+  DeleteGymEquipmentController,
+)
 
 export { router as gymEquipmentRoutes }

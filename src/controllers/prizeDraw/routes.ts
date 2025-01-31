@@ -6,12 +6,12 @@ import { UpdatePrizeDrawController } from './updatePrizeDrawController'
 
 const router = Router()
 
-router.get('/prize-draws', FetchPrizeDrawsControllers)
+router.get('/all', FetchPrizeDrawsControllers)
 
-router.post('/create-prize', CreatePrizeDrawController)
+router.post('/create', CreatePrizeDrawController)
 
-router.post('/draw-participant', DrawParticipantWinnerController)
+router.post('/draw', DrawParticipantWinnerController)
 
-router.patch('/update-prize', UpdatePrizeDrawController)
+router.patch('/update', UpdatePrizeDrawController)
 
 export { router as prizeDrawRoutes }

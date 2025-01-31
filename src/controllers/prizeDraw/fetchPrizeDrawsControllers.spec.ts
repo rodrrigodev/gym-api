@@ -9,7 +9,7 @@ describe('fetch prize draws test', () => {
     await testHelper.createPrizeDraw()
 
     const { body, status } = await request(app)
-      .get('/prize-draws')
+      .get('/prize/all')
       .query({ page: 1 })
       .set('Authorization', `Bearer ${token}`)
 

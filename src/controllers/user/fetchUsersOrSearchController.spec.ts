@@ -6,10 +6,12 @@ import { testHelper } from '@/tests/testHelper'
 describe('fetch users test', () => {
   it('should be able to fetch users', async () => {
     await testHelper.createRandomUsers()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .get('/users')
+      .get('/user/all')
       .query({ page: 1, query: null })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('users')
@@ -20,10 +22,12 @@ describe('fetch users test', () => {
 
   it('should be able to fetch users', async () => {
     await testHelper.createRandomUsers()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .get('/users')
+      .get('/user/all')
       .query({ page: 1, query: 'roe0' })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('users')

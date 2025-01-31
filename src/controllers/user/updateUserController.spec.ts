@@ -9,7 +9,7 @@ describe('update user test', () => {
     const user = await testHelper.createRandomUsers()
 
     const { body, status } = await request(app)
-      .patch('/update-user')
+      .patch('/user/update')
       .send({
         id: user[8].id,
         email: 'john_doeII@email.com',

@@ -8,9 +8,10 @@ describe('create an equipment tracking test', () => {
     const users = await testHelper.createRandomUsers()
     const userProgress = await testHelper.createRandomUsersProgress(users)
     const gymEquipments = await testHelper.createGymEquipments()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .post('/create-equipment-tracking')
+      .post('/tracking/create')
       .send({
         actualWeight: 5,
         initialWeight: 5,
@@ -18,6 +19,7 @@ describe('create an equipment tracking test', () => {
         userProgressId: userProgress[0].id,
         active: true,
       })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(201)
     expect(body).toHaveProperty('actual_weight')

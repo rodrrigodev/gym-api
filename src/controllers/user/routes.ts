@@ -12,24 +12,24 @@ import { GetLuckyNumberController } from './getLuckyNumberController'
 
 const router = Router()
 
-router.post(
-  '/create-user',
+router.post('/create', [isAuthenticate, checkUserRole], createUserController)
+
+router.get(
+  '/all',
   [isAuthenticate, checkUserRole],
-  createUserController,
+  FetchUsersOrSearchController,
 )
 
-router.get('/users', FetchUsersOrSearchController)
-
-router.get('/user/:id', FetchUserDetailsController)
+router.get('/:id', isAuthenticate, FetchUserDetailsController)
 
 router.post('/refresh-token', RefreshTokenController)
 
-router.post('/login', AuthenticateController)
+router.post('/auth', AuthenticateController)
 
-router.post('/lucky-number', GetLuckyNumberController)
+router.post('/lucky-number', isAuthenticate, GetLuckyNumberController)
 
-router.patch('/update-user', UpdateUserController)
+router.patch('/update', [isAuthenticate, checkUserRole], UpdateUserController)
 
-router.delete('/delete-user', DeleteUserController)
+router.delete('/delete', [isAuthenticate, checkUserRole], DeleteUserController)
 
 export { router as userRoutes }

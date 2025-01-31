@@ -4,8 +4,8 @@ import { UpdateActivityController } from './updateActivityController'
 
 const router = Router()
 
-router.post('/create-activity', CreateActivityController)
+router.post('/create', CreateActivityController)
 
-router.patch('/update-activity', UpdateActivityController)
+router.patch('/update', UpdateActivityController)
 
 export { router as activityRoutes }

@@ -9,7 +9,7 @@ describe('create prize draw test', () => {
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .post('/create-prize')
+      .post('/prize/create')
       .send({
         prize: 'Protein kit',
         status: 'waiting',

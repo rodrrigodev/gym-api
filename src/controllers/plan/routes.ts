@@ -6,12 +6,12 @@ import { UpdatePlanController } from './updatePlanController'
 
 const router = Router()
 
-router.post('/create-plan', CreatePlanController)
+router.post('/create', CreatePlanController)
 
-router.get('/fetch-plans', FetchPlansController)
+router.get('/all', FetchPlansController)
 
-router.delete('/delete-plan', DeletePlanController)
+router.delete('/delete', DeletePlanController)
 
-router.patch('/update-plan', UpdatePlanController)
+router.patch('/update', UpdatePlanController)
 
 export { router as planRoutes }

@@ -8,7 +8,7 @@ describe('create user test', () => {
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .post('/create-user')
+      .post('/user/create')
       .send({
         email: 'john_smith@email.com',
         name: 'John Smith',

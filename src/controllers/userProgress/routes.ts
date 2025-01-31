@@ -4,8 +4,8 @@ import { UpdateUserProgressController } from './updateUserProgressController'
 
 const router = Router()
 
-router.post('/create-progress', CreateUserProgressController)
+router.post('/create', CreateUserProgressController)
 
-router.patch('/update-progress', UpdateUserProgressController)
+router.patch('/update', UpdateUserProgressController)
 
 export { router as userProgressRoutes }

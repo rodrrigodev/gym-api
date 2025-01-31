@@ -6,10 +6,12 @@ import { testHelper } from '@/tests/testHelper'
 describe('fetch gym equipments test', () => {
   it('should be able to fetch gym equipments', async () => {
     await testHelper.createGymEquipments()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .get('/fetch-gym-equipments')
+      .get('/equipments/all')
       .query({ category: 'legs' })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveLength(1)

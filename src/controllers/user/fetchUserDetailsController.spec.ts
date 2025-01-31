@@ -6,8 +6,11 @@ import { testHelper } from '@/tests/testHelper'
 describe('fetch user details test', () => {
   it('should be able to fetch user details', async () => {
     const users = await testHelper.createRandomUsers()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
-    const { body, status } = await request(app).get(`/user/${users[15].id}`)
+    const { body, status } = await request(app)
+      .get(`/user/${users[15].id}`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('user')
@@ -16,9 +19,11 @@ describe('fetch user details test', () => {
 
   it('should be able to fetch user details', async () => {
     const users = await testHelper.createRandomUsers()
-    await testHelper.createRandomUsersProgress(users)
+    const token = await testHelper.createAndAuthenticateUser(app)
 
-    const { body, status } = await request(app).get(`/user/${users[15].id}`)
+    const { body, status } = await request(app)
+      .get(`/user/${users[15].id}`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('user')

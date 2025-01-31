@@ -10,7 +10,7 @@ describe('draw participant winner test', () => {
     const prize = await testHelper.createPrizeDraw()
 
     const { body, status } = await request(app)
-      .post('/draw-participant')
+      .post('/prize/draw')
       .send({
         prizeDrawId: prize.id,
       })

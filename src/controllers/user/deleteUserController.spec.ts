@@ -9,7 +9,7 @@ describe('delete user test', () => {
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .delete('/delete-user')
+      .delete('/user/delete')
       .send({
         id: users[0].id,
       })

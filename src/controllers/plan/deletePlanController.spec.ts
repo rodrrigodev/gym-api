@@ -6,9 +6,14 @@ import { testHelper } from '@/tests/testHelper'
 describe('delete plan test', () => {
   it('should be able to delete a plan', async () => {
     const plans = await testHelper.createPlans()
-    const { body, status } = await request(app).delete('/delete-plan').send({
-      id: plans[0].id,
-    })
+    const token = await testHelper.createAndAuthenticateUser(app)
+
+    const { body, status } = await request(app)
+      .delete('/plan/delete')
+      .send({
+        id: plans[0].id,
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body.message).toEqual(

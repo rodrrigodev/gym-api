@@ -6,8 +6,11 @@ import { testHelper } from '@/tests/testHelper'
 describe('fetch plans test', () => {
   it('should be able to fetch plans', async () => {
     await testHelper.createPlans()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
-    const { body, status } = await request(app).get('/fetch-plans')
+    const { body, status } = await request(app)
+      .get('/plan/all')
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveLength(2)

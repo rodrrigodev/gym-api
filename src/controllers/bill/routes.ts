@@ -6,12 +6,12 @@ import { UpdateBillController } from './updateBillController'
 
 const router = Router()
 
-router.post('/create-bill', CreateBillController)
+router.post('/create', CreateBillController)
 
-router.get('/fetch-bills', FetchBillsController)
+router.get('/all', FetchBillsController)
 
-router.delete('/delete-bill', DeleteBillController)
+router.delete('/delete', DeleteBillController)
 
-router.patch('/update-bill', UpdateBillController)
+router.patch('/update', UpdateBillController)
 
 export { router as billRoutes }

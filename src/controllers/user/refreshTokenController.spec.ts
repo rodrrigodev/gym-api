@@ -3,11 +3,11 @@ import request from 'supertest'
 import { app } from '@/app'
 import { testHelper } from '@/tests/testHelper'
 
-describe('authenticate user test', () => {
-  it('should be able to refresh a token a user', async () => {
+describe('refresh token test', () => {
+  it('should be able to refresh a token', async () => {
     await testHelper.createAndAuthenticateUser(app)
 
-    const loginResponse = await request(app).post('/login').send({
+    const loginResponse = await request(app).post('/user/auth').send({
       email: 'jane_smith@email.com',
       password: '12345678',
     })
@@ -15,7 +15,7 @@ describe('authenticate user test', () => {
     const cookies = loginResponse.headers['set-cookie']
 
     const { body, status } = await request(app)
-      .post('/refresh-token')
+      .post('/user/refresh-token')
       .set('Cookie', cookies)
 
     expect(status).toBe(200)

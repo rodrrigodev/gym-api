@@ -7,15 +7,22 @@ describe('update activity test', () => {
   it('should be able to update an activity', async () => {
     const users = await testHelper.createRandomUsers()
     const usersProgresses = await testHelper.createRandomUsersProgress(users)
+    const token = await testHelper.createAndAuthenticateUser(app)
 
-    const activity = await request(app).post('/create-activity').send({
-      userProgressId: usersProgresses[5].id,
-    })
+    const activity = await request(app)
+      .post('/activity/create')
+      .send({
+        userProgressId: usersProgresses[5].id,
+      })
+      .set('Authorization', `Bearer ${token}`)
 
-    const { body, status } = await request(app).patch('/update-activity').send({
-      activityId: activity.body.id,
-      finishedAt: null,
-    })
+    const { body, status } = await request(app)
+      .patch('/activity/update')
+      .send({
+        activityId: activity.body.id,
+        finishedAt: null,
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('workout')

@@ -10,7 +10,7 @@ describe('update prize draw test', () => {
     const prize = await testHelper.createPrizeDraw()
 
     const { body, status } = await request(app)
-      .patch('/update-prize')
+      .patch('/prize/update')
       .send({
         id: prize.id,
         prize: 'Protein kit',

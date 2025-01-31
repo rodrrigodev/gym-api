@@ -20,20 +20,20 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.use('/', userRoutes)
+app.use('/user', userRoutes)
 
-app.use('/', userProgressRoutes)
+app.use('/progress', isAuthenticate, userProgressRoutes)
 
-app.use('/', billRoutes)
+app.use('/bill', [isAuthenticate, checkUserRole], billRoutes)
 
-app.use('/', activityRoutes)
+app.use('/activity', isAuthenticate, activityRoutes)
 
-app.use('/', planRoutes)
+app.use('/plan', [isAuthenticate, checkUserRole], planRoutes)
 
-app.use('/', gymEquipmentRoutes)
+app.use('/equipments', gymEquipmentRoutes)
 
-app.use('/', equipmentTracking)
+app.use('/tracking', equipmentTracking)
 
-app.use('/', [isAuthenticate, checkUserRole], prizeDrawRoutes)
+app.use('/prize', [isAuthenticate, checkUserRole], prizeDrawRoutes)
 
 app.use(errorHandler)

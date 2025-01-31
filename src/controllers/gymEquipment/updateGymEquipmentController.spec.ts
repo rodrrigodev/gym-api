@@ -6,9 +6,10 @@ import { testHelper } from '@/tests/testHelper'
 describe('update gym equipment test', () => {
   it('should be able to update a gym equipment', async () => {
     const gymEquipments = await testHelper.createGymEquipments()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .patch('/update-gym-equipment')
+      .patch('/equipments/update')
       .send({
         id: gymEquipments[0].id,
         name: 'Leg Curl Machine',
@@ -19,6 +20,7 @@ describe('update gym equipment test', () => {
         status: 'broken',
         last_maintenance: new Date('2024-11-15:10:15:00'),
       })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body.name).toEqual(expect.stringContaining('Leg Curl Machine'))

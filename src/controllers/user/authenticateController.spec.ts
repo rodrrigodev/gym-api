@@ -7,7 +7,7 @@ describe('authenticate user test', () => {
   it('should be able to authenticate a user', async () => {
     await testHelper.createAndAuthenticateUser(app)
 
-    const { body, status } = await request(app).post('/login').send({
+    const { body, status } = await request(app).post('/user/auth').send({
       email: 'jane_smith@email.com',
       password: '12345678',
     })

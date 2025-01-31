@@ -6,13 +6,17 @@ import { testHelper } from '@/tests/testHelper'
 describe('fetch bills test', () => {
   it('should be able to fetch bills', async () => {
     await testHelper.createBills()
+    const token = await testHelper.createAndAuthenticateUser(app)
 
-    const { body, status } = await request(app).get('/fetch-bills').query({
-      name: null,
-      category: null,
-      period: 30,
-      page: 1,
-    })
+    const { body, status } = await request(app)
+      .get('/bill/all')
+      .query({
+        name: null,
+        category: null,
+        period: 30,
+        page: 1,
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('bills')
