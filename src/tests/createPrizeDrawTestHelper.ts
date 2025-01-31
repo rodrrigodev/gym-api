@@ -3,23 +3,20 @@ import { PrizeDrawRepository } from '@/repositories/interfaces/prizeDrawReposito
 export async function createPrizeDrawTestHelper(
   prizeDrawRepository: PrizeDrawRepository,
 ) {
-  await prizeDrawRepository.createPrizeDraw({
-    prize: 'Garrafa violetfit 1.5',
-    status: 'waiting',
-    finished_at: new Date(2023, 7, 10),
-  })
+  const prizeDraws = [
+    { prize: 'Garrafa violetfit 1.5', status: 'waiting' },
+    { prize: 'T-shirt violetfit', status: 'finished' },
+    { prize: 'Capinha violetfit', status: 'waiting' },
+  ]
 
-  await prizeDrawRepository.createPrizeDraw({
-    prize: 'T-shirt violetfit',
-    status: 'finished',
-    finished_at: new Date(2023, 7, 10),
-  })
+  const results = await Promise.all(
+    prizeDraws.map((data) =>
+      prizeDrawRepository.createPrizeDraw({
+        ...data,
+        finished_at: new Date(2023, 7, 10),
+      }),
+    ),
+  )
 
-  const prizeDraw = await prizeDrawRepository.createPrizeDraw({
-    prize: 'Capinha violetfit',
-    status: 'waiting',
-    finished_at: new Date(2023, 7, 10),
-  })
-
-  return prizeDraw
+  return results[2]
 }

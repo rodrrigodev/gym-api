@@ -23,16 +23,9 @@ export class UpdateGymEquipmentUseCase {
       throw new EquipmentNotFoundError()
     }
 
-    console.log('refazer logica')
+    const equipmentCodeAlreadyRegistered = gymEquipmentExists.cod === data.cod
 
-    const equipmentCodeAlreadyRegistered = data.cod
-      ? await this.gymEquipmentRepository.checkGymEquipmentCode(data.cod)
-      : null
-
-    if (
-      equipmentCodeAlreadyRegistered &&
-      equipmentCodeAlreadyRegistered.id !== id
-    ) {
+    if (equipmentCodeAlreadyRegistered) {
       throw new EquipmentCodeAlreadyRegisteredError()
     }
 

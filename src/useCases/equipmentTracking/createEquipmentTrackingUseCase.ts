@@ -21,9 +21,9 @@ export class CreateEquipmentTrackingUseCase {
   ) {}
 
   async execute({
+    initialWeight,
     actualWeight,
     gymEquipmentId,
-    initialWeight,
     userProgressId,
     active,
   }: CreateEquipmentTrackingRequest) {
@@ -55,7 +55,7 @@ export class CreateEquipmentTrackingUseCase {
       await this.equipmentTrackingRepository.createEquipmentTracking({
         actual_weight: actualWeight,
         initial_weight: initialWeight,
-        user_progress_id: userProgressId,
+        user_progress_id: userProgressExists.id,
         gym_equipment_id: gymEquipmentId,
         active,
       })

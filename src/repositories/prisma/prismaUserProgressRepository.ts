@@ -19,9 +19,7 @@ export class PrismaUserProgressRepository implements UserProgressRepository {
         max_streak_reached: 0,
       },
     })
-    console.log(
-      'Checar esse use case e vê como esta sendo definido next_workout',
-    )
+
     return userProgress
   }
 

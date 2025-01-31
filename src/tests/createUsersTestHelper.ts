@@ -1,4 +1,5 @@
 import { UserRepository } from '@/repositories/interfaces/userRepository'
+import { getRandomLuckyNumber } from '@/utils/getRandomLuckyNumber'
 
 export async function createUsersTestHelper(userRepository: UserRepository) {
   const users = await Promise.all(
@@ -15,9 +16,15 @@ export async function createUsersTestHelper(userRepository: UserRepository) {
   )
 
   users.forEach(async (user) => {
-    await userRepository.getLuckyNumber(user.id, 'str')
-    await userRepository.getLuckyNumber(user.id, 'plan')
-    await userRepository.getLuckyNumber(user.id, 'ind')
+    const lucky_numbers = [
+      getRandomLuckyNumber(user.id, 'str'),
+      getRandomLuckyNumber(user.id, 'plan'),
+      getRandomLuckyNumber(user.id, 'ind'),
+    ]
+
+    await userRepository.updateUser(user.id, {
+      lucky_numbers,
+    })
   })
 
   const user = await userRepository.createUser({

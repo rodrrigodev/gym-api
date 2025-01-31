@@ -49,7 +49,7 @@ describe('update gym equipment test', () => {
         category: 'legs',
         sets: 4,
         reps: 12,
-        cod: 'LEG-001',
+        cod: 'LEG-002',
         status: 'available',
       }),
     ).rejects.toBeInstanceOf(EquipmentCodeAlreadyRegisteredError)

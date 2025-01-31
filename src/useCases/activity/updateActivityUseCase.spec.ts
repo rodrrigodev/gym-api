@@ -35,7 +35,7 @@ describe('update activity test', () => {
       created_at: new Date(),
     })
 
-    const { activityUpdated } = await sut.execute({
+    const activityUpdated = await sut.execute({
       activityId: activity.id,
       finishedAt: new Date('2023-10-11T17:40:00'),
     })
