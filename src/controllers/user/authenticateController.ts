@@ -42,7 +42,7 @@ export async function AuthenticateController(
       .send({ token })
   } catch (error) {
     if (error instanceof InvalidCredencialError) {
-      res.status(409).json({
+      res.status(401).json({
         message: error.message,
       })
     } else {

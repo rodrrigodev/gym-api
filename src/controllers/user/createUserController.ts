@@ -51,7 +51,7 @@ export async function createUserController(
       role,
     })
 
-    res.status(201).send(user)
+    res.status(201).send({ ...user, password: undefined })
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
       res.status(409).json({
