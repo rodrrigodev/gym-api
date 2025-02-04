@@ -13,10 +13,10 @@ export class FetchBillsUseCase {
 
   async execute({ period, name, category, page }: FetchBillsRequest) {
     const date = new Date()
-    const finalDate = new Date(date.setDate(date.getDate() - period))
+    const periodUpdated = new Date(date.setDate(date.getDate() - period))
 
     const bills = await this.billRepository.fetchBills({
-      period: finalDate,
+      period: periodUpdated,
       page,
       name,
       category,

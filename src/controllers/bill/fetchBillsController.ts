@@ -11,12 +11,12 @@ export async function FetchBillsController(
   const fetchBillsSchema = z.object({
     period: z.coerce.number(),
     page: z.coerce.number(),
-    name: z.string().nullable(),
-    category: z.string().nullable(),
+    name: z.string().optional(),
+    category: z.string().optional(),
   })
 
+  const { name, category, page, period } = fetchBillsSchema.parse(req.query)
   try {
-    const { name, category, page, period } = fetchBillsSchema.parse(req.query)
     const bills = await useMakeFetchBillsUseCase().execute({
       period,
       page,

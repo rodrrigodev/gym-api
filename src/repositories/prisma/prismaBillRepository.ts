@@ -15,7 +15,7 @@ export class PrismaBillRepository implements BillRepository {
         where: {
           category,
           name,
-          created_at: { lt: new Date(), lte: period },
+          created_at: { gte: period },
         },
       })) / 20,
     )
@@ -52,5 +52,9 @@ export class PrismaBillRepository implements BillRepository {
     })
 
     return billUpdated
+  }
+
+  async fetchAllBills() {
+    return await prisma.bill.findMany()
   }
 }

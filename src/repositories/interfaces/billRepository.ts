@@ -16,4 +16,6 @@ export interface BillRepository {
   deleteBill: (id: string) => Promise<string>
 
   fetchBills: (data: FetchBills) => Promise<{ bills: Bill[]; length: number }>
+
+  fetchAllBills: () => Promise<Bill[]>
 }

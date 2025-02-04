@@ -73,4 +73,8 @@ export class InMemoryBillRepository implements BillRepository {
       length: Math.ceil(filteredBills.length / 20),
     }
   }
+
+  async fetchAllBills() {
+    return this.bills
+  }
 }
