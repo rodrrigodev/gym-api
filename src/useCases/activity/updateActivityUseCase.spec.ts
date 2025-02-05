@@ -44,7 +44,6 @@ describe('update activity test', () => {
       new Date('2023-10-11T17:40:00'),
     )
     expect(activityUpdated?.workout).toEqual(expect.stringContaining('chest'))
-    console.log('criar um novo test')
   })
 
   it('should not be able to update an activity passing wrong activity id', async () => {
