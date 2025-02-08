@@ -4,6 +4,7 @@ import { CreateUserProgressUseCase } from './createUserProgressUseCase'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { UserProgressError } from '@/errors/userProgressError'
 import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
+import { UserNotFoundError } from '@/errors/userNotFoundError'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository
@@ -78,6 +79,6 @@ describe('create user progress test', () => {
         nextWorkout: null,
         userId: 'invalidId',
       }),
-    ).rejects.toBeInstanceOf(UserProgressError)
+    ).rejects.toBeInstanceOf(UserNotFoundError)
   })
 })

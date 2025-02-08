@@ -4,46 +4,43 @@ import { Prisma } from '@prisma/client'
 
 export class PrismaPrizeDrawRepository implements PrizeDrawRepository {
   async createPrizeDraw(data: Prisma.PrizeDrawCreateInput) {
-    const prize = await prisma.prizeDraw.create({
+    return await prisma.prizeDraw.create({
       data: {
         prize: data.prize,
         finished_at: data.finished_at,
         status: data.status,
       },
     })
-
-    return prize
   }
 
   async findPrizeDraw(id: string) {
-    const prizeDraw = await prisma.prizeDraw.findUnique({
+    return prisma.prizeDraw.findUnique({
       where: {
         id,
       },
     })
-
-    return prizeDraw
   }
 
   async fetchPrizeDraws(page: number) {
-    const prizeDraws = await prisma.prizeDraw.findMany({
-      skip: (page - 1) * 20,
-      take: 20,
-    })
+    const [prizeDraws, total] = await prisma.$transaction([
+      prisma.prizeDraw.findMany({
+        skip: (page - 1) * 20,
+        take: 20,
+      }),
+      prisma.prizeDraw.count(),
+    ])
 
-    return { prizeDraws, length: Math.ceil(prizeDraws.length) }
+    return { prizeDraws, length: Math.ceil(total / 20) }
   }
 
   async updatePrizeDraw(
     id: string,
     data: Prisma.PrizeDrawUncheckedUpdateInput,
   ) {
-    const prizeDrawUpdated = await prisma.prizeDraw.update({
+    return await prisma.prizeDraw.update({
       where: { id },
       data,
     })
-
-    return prizeDrawUpdated
   }
 
   async deletePrizeDraw(id: string) {

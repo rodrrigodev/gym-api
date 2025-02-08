@@ -14,6 +14,6 @@ describe('fetch prize draws test', () => {
       .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
-    expect(body).toHaveLength(3)
+    expect(body.prizeDraws).toHaveLength(3)
   })
 })

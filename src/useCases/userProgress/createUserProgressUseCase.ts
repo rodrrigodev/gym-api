@@ -1,3 +1,4 @@
+import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UserProgressError } from '@/errors/userProgressError'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 import { UserRepository } from '@/repositories/interfaces/userRepository'
@@ -22,14 +23,20 @@ export class CreateUserProgressUseCase {
     userId,
   }: CreateUserProgressRequest) {
     const userExists = await this.userRepository.findUserById(userId)
+
+    if (!userExists) {
+      throw new UserNotFoundError()
+    }
+
     const userProgressExists =
       await this.userProgressRepository.findUserProgressByUserId(userId)
 
-    if (!userExists || userProgressExists) {
+    if (userProgressExists) {
       throw new UserProgressError()
     }
+
     const progress = await this.userProgressRepository.createUserProgress({
-      user_id: userExists.id,
+      user_id: userId,
       current_goal: currentGoal,
       initial_weight: initialWeight,
       next_workout: nextWorkout,
