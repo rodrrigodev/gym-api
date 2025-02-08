@@ -52,4 +52,39 @@ export class InMemoryActivityRepository implements ActivityRepository {
 
     return activity || null
   }
+
+  async countActivities() {
+    const period = new Date()
+    period.setDate(period.getDate() - 7)
+
+    const activities = this.activities.filter(
+      (activity) => activity.finished_at && activity.finished_at >= period,
+    )
+
+    const resume = [
+      { category: 'chest', amount: 0 },
+      { category: 'back', amount: 0 },
+      { category: 'legs', amount: 0 },
+      { category: 'gluteus', amount: 0 },
+      { category: 'deltoids', amount: 0 },
+      { category: 'triceps', amount: 0 },
+      { category: 'forearm', amount: 0 },
+      { category: 'abs', amount: 0 },
+      { category: 'cardio', amount: 0 },
+      { category: 'biceps', amount: 0 },
+    ]
+
+    activities.forEach(({ workout }) => {
+      resume.forEach((exercise) => {
+        if (workout === exercise.category) {
+          exercise.amount++
+        }
+      })
+    })
+
+    return {
+      totalActivities: activities.length,
+      resume,
+    }
+  }
 }
