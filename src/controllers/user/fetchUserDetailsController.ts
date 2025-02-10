@@ -10,9 +10,9 @@ export async function FetchUserDetailsController(
 ) {
   const fetchUserSchema = z.object({ id: z.string().uuid() })
 
-  try {
-    const { id } = fetchUserSchema.parse(req.params)
+  const { id } = fetchUserSchema.parse(req.params)
 
+  try {
     const userDetails = await useMakeFetchUserDetailsUseCase().execute(id)
 
     res.status(200).send(userDetails)

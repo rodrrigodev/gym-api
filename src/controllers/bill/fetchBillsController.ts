@@ -15,13 +15,13 @@ export async function FetchBillsController(
     category: z.string().optional(),
   })
 
-  const { name, category, page, period } = fetchBillsSchema.parse(req.query)
   try {
+    const { name, category, page, period } = fetchBillsSchema.parse(req.query)
     const bills = await useMakeFetchBillsUseCase().execute({
       period,
       page,
-      name: name || undefined,
-      category: category || undefined,
+      name,
+      category,
     })
 
     res.status(200).send(bills)

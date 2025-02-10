@@ -22,7 +22,7 @@ export class FetchBillsUseCase {
       category,
     })
 
-    if (!bills.length) {
+    if (!bills.bills) {
       throw new BillsNotFoundError()
     }
 

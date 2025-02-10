@@ -6,6 +6,8 @@ import { testHelper } from '@/tests/testHelper'
 describe('fetch user details test', () => {
   it('should be able to fetch user details', async () => {
     const users = await testHelper.createRandomUsers()
+    await testHelper.createRandomUsersProgress(users)
+
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
@@ -19,6 +21,8 @@ describe('fetch user details test', () => {
 
   it('should be able to fetch user details', async () => {
     const users = await testHelper.createRandomUsers()
+    await testHelper.createRandomUsersProgress(users)
+
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)

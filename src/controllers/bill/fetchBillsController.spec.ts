@@ -11,8 +11,6 @@ describe('fetch bills test', () => {
     const { body, status } = await request(app)
       .get('/bill/all')
       .query({
-        name: null,
-        category: null,
         period: 30,
         page: 1,
       })
@@ -20,6 +18,6 @@ describe('fetch bills test', () => {
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('bills')
-    expect(body.bills[0].price).toEqual(expect.stringContaining('15.66'))
+    expect(body.bills[0].category).toEqual(expect.stringContaining('revenue'))
   })
 })
