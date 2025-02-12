@@ -13,12 +13,6 @@ describe('create user test', () => {
         email: 'john_smith@email.com',
         name: 'John Smith',
         password: '12345678',
-        nickname: null,
-        cellPhone: null,
-        birthDate: null,
-        weight: null,
-        height: null,
-        imageUrl: null,
         role: 'USER',
       })
       .set('Authorization', `Bearer ${token}`)

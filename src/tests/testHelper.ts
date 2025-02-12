@@ -2,8 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { Express } from 'express'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
-import { User } from '@prisma/client'
-import { setDate } from './setDate'
+import { User, UserProgress } from '@prisma/client'
+import { setDate } from '@/utils/setDate'
 
 export const testHelper = {
   createAndAuthenticateUser: async (app: Express) => {
@@ -38,6 +38,9 @@ export const testHelper = {
       data: Array.from({ length: 22 }, (_, i) => ({
         email: `richard_roe${i}@email.com`,
         name: `Richard Roe`,
+        nickname: `roe-${i}`,
+        height: 172,
+        current_weight: i < 15 ? 60 + i : 65 + i,
         password: '12345678',
         created_at: new Date(`2024-06-${i}:15:${i + 12}:${i + 20}`),
         lucky_numbers: i > 15 ? [`ind-${i}`] : undefined,
@@ -55,6 +58,7 @@ export const testHelper = {
           user_id: user.id,
           initial_weight: 65 + i,
           current_streak: i,
+          current_goal: 'slim down',
           max_streak_reached: i + 5,
           next_workout: i % 2 === 0 ? 'legs' : 'chest',
         },
@@ -66,25 +70,57 @@ export const testHelper = {
     return progress
   },
 
-  createPrizeDraw: async () => {
-    const date = setDate(15)
+  createRandomActivities: async (userProgress: UserProgress) => {
+    const date = new Date()
+    const exercises = [
+      'chest',
+      'back',
+      'legs',
+      'gluteus',
+      'deltoids',
+      'triceps',
+      'forearm',
+      'abs',
+      'cardio',
+      'biceps',
+    ]
 
+    await Promise.all(
+      Array.from({ length: 10 }, (_, i) =>
+        prisma.activity.create({
+          data: {
+            created_at: new Date(
+              date.setDate(
+                date.getDate() -
+                  Math.floor(Math.random() * exercises.length + 1),
+              ),
+            ),
+            workout: exercises[Math.floor(Math.random() * exercises.length)],
+            finished_at: setDate(i + 1, 'less'),
+            user_progress_id: userProgress.id,
+          },
+        }),
+      ),
+    )
+  },
+
+  createPrizeDraw: async () => {
     await prisma.prizeDraw.createMany({
       data: [
         {
           prize: 'Garrafa violetfit 1.5',
           status: 'waiting',
-          finished_at: date,
+          finished_at: setDate(15),
         },
         {
           prize: 'Capinha violetfit',
           status: 'waiting',
-          finished_at: new Date(date),
+          finished_at: setDate(15),
         },
         {
           prize: 'T-shirt violetfit',
           status: 'finished',
-          finished_at: new Date(date),
+          finished_at: setDate(15),
         },
       ],
     })
@@ -99,35 +135,33 @@ export const testHelper = {
   },
 
   createBills: async () => {
-    const date = new Date()
-
     await prisma.bill.createMany({
       data: [
         {
           name: 'Assinatura trimestral',
           price: '400.00',
           category: 'revenue',
-          created_at: new Date(date.setDate(date.getDate() - 29)),
+          created_at: setDate(29, 'less'),
         },
         {
           name: 'Sabão liquido',
           category: 'cleaning',
           price: '15.66',
-          created_at: new Date(date.setDate(date.getDate() - 10)),
+          created_at: setDate(10, 'less'),
         },
 
         {
           name: 'Products',
           category: 'cleaning',
           price: '38.25',
-          created_at: new Date(date.setDate(date.getDate() - 5)),
+          created_at: setDate(5, 'less'),
         },
 
         {
           name: 'Leg press machine',
           category: 'maintenance',
           price: '381.25',
-          created_at: new Date(date.setDate(date.getDate() - 25)),
+          created_at: setDate(25, 'less'),
         },
       ],
     })

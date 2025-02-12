@@ -5,12 +5,12 @@ import { createUsersTestHelper } from '@/tests/createUsersTestHelper'
 import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 import { InMemoryActivityRepository } from '@/repositories/inMemory/inMemoryActivityRepository'
 import { ResumeError } from '@/errors/resumeError'
-import { GetUserProgressResumeUseCase } from './getUserProgressResumeUseCase'
+import { FetchUserProgressResumeUseCase } from './fetchUserProgressResumeUseCase'
 
 let inMemoryUserRepository: InMemoryUserRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository
 let inMemoryActivityRepository: InMemoryActivityRepository
-let sut: GetUserProgressResumeUseCase
+let sut: FetchUserProgressResumeUseCase
 
 describe('update user progress test', () => {
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('update user progress test', () => {
     inMemoryUserProgressRepository = new InMemoryUserProgressRepository()
     inMemoryActivityRepository = new InMemoryActivityRepository()
 
-    sut = new GetUserProgressResumeUseCase(
+    sut = new FetchUserProgressResumeUseCase(
       inMemoryUserRepository,
       inMemoryUserProgressRepository,
       inMemoryActivityRepository,

@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { ActivityRepository } from '../interfaces/activityRepository'
+import { setDate } from '@/utils/setDate'
 
 export class PrismaActivityRepository implements ActivityRepository {
   async createActivity(data: Prisma.ActivityUncheckedCreateInput) {
@@ -30,5 +31,16 @@ export class PrismaActivityRepository implements ActivityRepository {
     })
 
     return activityPending
+  }
+
+  async fetchActivitiesByProgressId(progressId: string) {
+    const activities = await prisma.activity.findMany({
+      where: {
+        finished_at: { gte: setDate(7, 'less') },
+        user_progress_id: progressId,
+      },
+    })
+
+    return activities
   }
 }

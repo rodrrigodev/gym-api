@@ -24,7 +24,6 @@ describe('update user progress test', () => {
         id: users[5].id,
         initialWeight: 76,
         nextWorkout: 'back',
-        currentGoal: null,
         currentStreak: 7,
         maxStreakReached: 7,
       })

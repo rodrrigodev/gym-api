@@ -2,11 +2,12 @@ import { UserProgressError } from '@/errors/userProgressError'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 
 export interface UpdateUserProgressRequest {
-  initialWeight: number | null
-  nextWorkout: string | null
-  currentGoal: string | null
-  currentStreak: number | null
-  maxStreakReached: number | null
+  initialWeight?: number
+  nextWorkout?: string
+  currentGoal?: string
+  currentStreak?: number
+  maxStreakReached?: number
+  iaAnalyses?: string
 }
 
 export class UpdateUserProgressUseCase {
@@ -27,12 +28,15 @@ export class UpdateUserProgressUseCase {
           initial_weight:
             data.initialWeight ?? userProgressExists.initial_weight,
           next_workout: data.nextWorkout ?? userProgressExists.next_workout,
-          current_goal: data.currentGoal ?? userProgressExists.next_workout,
+          current_goal: data.currentGoal ?? userProgressExists.current_goal,
           current_streak:
-            data.currentStreak ?? Number(userProgressExists.current_goal),
+            data.currentStreak ?? userProgressExists.current_streak,
           max_streak_reached:
-            data.maxStreakReached ??
-            Number(userProgressExists.max_streak_reached),
+            data.maxStreakReached ?? userProgressExists.max_streak_reached,
+          ia_analyses: data.iaAnalyses ?? userProgressExists.ia_analyses,
+          ia_analyses_date: data.iaAnalyses
+            ? new Date()
+            : userProgressExists.ia_analyses_date,
         },
       )
 

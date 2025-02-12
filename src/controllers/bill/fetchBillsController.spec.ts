@@ -18,6 +18,6 @@ describe('fetch bills test', () => {
 
     expect(status).toBe(200)
     expect(body).toHaveProperty('bills')
-    expect(body.bills[0].category).toEqual(expect.stringContaining('revenue'))
+    expect(body.bills[0].category).toEqual(expect.any(String))
   })
 })

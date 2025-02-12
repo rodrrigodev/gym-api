@@ -14,8 +14,8 @@ export interface ActivityRepository {
 
   checkActivities: () => Promise<Activity | null>
 
-  countActivities: () => Promise<{
-    totalActivities: number
-    resume: { category: string; amount: number }[]
-  }>
+  fetchActivitiesByProgressId: (
+    progressId: string,
+    periodInDays?: number,
+  ) => Promise<Activity[]>
 }

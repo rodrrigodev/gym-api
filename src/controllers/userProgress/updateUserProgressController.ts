@@ -10,11 +10,12 @@ export async function UpdateUserProgressController(
 ) {
   const updateUserProgressSchema = z.object({
     id: z.string().uuid(),
-    initialWeight: z.number().nullable(),
-    nextWorkout: z.enum(['chest', 'legs', 'back']).nullable(),
-    currentGoal: z.enum(['slim down', 'bulk up']).nullable(),
-    currentStreak: z.number().nullable(),
-    maxStreakReached: z.number().nullable(),
+    initialWeight: z.number().optional(),
+    nextWorkout: z.enum(['chest', 'legs', 'back']).optional(),
+    currentGoal: z.enum(['slim down', 'bulk up']).optional(),
+    currentStreak: z.number().optional(),
+    maxStreakReached: z.number().optional(),
+    iaAnalyses: z.string().optional(),
   })
 
   try {
@@ -25,6 +26,7 @@ export async function UpdateUserProgressController(
       id,
       currentStreak,
       maxStreakReached,
+      iaAnalyses,
     } = updateUserProgressSchema.parse(request.body)
 
     const userProgressUpdated =
@@ -34,6 +36,7 @@ export async function UpdateUserProgressController(
         nextWorkout,
         currentStreak,
         maxStreakReached,
+        iaAnalyses,
       })
 
     response.status(200).send(userProgressUpdated)
