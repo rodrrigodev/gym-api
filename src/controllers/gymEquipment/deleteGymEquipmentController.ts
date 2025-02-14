@@ -8,12 +8,12 @@ export async function DeleteGymEquipmentController(
   res: Response,
   next: NextFunction,
 ) {
-  const deleteGymEquipmentSchema = z.object({
+  const deleteGym equipmentchema = z.object({
     id: z.string().uuid(),
   })
 
   try {
-    const { id } = deleteGymEquipmentSchema.parse(req.body)
+    const { id } = deleteGym equipmentchema.parse(req.body)
 
     const message = await useMakeDeleteGymEquipmentUseCase().execute(id)
 

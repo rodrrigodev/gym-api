@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { CreateGymEquipmentController } from './createGymEquipmentController'
 import { UpdateGymEquipmentController } from './updateGymEquipmentController'
-import { FetchGymEquipmentsController } from './fetchGymEquipmentsController'
+import { FetchGym equipmentController } from './fetchGym equipmentController'
 import { DeleteGymEquipmentController } from './deleteGymEquipmentController'
 import { isAuthenticate } from '@/middleware/isAuthenticate'
 import { checkUserRole } from '@/middleware/checkUserRole'
@@ -14,7 +14,7 @@ router.post(
   CreateGymEquipmentController,
 )
 
-router.get('/all', isAuthenticate, FetchGymEquipmentsController)
+router.get('/all', isAuthenticate, FetchGym equipmentController)
 
 router.patch(
   '/update',

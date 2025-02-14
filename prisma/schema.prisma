@@ -38,14 +38,13 @@ model User {
 
 model UserProgress {
   id                      String     @id @default(uuid())
-  initial_weight          Float?
-  next_workout            String?
-  last_workout            String?
-  ia_analyses             String?
-  ia_analyses_date        DateTime?
   current_goal            String?
+  initial_weight          Float?
+  workouts                Json[]     // ==> { id: , category: string, finished_at: Date | null }
   current_streak          Int
   max_streak_reached      Int
+  ia_analyses             String?
+  ia_analyses_date        DateTime?
 
   user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
@@ -56,12 +55,27 @@ model UserProgress {
   Activity Activity[]
 }
 
+model Training {
+  id                String @id @default(uuid())
+  level             String
+  category          String    // ==> Muscles
+  gym_equipment     String[]
+  type              String
+  age_group         String
+  gender            String
+
+  @@map("training")
+  Activity Activity[]
+}
+
 model Activity {
   id               String     @id @default(uuid())
-  workout          String
   created_at       DateTime
   finished_at      DateTime?
   
+  training          Training? @relation(fields: [training_id], references: [id])
+  training_id String?
+
   userProgress     UserProgress @relation(fields: [user_progress_id], references: [id], onDelete: Cascade)
   user_progress_id String      
 
@@ -95,7 +109,7 @@ model GymEquipment {
 
   EquipmentTracking EquipmentTracking[]
 
-  @@map("gym_equipments")
+  @@map("gym_equipment")
 }
 
 model PrizeDraw {

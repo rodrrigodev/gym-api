@@ -7,7 +7,7 @@ describe('create an equipment tracking test', () => {
   it('should be able to create an equipment tracking', async () => {
     const users = await testHelper.createRandomUsers()
     const userProgress = await testHelper.createRandomUsersProgress(users)
-    const gymEquipments = await testHelper.createGymEquipments()
+    const gym equipment = await testHelper.createGym equipment()
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
@@ -15,7 +15,7 @@ describe('create an equipment tracking test', () => {
       .send({
         actualWeight: 5,
         initialWeight: 5,
-        gymEquipmentId: gymEquipments[0].id,
+        gymEquipmentId: gym equipment[0].id,
         userProgressId: userProgress[0].id,
         active: true,
       })

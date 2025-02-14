@@ -1,5 +1,5 @@
-export class EquipmentsNotFoundError extends Error {
+export class equipmentNotFoundError extends Error {
   constructor() {
-    super('⚠️ Equipments not found!')
+    super('⚠️  equipment not found!')
   }
 }

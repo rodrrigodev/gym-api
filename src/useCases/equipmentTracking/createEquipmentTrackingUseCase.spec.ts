@@ -4,7 +4,7 @@ import { InMemoryEquipmentTrackingRepository } from '@/repositories/inMemory/inM
 import { CreateEquipmentTrackingUseCase } from './createEquipmentTrackingUseCase'
 import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemoryUserProgressRepository'
 import { EquipmentTrackingAlreadyExistsError } from '@/errors/equipmentTrackingAlreadyExistsError'
-import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
+import { equipmentNotFoundError } from '@/errors/ equipmentNotFoundError'
 import { UserProgressError } from '@/errors/userProgressError'
 import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
 import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
@@ -116,6 +116,6 @@ describe('create gym equipment tracking test', () => {
         userProgressId: userProgress.id,
         active: true,
       }),
-    ).rejects.toBeInstanceOf(EquipmentsNotFoundError)
+    ).rejects.toBeInstanceOf(equipmentNotFoundError)
   })
 })

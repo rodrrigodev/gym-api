@@ -181,7 +181,7 @@ export const testHelper = {
     return await prisma.plan.findMany()
   },
 
-  createGymEquipments: async () => {
+  createGym equipment: async () => {
     await prisma.gymEquipment.createMany({
       data: [
         {
@@ -221,16 +221,16 @@ export const testHelper = {
     const users = await testHelper.createRandomUsers()
     const userProgress = await testHelper.createRandomUsersProgress(users)
 
-    const gymEquipments = await testHelper.createGymEquipments()
+    const gym equipment = await testHelper.createGym equipment()
 
-    for (let i = 0; i < gymEquipments.length; i++) {
+    for (let i = 0; i < gym equipment.length; i++) {
       await prisma.equipmentTracking.createMany({
         data: [
           {
             actual_weight: i + 2,
             initial_weight: i + 2,
             user_progress_id: userProgress[i].id,
-            gym_equipment_id: gymEquipments[i].id,
+            gym_equipment_id: gym equipment[i].id,
             active: true,
           },
         ],

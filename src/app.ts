@@ -29,7 +29,7 @@ app.use('/activity', isAuthenticate, activityRoutes)
 
 app.use('/plan', [isAuthenticate, checkUserRole], planRoutes)
 
-app.use('/equipments', gymEquipmentRoutes)
+app.use('/ equipment', gymEquipmentRoutes)
 
 app.use('/tracking', equipmentTracking)
 

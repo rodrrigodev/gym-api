@@ -1,10 +1,10 @@
 import { PrismaGymEquipmentRepository } from '@/repositories/prisma/prismaGymEquipmentRepository'
-import { FetchGymEquipmentsUseCase } from '@/useCases/gymEquipment/fetchGymEquipmentsUseCase'
+import { FetchGym equipmentUseCase } from '@/useCases/gymEquipment/fetchGym equipmentUseCase'
 
 export function useMakeFetchGymEquipmentUseCase() {
   const prismaGymEquipmentRepository = new PrismaGymEquipmentRepository()
 
-  const fetchGymEquipmentUseCase = new FetchGymEquipmentsUseCase(
+  const fetchGymEquipmentUseCase = new FetchGym equipmentUseCase(
     prismaGymEquipmentRepository,
   )
 

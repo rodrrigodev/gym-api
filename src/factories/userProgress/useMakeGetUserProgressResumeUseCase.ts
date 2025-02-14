@@ -1,6 +1,6 @@
 import { PrismaUserRepository } from '@/repositories/prisma/prismaUserRepository'
 import { PrismaUserProgressRepository } from '@/repositories/prisma/prismaUserProgressRepository'
-import { GetUserProgressResumeUseCase } from '@/useCases/userProgress/fetchUserProgressResumeUseCase'
+import { FetchUserProgressResumeUseCase } from '@/useCases/userProgress/fetchUserProgressResumeUseCase'
 import { PrismaActivityRepository } from '@/repositories/prisma/prismaActivityRepository'
 
 export function useMakeGetUserProgressResumeUseCase() {
@@ -8,7 +8,7 @@ export function useMakeGetUserProgressResumeUseCase() {
   const prismaUserProgressRepository = new PrismaUserProgressRepository()
   const prismaActivityRepository = new PrismaActivityRepository()
 
-  const getUserProgressResumeUseCase = new GetUserProgressResumeUseCase(
+  const getUserProgressResumeUseCase = new FetchUserProgressResumeUseCase(
     prismaUserRepository,
     prismaUserProgressRepository,
     prismaActivityRepository,

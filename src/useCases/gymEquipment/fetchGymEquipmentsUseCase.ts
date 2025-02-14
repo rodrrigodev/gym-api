@@ -1,17 +1,17 @@
-import { EquipmentsNotFoundError } from '@/errors/equipmentsNotFoundError'
+import {  equipmentNotFoundError } from '@/errors/ equipmentNotFoundError'
 import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
 
-export class FetchGymEquipmentsUseCase {
+export class FetchGym equipmentUseCase {
   constructor(private gymEquipmentRepository: GymEquipmentRepository) {}
 
   async execute(category: string) {
-    const gymEquipments =
-      await this.gymEquipmentRepository.fetchGymEquipments(category)
+    const gym equipment =
+      await this.gymEquipmentRepository.fetchGym equipment(category)
 
-    if (!gymEquipments.length) {
-      throw new EquipmentsNotFoundError()
+    if (!gym equipment.length) {
+      throw new  equipmentNotFoundError()
     }
 
-    return gymEquipments
+    return gym equipment
   }
 }
