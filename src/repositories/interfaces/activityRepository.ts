@@ -14,7 +14,7 @@ export interface ActivityRepository {
 
   checkActivities: () => Promise<Activity | null>
 
-  fetchActivitiesByProgressId: (
+  fetchLastActivitiesByProgressId: (
     progressId: string,
     periodInDays?: number,
   ) => Promise<Activity[]>

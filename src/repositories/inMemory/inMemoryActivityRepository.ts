@@ -9,9 +9,9 @@ export class InMemoryActivityRepository implements ActivityRepository {
   async createActivity(data: Prisma.ActivityUncheckedCreateInput) {
     const activity = {
       id: randomUUID(),
-      workout: data.workout,
       created_at: new Date(),
       finished_at: data.finished_at ? new Date(data.finished_at) : null,
+      training_id: data.training_id || null,
       user_progress_id: data.user_progress_id,
     }
 
@@ -54,7 +54,7 @@ export class InMemoryActivityRepository implements ActivityRepository {
     return activity || null
   }
 
-  async fetchActivitiesByProgressId() {
+  async fetchLastActivitiesByProgressId() {
     return this.activities.filter(
       (activity) =>
         activity.finished_at && activity.finished_at >= setDate(7, 'less'),

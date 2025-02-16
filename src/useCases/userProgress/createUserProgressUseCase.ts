@@ -7,7 +7,7 @@ export interface CreateUserProgressRequest {
   userId: string
   initialWeight: number
   currentGoal: string
-  nextWorkout: string | null
+  workout: { id: string; category: string }
 }
 
 export class CreateUserProgressUseCase {
@@ -19,7 +19,7 @@ export class CreateUserProgressUseCase {
   async execute({
     currentGoal,
     initialWeight,
-    nextWorkout,
+    workout,
     userId,
   }: CreateUserProgressRequest) {
     const userExists = await this.userRepository.findUserById(userId)
@@ -39,7 +39,7 @@ export class CreateUserProgressUseCase {
       user_id: userId,
       current_goal: currentGoal,
       initial_weight: initialWeight,
-      next_workout: nextWorkout,
+      workouts: [{ ...workout, finished_at: null }],
       current_streak: 0,
       max_streak_reached: 0,
     })

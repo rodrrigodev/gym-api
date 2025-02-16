@@ -1,4 +1,4 @@
-import { equipmentNotFoundError } from '@/errors/ equipmentNotFoundError'
+import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
 import { EquipmentTrackingAlreadyExistsError } from '@/errors/equipmentTrackingAlreadyExistsError'
 import { UserProgressError } from '@/errors/userProgressError'
 import { EquipmentTrackingRepository } from '@/repositories/interfaces/equipmentTrackingRepository'
@@ -48,7 +48,7 @@ export class CreateEquipmentTrackingUseCase {
       await this.gymEquipmentRepository.findGymEquipment(gymEquipmentId)
 
     if (!gymEquipmentExists) {
-      throw new equipmentNotFoundError()
+      throw new EquipmentNotFoundError()
     }
 
     const gymEquipmentTracking =

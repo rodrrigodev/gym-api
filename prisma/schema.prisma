@@ -51,21 +51,8 @@ model UserProgress {
 
   EquipmentTracking EquipmentTracking[]
 
+  Activity Activity[]
   @@map("user_progress")
-  Activity Activity[]
-}
-
-model Training {
-  id                String @id @default(uuid())
-  level             String
-  category          String    // ==> Muscles
-  gym_equipment     String[]
-  type              String
-  age_group         String
-  gender            String
-
-  @@map("training")
-  Activity Activity[]
 }
 
 model Activity {
@@ -97,6 +84,20 @@ model EquipmentTracking {
   @@map("user_equipment_tracking")
 }
 
+model Training {
+  id          String   @id @default(uuid())
+  level       String
+  category    String  
+  type        String  
+  age_group   String
+  gender      String
+
+  gymEquipment TrainingGymEquipment[] 
+
+  @@map("training")
+  Activity Activity[]
+}
+
 model GymEquipment {
   id               String   @id @default(uuid())
   name             String
@@ -107,10 +108,22 @@ model GymEquipment {
   status           String
   last_maintenance DateTime
 
-  EquipmentTracking EquipmentTracking[]
+  training TrainingGymEquipment[] 
 
   @@map("gym_equipment")
+  EquipmentTracking EquipmentTracking[]
 }
+
+model TrainingGymEquipment {
+  trainingId     String
+  gymEquipmentId String
+
+  training     Training   @relation(fields: [trainingId], references: [id])
+  gymEquipment GymEquipment @relation(fields: [gymEquipmentId], references: [id])
+
+  @@id([trainingId, gymEquipmentId]) 
+}
+
 
 model PrizeDraw {
   id           String    @id @default(uuid())

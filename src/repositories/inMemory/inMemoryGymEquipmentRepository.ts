@@ -3,7 +3,7 @@ import { GymEquipmentRepository } from '../interfaces/gymEquipmentRepository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
-  private gym equipment: GymEquipment[] = []
+  private gymEquipment: GymEquipment[] = []
 
   async createGymEquipment({
     name,
@@ -25,13 +25,13 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
       last_maintenance: new Date(last_maintenance),
     }
 
-    this.gym equipment.push(gymEquipment)
+    this.gymEquipment.push(gymEquipment)
 
     return gymEquipment
   }
 
   async checkGymEquipmentCode(cod: string) {
-    const equipmentAlreadyRegistered = this.gym equipment.find((equipment) => {
+    const equipmentAlreadyRegistered = this.gymEquipment.find((equipment) => {
       return equipment.cod === cod
     })
 
@@ -39,7 +39,7 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
   }
 
   async updateGymEquipment(id: string, data: Prisma.GymEquipmentUpdateInput) {
-    const gym equipmentUpdated = this.gym equipment.map((equipment) => {
+    const gymEquipmentUpdated = this.gymEquipment.map((equipment) => {
       if (equipment.id === id) {
         return { ...equipment, ...data }
       } else {
@@ -47,37 +47,37 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
       }
     })
 
-    this.gym equipment = gym equipmentUpdated as GymEquipment[]
+    this.gymEquipment = gymEquipmentUpdated as GymEquipment[]
 
-    const gymEquipmentUpdated = this.gym equipment.find((equipment) => {
-      return equipment.id === id
-    })
-
-    return gymEquipmentUpdated || null
+    return (
+      this.gymEquipment.find((equipment) => {
+        return equipment.id === id
+      }) || null
+    )
   }
 
   async findGymEquipment(id: string) {
-    const equipmentExists = this.gym equipment.find((equipment) => {
+    const equipmentExists = this.gymEquipment.find((equipment) => {
       return equipment.id === id
     })
 
     return equipmentExists || null
   }
 
-  async fetchGym equipment(nextWorkout: string) {
-    const gym equipment = this.gym equipment.filter((equipment) => {
+  async fetchGymEquipment(nextWorkout: string) {
+    const gymEquipment = this.gymEquipment.filter((equipment) => {
       return equipment.category === nextWorkout
     })
 
-    return gym equipment || null
+    return gymEquipment || null
   }
 
   async deleteGymEquipment(equipmentId: string) {
-    const FilteredGym equipment = this.gym equipment.filter((equipment) => {
+    const FilteredGymEquipment = this.gymEquipment.filter((equipment) => {
       return equipment.id !== equipmentId
     })
 
-    this.gym equipment = FilteredGym equipment
+    this.gymEquipment = FilteredGymEquipment
 
     return 'Gym equipment deleted successfully!'
   }
