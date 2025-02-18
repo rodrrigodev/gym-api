@@ -2,12 +2,12 @@ import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRe
 import { TrainingAndGymEquipmentRepository } from '@/repositories/interfaces/trainingAndGymEquipmentRepository'
 import { TrainingRepository } from '@/repositories/interfaces/trainingRepository'
 
-interface CreateTrainingAndGymEquipmentUseCaseRequest {
+interface AddTrainingEquipmentUseCaseRequest {
   trainingId: string
   gymEquipmentIds: string[]
 }
 
-export class CreateTrainingAndGymEquipmentUseCase {
+export class AddTrainingEquipmentUseCase {
   constructor(
     private trainingAndGymEquipmentRepository: TrainingAndGymEquipmentRepository,
     private trainingRepository: TrainingRepository,
@@ -17,7 +17,7 @@ export class CreateTrainingAndGymEquipmentUseCase {
   async execute({
     trainingId,
     gymEquipmentIds,
-  }: CreateTrainingAndGymEquipmentUseCaseRequest) {
+  }: AddTrainingEquipmentUseCaseRequest) {
     const trainingExists =
       await this.trainingRepository.findTraining(trainingId)
 
@@ -32,9 +32,13 @@ export class CreateTrainingAndGymEquipmentUseCase {
       throw new Error()
     }
 
+    const equipmentIds = gymEquipmentExists.map((equipment) => {
+      return equipment.id
+    })
+
     await this.trainingAndGymEquipmentRepository.createTrainingAndGymEquipment({
       trainingId,
-      gymEquipmentIds,
+      gymEquipmentIds: equipmentIds,
     })
 
     return { trainingId, gymEquipment: gymEquipmentExists }

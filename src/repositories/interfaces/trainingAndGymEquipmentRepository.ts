@@ -1,16 +1,22 @@
-import { Prisma, TrainingGymEquipment } from '@prisma/client'
+import { TrainingGymEquipment } from '@prisma/client'
 
 export interface TrainingAndGymEquipmentRepository {
-  createTrainingAndGymEquipment: (
-    data: Prisma.TrainingGymEquipmentCreateManyInput,
-  ) => Promise<TrainingGymEquipment>
+  createTrainingAndGymEquipment: (data: {
+    trainingId: string
+    gymEquipmentIds: string[]
+  }) => Promise<string[]>
 
   fetchTrainingAndGymEquipment: (
-    page: number,
+    equipmentId: string,
   ) => Promise<TrainingGymEquipment[]>
 
-  updateTrainingAndGymEquipment: (
-    where: Prisma.TrainingGymEquipmentWhereUniqueInput,
-    data: Prisma.TrainingGymEquipmentUncheckedUpdateInput,
-  ) => Promise<TrainingGymEquipment>
+  addTrainingEquipment: (
+    trainingId: string,
+    gymEquipmentIds: string[],
+  ) => Promise<TrainingGymEquipment[]>
+
+  deleteTrainingEquipment: (
+    trainingId: string,
+    gymEquipmentIds: string[],
+  ) => Promise<string>
 }

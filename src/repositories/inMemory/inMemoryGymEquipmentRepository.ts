@@ -81,4 +81,8 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
 
     return 'Gym equipment deleted successfully!'
   }
+
+  async fetchGymEquipmentByIds(ids: string[]) {
+    return this.gymEquipment.filter((equipment) => ids.includes(equipment.id))
+  }
 }

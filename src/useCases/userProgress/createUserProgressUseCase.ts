@@ -7,7 +7,11 @@ export interface CreateUserProgressRequest {
   userId: string
   initialWeight: number
   currentGoal: string
-  workout: { id: string; category: string }
+  workout: {
+    id: string
+    category: string
+    finished_at: Date | null
+  }[]
 }
 
 export class CreateUserProgressUseCase {

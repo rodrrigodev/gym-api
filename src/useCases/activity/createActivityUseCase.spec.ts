@@ -25,7 +25,6 @@ describe('create activity test', () => {
     const userProgress =
       await inMemoryUserProgressRepository.createUserProgress({
         user_id: randomUUID(),
-        next_workout: 'legs',
         current_streak: 0,
         max_streak_reached: 0,
       })

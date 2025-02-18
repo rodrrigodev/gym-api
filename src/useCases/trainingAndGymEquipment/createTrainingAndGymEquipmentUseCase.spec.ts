@@ -35,8 +35,8 @@ describe('create training and gym equipment relation', () => {
     )
 
     const trainingAndGymEquipment = await sut.execute({
-      gymEquipmentId: gymEquipment.id,
       trainingId: training.id,
+      gymEquipmentIds: [gymEquipment.id],
     })
 
     console.log(trainingAndGymEquipment)

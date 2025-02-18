@@ -1,4 +1,4 @@
-import { Prisma, TrainingGymEquipment } from '@prisma/client'
+import { TrainingGymEquipment } from '@prisma/client'
 import { TrainingAndGymEquipmentRepository } from '../interfaces/trainingAndGymEquipmentRepository'
 
 export class InMemoryTrainingAndGymEquipmentRepository
@@ -6,16 +6,50 @@ export class InMemoryTrainingAndGymEquipmentRepository
 {
   private trainingAndGymEquipment: TrainingGymEquipment[] = []
 
-  async createTrainingAndGymEquipment(
-    data: Prisma.TrainingGymEquipmentCreateManyInput,
-  ) {
-    const trainingAndGymEquipment: TrainingGymEquipment = {
-      trainingId: data.trainingId,
-      gymEquipmentId: data.gymEquipmentId,
-    }
+  async createTrainingAndGymEquipment(data: {
+    trainingId: string
+    gymEquipmentIds: string[]
+  }) {
+    const gymEquipmentIds: string[] = []
 
-    this.trainingAndGymEquipment.push(trainingAndGymEquipment)
+    data.gymEquipmentIds.forEach((gymEquipmentId) => {
+      gymEquipmentIds.push(gymEquipmentId)
+      this.trainingAndGymEquipment.push({
+        trainingId: data.trainingId,
+        gymEquipmentId,
+      })
+    })
 
-    return trainingAndGymEquipment
+    return gymEquipmentIds
+  }
+
+  async fetchTrainingAndGymEquipment(equipmentId: string) {
+    return this.trainingAndGymEquipment.filter((item) => {
+      return item.gymEquipmentId === equipmentId
+    })
+  }
+
+  async addTrainingEquipment(trainingId: string, gymEquipmentIds: string[]) {
+    let trainingEquipment: TrainingGymEquipment[] = []
+
+    trainingEquipment = gymEquipmentIds.map((gymEquipmentId) => ({
+      trainingId,
+      gymEquipmentId,
+    }))
+
+    this.trainingAndGymEquipment.push(...trainingEquipment)
+    return trainingEquipment
+  }
+
+  async deleteTrainingEquipment(trainingId: string, gymEquipmentIds: string[]) {
+    this.trainingAndGymEquipment = this.trainingAndGymEquipment.filter(
+      (item) =>
+        !(
+          item.trainingId === trainingId &&
+          gymEquipmentIds.some((id) => item.gymEquipmentId === id)
+        ),
+    )
+
+    return 'Equipment deleted successfully!'
   }
 }
