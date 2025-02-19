@@ -1,4 +1,5 @@
 import { ActivityPendingError } from '@/errors/activityPendingError'
+import { InvalidTrainingError } from '@/errors/invalidTrainingError'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { ActivityRepository } from '@/repositories/interfaces/activityRepository'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
@@ -6,12 +7,6 @@ import { UserProgressRepository } from '@/repositories/interfaces/userProgressRe
 interface CreateActivityUseCaseRequest {
   userProgressId: string
   trainingId: string
-}
-
-type Workout = {
-  id: string
-  category: string
-  finished_at: Date | null
 }
 
 export class CreateActivityUseCase {
@@ -28,12 +23,12 @@ export class CreateActivityUseCase {
       throw new UserProgressNotFoundError()
     }
 
-    const trainingExists = (userProgressExists.workouts as Workout[]).find(
+    const trainingAlreadyExists = userProgressExists.workouts.find(
       (training) => training.id === trainingId,
     )
 
-    if (!trainingExists) {
-      throw new Error()
+    if (trainingAlreadyExists) {
+      throw new InvalidTrainingError()
     }
 
     const activityPending = await this.activityRepository.checkActivities()
@@ -44,7 +39,7 @@ export class CreateActivityUseCase {
 
     const activity = await this.activityRepository.createActivity({
       user_progress_id: userProgressId,
-      training_id: trainingExists.id,
+      training_id: trainingId,
       created_at: new Date(),
     })
 

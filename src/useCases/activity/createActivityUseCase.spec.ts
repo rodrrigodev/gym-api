@@ -5,6 +5,8 @@ import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemory
 import { randomUUID } from 'node:crypto'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { ActivityPendingError } from '@/errors/activityPendingError'
+import { InvalidTrainingError } from '@/errors/invalidTrainingError'
+import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 
 let inMemoryActivityRepository: InMemoryActivityRepository
 let inMemoryUserProgressRepository: InMemoryUserProgressRepository
@@ -22,48 +24,64 @@ describe('create activity test', () => {
   })
 
   it('should be able to create a activity', async () => {
-    const userProgress =
-      await inMemoryUserProgressRepository.createUserProgress({
-        user_id: randomUUID(),
-        current_streak: 0,
-        max_streak_reached: 0,
-      })
+    const userProgress = await createUserProgressTestHelper({
+      userId: randomUUID(),
+      userProgressRepository: inMemoryUserProgressRepository,
+    })
 
     const activity = await sut.execute({
       userProgressId: userProgress.id,
-      workout: userProgress.next_workout,
+      trainingId: randomUUID(),
     })
 
-    expect(activity.workout).toBe('legs')
+    expect(activity.training_id).toEqual(expect.any(String))
   })
 
   it('should not be able to create a activity passing wrong userProgressId', async () => {
     await expect(
       sut.execute({
         userProgressId: 'wrongId',
-        workout: 'legs',
+        trainingId: randomUUID(),
       }),
     ).rejects.toBeInstanceOf(UserProgressNotFoundError)
   })
 
-  it('should not be able to create a activity with an activity pending', async () => {
-    const userProgress =
-      await inMemoryUserProgressRepository.createUserProgress({
-        user_id: randomUUID(),
-        next_workout: 'legs',
-        current_streak: 0,
-        max_streak_reached: 0,
-      })
+  it('should not be able to create a activity passing wrong userProgressId', async () => {
+    const userProgress = await createUserProgressTestHelper({
+      userId: randomUUID(),
+      userProgressRepository: inMemoryUserProgressRepository,
+    })
+
+    const id = randomUUID()
 
     await sut.execute({
       userProgressId: userProgress.id,
-      workout: userProgress.next_workout,
+      trainingId: id,
+    })
+
+    await expect(
+      sut.execute({
+        userProgressId: 'wrongId',
+        trainingId: id,
+      }),
+    ).rejects.toBeInstanceOf(InvalidTrainingError)
+  })
+
+  it('should not be able to create a activity with an activity pending', async () => {
+    const userProgress = await createUserProgressTestHelper({
+      userId: randomUUID(),
+      userProgressRepository: inMemoryUserProgressRepository,
+    })
+
+    await sut.execute({
+      userProgressId: userProgress.id,
+      trainingId: randomUUID(),
     })
 
     await expect(
       sut.execute({
         userProgressId: userProgress.id,
-        workout: 'back',
+        trainingId: randomUUID(),
       }),
     ).rejects.toBeInstanceOf(ActivityPendingError)
   })

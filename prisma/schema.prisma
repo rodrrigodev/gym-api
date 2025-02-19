@@ -10,6 +10,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 model User {
   id             String        @id @default(uuid())
   email          String        @unique
@@ -40,6 +44,8 @@ model UserProgress {
   id                      String     @id @default(uuid())
   current_goal            String?
   initial_weight          Float?
+
+  /// [Workout]
   workouts                Json[]     // ==> { id: , category: string, finished_at: Date | null }
   current_streak          Int
   max_streak_reached      Int

@@ -1,4 +1,5 @@
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
+import { randomUUID } from 'node:crypto'
 
 interface CreateUserProgressTestHelper {
   userProgressRepository: UserProgressRepository
@@ -19,6 +20,7 @@ export async function createUserProgressTestHelper({
     max_streak_reached: max_streak || 0,
     initial_weight: 78,
     current_goal: 'slim down',
+    workouts: [{ id: randomUUID(), category: 'legs', finished_at: null }],
   })
 
   return userProgress
