@@ -1,9 +1,7 @@
-import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UserProgressError } from '@/errors/userProgressError'
 import { ActivityRepository } from '@/repositories/interfaces/activityRepository'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
 import { UserRepository } from '@/repositories/interfaces/userRepository'
-import { getDateDifference } from '@/utils/getDateDifference'
 
 export class FetchUserProgressResumeUseCase {
   constructor(
@@ -22,56 +20,45 @@ export class FetchUserProgressResumeUseCase {
 
     const user = await this.userRepository.findUserById(progress.user_id)
 
-    if (!user) throw new UserNotFoundError()
-
-    const activities =
-      await this.activityRepository.fetchActivitiesByProgressId(progress.id)
-
-    const exercisesResume = [
-      { category: 'chest', amount: 0 },
-      { category: 'back', amount: 0 },
-      { category: 'legs', amount: 0 },
-      { category: 'gluteus', amount: 0 },
-      { category: 'deltoids', amount: 0 },
-      { category: 'triceps', amount: 0 },
-      { category: 'forearm', amount: 0 },
-      { category: 'abs', amount: 0 },
-      { category: 'cardio', amount: 0 },
-      { category: 'biceps', amount: 0 },
-    ]
-
-    activities.forEach(({ workout }) => {
-      exercisesResume.forEach((exercise) => {
-        if (workout === exercise.category) {
-          exercise.amount++
-        }
-      })
-    })
-
-    const activitiesResume = {
-      totalActivities: activities.length,
-      resume: exercisesResume,
+    if (!user) {
+      throw new Error()
     }
 
-    let iaAnalysesDateAllowed =
-      progress.ia_analyses_date === null
-        ? true
-        : getDateDifference(progress.ia_analyses_date) >= 7
+    const period =
+      new Date().getDate() <= 10
+        ? new Date().getDate() + 10
+        : new Date().getDate()
 
-    iaAnalysesDateAllowed = !!(
-      progress.current_streak >= 3 && iaAnalysesDateAllowed
-    )
+    const activities =
+      await this.activityRepository.fetchLastActivitiesByProgressId(
+        progress.id,
+        period,
+      )
+
+    if (!activities) {
+      throw new Error()
+    }
+
+    const activitiesUpdated = activities.map((activity) => {
+      return {
+        id: activity.id,
+        created_at: activity.created_at,
+        finished_at: activity.finished_at,
+        training_id: activity.training_id,
+      }
+    })
 
     return {
-      userId: user.id,
-      nickname: user.nickname,
-      birthDate: user.birth_date,
-      initialWeight: progress.initial_weight,
-      currentWeight: user.current_weight,
-      height: user.height,
-      currentGoal: progress.current_goal,
-      activitiesResume,
-      iaAnalysesDateAllowed,
+      user: {
+        ...user,
+        password: undefined,
+      },
+      progress: {
+        ...progress,
+        user_id: undefined,
+        ai_allowed: progress.current_streak % 7 === 0,
+      },
+      activities: activitiesUpdated,
     }
   }
 }

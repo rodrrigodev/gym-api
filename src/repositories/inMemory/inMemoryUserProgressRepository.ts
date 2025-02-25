@@ -10,7 +10,9 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
       id: randomUUID(),
       current_goal: data.current_goal || null,
       initial_weight: data.initial_weight || null,
-      workouts: [],
+      workouts: data.workouts
+        ? [(data.workouts as PrismaJson.Workout[])[0]]
+        : [],
       current_streak: data.current_streak,
       max_streak_reached: data.max_streak_reached,
       ia_analyses: null,

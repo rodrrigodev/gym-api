@@ -23,24 +23,6 @@ export class InMemoryTrainingAndGymEquipmentRepository
     return gymEquipmentIds
   }
 
-  async fetchTrainingAndGymEquipment(equipmentId: string) {
-    return this.trainingAndGymEquipment.filter((item) => {
-      return item.gymEquipmentId === equipmentId
-    })
-  }
-
-  async addTrainingEquipment(trainingId: string, gymEquipmentIds: string[]) {
-    let trainingEquipment: TrainingGymEquipment[] = []
-
-    trainingEquipment = gymEquipmentIds.map((gymEquipmentId) => ({
-      trainingId,
-      gymEquipmentId,
-    }))
-
-    this.trainingAndGymEquipment.push(...trainingEquipment)
-    return trainingEquipment
-  }
-
   async deleteTrainingEquipment(trainingId: string, gymEquipmentIds: string[]) {
     this.trainingAndGymEquipment = this.trainingAndGymEquipment.filter(
       (item) =>

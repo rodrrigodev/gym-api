@@ -31,8 +31,8 @@ describe('update activity test', () => {
 
     const activity = await inMemoryActivityRepository.createActivity({
       user_progress_id: userProgress.id,
-      workout: userProgress.next_workout || 'legs',
       created_at: new Date(),
+      training_id: randomUUID(),
     })
 
     const activityUpdated = await sut.execute({
@@ -43,7 +43,6 @@ describe('update activity test', () => {
     expect(activityUpdated?.finished_at).toStrictEqual(
       new Date('2023-10-11T17:40:00'),
     )
-    expect(activityUpdated?.workout).toEqual(expect.stringContaining('chest'))
   })
 
   it('should not be able to update an activity passing wrong activity id', async () => {
@@ -54,7 +53,7 @@ describe('update activity test', () => {
 
     await inMemoryActivityRepository.createActivity({
       user_progress_id: userProgress.id,
-      workout: userProgress.next_workout || 'legs',
+      training_id: randomUUID(),
       created_at: new Date(),
     })
 

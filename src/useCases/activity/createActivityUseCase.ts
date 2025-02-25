@@ -1,5 +1,4 @@
 import { ActivityPendingError } from '@/errors/activityPendingError'
-import { InvalidTrainingError } from '@/errors/invalidTrainingError'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { ActivityRepository } from '@/repositories/interfaces/activityRepository'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
@@ -21,14 +20,6 @@ export class CreateActivityUseCase {
 
     if (!userProgressExists || !userProgressExists.workouts.length) {
       throw new UserProgressNotFoundError()
-    }
-
-    const trainingAlreadyExists = userProgressExists.workouts.find(
-      (training) => training.id === trainingId,
-    )
-
-    if (trainingAlreadyExists) {
-      throw new InvalidTrainingError()
     }
 
     const activityPending = await this.activityRepository.checkActivities()

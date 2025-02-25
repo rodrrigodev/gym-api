@@ -27,7 +27,7 @@ describe('update user progress test', () => {
     )
   })
 
-  it.skip('should be able to get user resume', async () => {
+  it('should be able to get user resume', async () => {
     const { id } = await createUsersTestHelper(inMemoryUserRepository)
 
     const progress = await createUserProgressTestHelper({

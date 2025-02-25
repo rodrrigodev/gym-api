@@ -5,7 +5,6 @@ import { InMemoryUserProgressRepository } from '@/repositories/inMemory/inMemory
 import { randomUUID } from 'node:crypto'
 import { UserProgressNotFoundError } from '@/errors/userProgressNotFoundError'
 import { ActivityPendingError } from '@/errors/activityPendingError'
-import { InvalidTrainingError } from '@/errors/invalidTrainingError'
 import { createUserProgressTestHelper } from '@/tests/createUserProgressTestHelper'
 
 let inMemoryActivityRepository: InMemoryActivityRepository
@@ -44,27 +43,6 @@ describe('create activity test', () => {
         trainingId: randomUUID(),
       }),
     ).rejects.toBeInstanceOf(UserProgressNotFoundError)
-  })
-
-  it('should not be able to create a activity passing wrong userProgressId', async () => {
-    const userProgress = await createUserProgressTestHelper({
-      userId: randomUUID(),
-      userProgressRepository: inMemoryUserProgressRepository,
-    })
-
-    const id = randomUUID()
-
-    await sut.execute({
-      userProgressId: userProgress.id,
-      trainingId: id,
-    })
-
-    await expect(
-      sut.execute({
-        userProgressId: 'wrongId',
-        trainingId: id,
-      }),
-    ).rejects.toBeInstanceOf(InvalidTrainingError)
   })
 
   it('should not be able to create a activity with an activity pending', async () => {

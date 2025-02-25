@@ -28,7 +28,7 @@ describe('create user progress test', () => {
     const progress = await sut.execute({
       currentGoal: 'slim down',
       initialWeight: 88,
-      workout: { id: randomUUID(), category: 'back' },
+      workouts: [{ id: randomUUID(), category: 'back' }],
       userId: user.id,
     })
 
@@ -42,7 +42,7 @@ describe('create user progress test', () => {
     await sut.execute({
       currentGoal: 'bulk up',
       initialWeight: 88,
-      workout: { id: randomUUID(), category: 'back' },
+      workouts: [{ id: randomUUID(), category: 'back' }],
       userId: user.id,
     })
 
@@ -50,7 +50,7 @@ describe('create user progress test', () => {
       sut.execute({
         currentGoal: 'bulk up',
         initialWeight: 88,
-        workout: { id: randomUUID(), category: 'back' },
+        workouts: [{ id: randomUUID(), category: 'back' }],
         userId: user.id,
       }),
     ).rejects.toBeInstanceOf(UserProgressError)
@@ -63,7 +63,7 @@ describe('create user progress test', () => {
       sut.execute({
         currentGoal: 'bulk up',
         initialWeight: 88,
-        workout: { id: randomUUID(), category: 'back' },
+        workouts: [{ id: randomUUID(), category: 'back' }],
         userId: 'invalidId',
       }),
     ).rejects.toBeInstanceOf(UserNotFoundError)
