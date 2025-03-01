@@ -64,12 +64,16 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
     return equipmentExists || null
   }
 
-  async fetchGymEquipment(nextWorkout: string) {
-    const gymEquipment = this.gymEquipment.filter((equipment) => {
-      return equipment.category === nextWorkout
-    })
+  async fetchGymEquipment(data: { ids: string[]; category?: string }) {
+    const gymEquipment = data.category
+      ? this.gymEquipment.filter((equipment) => {
+          return equipment.category === data.category
+        })
+      : this.gymEquipment.filter((equipment) => {
+          return data.ids.some((id) => equipment.id === id)
+        })
 
-    return gymEquipment || null
+    return gymEquipment
   }
 
   async deleteGymEquipment(equipmentId: string) {
@@ -82,7 +86,7 @@ export class InMemoryGymEquipmentRepository implements GymEquipmentRepository {
     return 'Gym equipment deleted successfully!'
   }
 
-  async fetchGymEquipmentByIds(ids: string[]) {
+  async findGymEquipmentByIds(ids: string[]) {
     return this.gymEquipment.filter((equipment) => ids.includes(equipment.id))
   }
 }

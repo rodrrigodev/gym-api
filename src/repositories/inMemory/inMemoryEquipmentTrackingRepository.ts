@@ -75,11 +75,24 @@ export class InMemoryEquipmentTrackingRepository
     return 'Equipment tracking deleted successfully!'
   }
 
-  async findEquipmentTracking(id: string) {
-    const equipmentTracking = this.equipmentTrackings.find((tracking) => {
-      return tracking.id === id
-    })
+  async fetchEquipmentTrackings(
+    equipmentIds: string[],
+    userProgressId: string,
+  ) {
+    return this.equipmentTrackings.filter((tracking) =>
+      equipmentIds.some(
+        (id) =>
+          tracking.gym_equipment_id === id &&
+          tracking.user_progress_id === userProgressId,
+      ),
+    )
+  }
 
-    return equipmentTracking || null
+  async findEquipmentTracking(id: string) {
+    return (
+      this.equipmentTrackings.find((equipment) => {
+        return equipment.id === id
+      }) || null
+    )
   }
 }

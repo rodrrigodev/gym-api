@@ -6,12 +6,21 @@ export interface TrainingAndGymEquipmentRepository {
     gymEquipmentIds: string[]
   }) => Promise<string[]>
 
-  findTrainingsAndGymEquipment: (
+  fetchTrainingsAndGymEquipment: (
     trainingIds: string[],
   ) => Promise<TrainingGymEquipment[]>
 
+  findTrainingsAndGymEquipment: (
+    trainingId: string,
+  ) => Promise<TrainingGymEquipment[]>
+
+  updateTrainingsAndGymEquipment: (data: {
+    trainingId: string
+    gymEquipmentId: string
+  }) => Promise<TrainingGymEquipment>
+
   deleteTrainingEquipment: (
     trainingId: string,
-    gymEquipmentIds: string[],
+    gymEquipmentId: string,
   ) => Promise<string>
 }

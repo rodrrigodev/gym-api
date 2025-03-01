@@ -23,15 +23,43 @@ export class InMemoryTrainingAndGymEquipmentRepository
     return gymEquipmentIds
   }
 
-  async deleteTrainingEquipment(trainingId: string, gymEquipmentIds: string[]) {
+  async deleteTrainingEquipment(trainingId: string, gymEquipmentId: string) {
     this.trainingAndGymEquipment = this.trainingAndGymEquipment.filter(
-      (item) =>
-        !(
-          item.trainingId === trainingId &&
-          gymEquipmentIds.some((id) => item.gymEquipmentId === id)
-        ),
+      (training) => {
+        return (
+          training.trainingId === trainingId &&
+          training.gymEquipmentId !== gymEquipmentId
+        )
+      },
     )
 
-    return 'Equipment deleted successfully!'
+    return 'Gym equipment removed from training!'
+  }
+
+  async fetchTrainingsAndGymEquipment(trainingIds: string[]) {
+    return this.trainingAndGymEquipment.filter((training) =>
+      trainingIds.some((id) => training.trainingId === id),
+    )
+  }
+
+  async findTrainingsAndGymEquipment(trainingId: string) {
+    return this.trainingAndGymEquipment.filter((training) => {
+      return training.trainingId === trainingId
+    })
+  }
+
+  async updateTrainingsAndGymEquipment(data: {
+    trainingId: string
+    gymEquipmentId: string
+  }) {
+    this.trainingAndGymEquipment.push({
+      gymEquipmentId: data.gymEquipmentId,
+      trainingId: data.trainingId,
+    })
+
+    return {
+      gymEquipmentId: data.gymEquipmentId,
+      trainingId: data.trainingId,
+    }
   }
 }

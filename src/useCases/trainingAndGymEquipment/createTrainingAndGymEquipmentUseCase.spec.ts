@@ -1,15 +1,16 @@
 import { beforeEach, describe, expect, it } from '@jest/globals'
-import { InvalidDateError } from '@/errors/invalidDateError'
 import { CreateTrainingAndGymEquipmentUseCase } from './createTrainingAndGymEquipmentUseCase'
 import { InMemoryTrainingAndGymEquipmentRepository } from '@/repositories/inMemory/inMemoryTrainingAndGymEquipmentRepository'
 import { InMemoryTrainingRepository } from '@/repositories/inMemory/inMemoryTrainingRepository'
 import { InMemoryGymEquipmentRepository } from '@/repositories/inMemory/inMemoryGymEquipmentRepository'
 import { createTrainingTestHelper } from '@/tests/createTrainingTestHelper'
 import { createGymEquipmentTestHelper } from '@/tests/createGymEquipmentTestHelper'
+import { TrainingNotFoundError } from '@/errors/trainingNotFoundError'
+import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
 
 let inMemoryTrainingAndGymEquipmentRepository: InMemoryTrainingAndGymEquipmentRepository
-let trainingRepository: InMemoryTrainingRepository
-let gymEquipmentRepository: InMemoryGymEquipmentRepository
+let inMemoryTrainingRepository: InMemoryTrainingRepository
+let inMemoryGymEquipmentRepository: InMemoryGymEquipmentRepository
 
 let sut: CreateTrainingAndGymEquipmentUseCase
 
@@ -18,47 +19,52 @@ describe('create training and gym equipment relation', () => {
     inMemoryTrainingAndGymEquipmentRepository =
       new InMemoryTrainingAndGymEquipmentRepository()
 
-    trainingRepository = new InMemoryTrainingRepository()
-    gymEquipmentRepository = new InMemoryGymEquipmentRepository()
+    inMemoryTrainingRepository = new InMemoryTrainingRepository()
+    inMemoryGymEquipmentRepository = new InMemoryGymEquipmentRepository()
 
     sut = new CreateTrainingAndGymEquipmentUseCase(
       inMemoryTrainingAndGymEquipmentRepository,
-      trainingRepository,
-      gymEquipmentRepository,
+      inMemoryTrainingRepository,
+      inMemoryGymEquipmentRepository,
     )
   })
 
   it('should be able to create training and gym equipment relation', async () => {
-    const training = await createTrainingTestHelper(trainingRepository)
+    const trainings = await createTrainingTestHelper(inMemoryTrainingRepository)
     const gymEquipment = await createGymEquipmentTestHelper(
-      gymEquipmentRepository,
+      inMemoryGymEquipmentRepository,
     )
 
     const trainingAndGymEquipment = await sut.execute({
-      trainingId: training.id,
+      trainingId: trainings[2].id,
       gymEquipmentIds: [gymEquipment.id],
     })
 
-    console.log(trainingAndGymEquipment)
+    expect(trainingAndGymEquipment.gymEquipment).toHaveLength(1)
+    expect(trainingAndGymEquipment.trainingId).toEqual(expect.any(String))
   })
 
-  it.skip('should not be able to create a prize draw', async () => {
+  it('should not be able to create training and gym equipment relation', async () => {
+    const gymEquipment = await createGymEquipmentTestHelper(
+      inMemoryGymEquipmentRepository,
+    )
+
     await expect(
       sut.execute({
-        prize: 'T-shirt violetfit',
-        status: 'waiting',
-        finishedAt: new Date(2023, 6, 10),
+        trainingId: 'wrongId',
+        gymEquipmentIds: [gymEquipment.id],
       }),
-    ).rejects.toBeInstanceOf(InvalidDateError)
+    ).rejects.toBeInstanceOf(TrainingNotFoundError)
   })
 
-  it.skip('should not be able to create a prize draw', async () => {
+  it('should not be able to create training and gym equipment relation', async () => {
+    const trainings = await createTrainingTestHelper(inMemoryTrainingRepository)
+
     await expect(
       sut.execute({
-        prize: 'T-shirt violetfit',
-        status: 'waiting',
-        finishedAt: new Date(2023, 7, 12),
+        trainingId: trainings[2].id,
+        gymEquipmentIds: ['wrongId'],
       }),
-    ).rejects.toBeInstanceOf(InvalidDateError)
+    ).rejects.toBeInstanceOf(EquipmentNotFoundError)
   })
 })

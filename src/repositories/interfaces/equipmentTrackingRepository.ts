@@ -10,7 +10,12 @@ export interface EquipmentTrackingRepository {
     userProgressId: string,
   ) => Promise<EquipmentTracking | null>
 
-  findEquipmentTrackings: (ids: string[]) => Promise<EquipmentTracking[]>
+  fetchEquipmentTrackings: (
+    equipmentIds: string[],
+    userProgressId: string,
+  ) => Promise<EquipmentTracking[]>
+
+  findEquipmentTracking: (id: string) => Promise<EquipmentTracking | null>
 
   updateEquipmentTracking: (
     id: string,

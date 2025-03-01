@@ -1,3 +1,4 @@
+import { UserNotFoundError } from '@/errors/userNotFoundError'
 import { UserProgressError } from '@/errors/userProgressError'
 import { ActivityRepository } from '@/repositories/interfaces/activityRepository'
 import { UserProgressRepository } from '@/repositories/interfaces/userProgressRepository'
@@ -21,7 +22,7 @@ export class FetchUserProgressResumeUseCase {
     const user = await this.userRepository.findUserById(progress.user_id)
 
     if (!user) {
-      throw new Error()
+      throw new UserNotFoundError()
     }
 
     const period =
@@ -34,10 +35,6 @@ export class FetchUserProgressResumeUseCase {
         progress.id,
         period,
       )
-
-    if (!activities) {
-      throw new Error()
-    }
 
     const activitiesUpdated = activities.map((activity) => {
       return {

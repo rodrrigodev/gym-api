@@ -10,7 +10,6 @@ export async function createTrainingTestHelper(
       level: 'Intermediate',
       age_group: '18-40',
       gender: 'Unisex',
-      gymEquipment: ['Dumbbells', 'Barbell', 'Bench Press'],
     },
     {
       category: 'Cardio',
@@ -18,7 +17,6 @@ export async function createTrainingTestHelper(
       level: 'Beginner',
       age_group: 'All Ages',
       gender: 'Unisex',
-      gymEquipment: ['Treadmill', 'Jump Rope', 'Stationary Bike'],
     },
     {
       category: 'Endurance',
@@ -26,7 +24,6 @@ export async function createTrainingTestHelper(
       level: 'Advanced',
       age_group: '18-50',
       gender: 'Unisex',
-      gymEquipment: ['Rowing Machine', 'Battle Ropes', 'Kettlebell'],
     },
   ]
 
@@ -42,5 +39,5 @@ export async function createTrainingTestHelper(
     ),
   )
 
-  return results[2]
+  return results
 }

@@ -1,3 +1,5 @@
+import { EquipmentNotFoundError } from '@/errors/equipmentNotFoundError'
+import { TrainingNotFoundError } from '@/errors/trainingNotFoundError'
 import { GymEquipmentRepository } from '@/repositories/interfaces/gymEquipmentRepository'
 import { TrainingAndGymEquipmentRepository } from '@/repositories/interfaces/trainingAndGymEquipmentRepository'
 import { TrainingRepository } from '@/repositories/interfaces/trainingRepository'
@@ -22,14 +24,14 @@ export class CreateTrainingAndGymEquipmentUseCase {
       await this.trainingRepository.findTraining(trainingId)
 
     if (!trainingExists) {
-      throw new Error()
+      throw new TrainingNotFoundError()
     }
 
     const gymEquipmentExists =
-      await this.gymEquipmentRepository.fetchGymEquipmentByIds(gymEquipmentIds)
+      await this.gymEquipmentRepository.findGymEquipmentByIds(gymEquipmentIds)
 
-    if (!gymEquipmentExists) {
-      throw new Error()
+    if (!gymEquipmentExists?.length) {
+      throw new EquipmentNotFoundError()
     }
 
     await this.trainingAndGymEquipmentRepository.createTrainingAndGymEquipment({

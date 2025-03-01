@@ -7,6 +7,8 @@ export interface TrainingRepository {
 
   findTraining: (id: string) => Promise<Training | null>
 
+  deleteTraining: (id: string) => Promise<string>
+
   updateTraining: (
     id: string,
     data: Prisma.TrainingUncheckedUpdateInput,

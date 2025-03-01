@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { TrainingRepository } from '../interfaces/trainingRepository'
 
 export class InMemoryTrainingRepository implements TrainingRepository {
-  private training: Training[] = []
+  private trainings: Training[] = []
 
   async createTraining(data: Prisma.TrainingCreateInput) {
     const training = {
@@ -16,13 +16,13 @@ export class InMemoryTrainingRepository implements TrainingRepository {
       gymEquipment: [data.gymEquipment],
     }
 
-    this.training.push(training)
+    this.trainings.push(training)
 
     return training
   }
 
   async updateTraining(id: string, data: Prisma.TrainingUncheckedUpdateInput) {
-    const trainingUpdated = this.training.map((training) => {
+    const trainingUpdated = this.trainings.map((training) => {
       if (training.id === id) {
         return { ...training, ...data }
       } else {
@@ -30,24 +30,32 @@ export class InMemoryTrainingRepository implements TrainingRepository {
       }
     })
 
-    this.training = trainingUpdated as Training[]
+    this.trainings = trainingUpdated as Training[]
 
     return (
-      this.training.find((training) => {
+      this.trainings.find((training) => {
         return training.id === id || null
       }) || null
     )
   }
 
   async fetchTrainings() {
-    return this.training
+    return this.trainings
   }
 
   async findTraining(id: string) {
     return (
-      this.training.find((training) => {
+      this.trainings.find((training) => {
         return training.id === id || null
       }) || null
     )
+  }
+
+  async deleteTraining(id: string) {
+    this.trainings = this.trainings.filter((training) => {
+      return training.id !== id
+    })
+
+    return 'Training deleted successfully!'
   }
 }
