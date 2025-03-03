@@ -45,4 +45,13 @@ export class PrismaEquipmentTrackingRepository
 
     return 'Equipment tracking deleted successfully!'
   }
+
+  async fetchEquipmentTrackings(
+    equipmentIds: string[],
+    userProgressId: string,
+  ) {
+    return await prisma.equipmentTracking.findMany({
+      where: { id: { in: equipmentIds }, user_progress_id: userProgressId },
+    })
+  }
 }

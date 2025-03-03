@@ -8,7 +8,7 @@ export async function CreateGymEquipmentController(
   res: Response,
   next: NextFunction,
 ) {
-  const createGym equipmentchema = z.object({
+  const createGymEquipmentSchema = z.object({
     name: z.string(),
     category: z.enum(['chest', 'legs', 'back']),
     sets: z.number(),
@@ -19,7 +19,7 @@ export async function CreateGymEquipmentController(
   })
 
   try {
-    const gymEquipmentData = createGym equipmentchema.parse(req.body)
+    const gymEquipmentData = createGymEquipmentSchema.parse(req.body)
 
     const gymEquipment =
       await useMakeCreateGymEquipmentUseCase().execute(gymEquipmentData)

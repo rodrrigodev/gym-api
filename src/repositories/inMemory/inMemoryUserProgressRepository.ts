@@ -6,7 +6,7 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
   private usersProgress: UserProgress[] = []
 
   async createUserProgress(data: Prisma.UserProgressUncheckedCreateInput) {
-    const newWorkout = {
+    const userProgress = {
       id: randomUUID(),
       current_goal: data.current_goal || null,
       initial_weight: data.initial_weight || null,
@@ -20,9 +20,9 @@ export class InMemoryUserProgressRepository implements UserProgressRepository {
       user_id: data.user_id,
     }
 
-    this.usersProgress.push(newWorkout)
+    this.usersProgress.push(userProgress)
 
-    return newWorkout
+    return userProgress
   }
 
   async findUserProgressByUserId(userId: string) {

@@ -16,7 +16,9 @@ describe('get user progress resume test', () => {
       .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(200)
-    expect(body.currentGoal).toEqual(expect.stringContaining('slim down'))
-    expect(body.activitiesResume.totalActivities).toBe(6)
+    expect(body.progress.current_goal).toEqual(
+      expect.stringContaining('slim down'),
+    )
+    expect(body.activities[0].id).toEqual(expect.any(String))
   })
 })

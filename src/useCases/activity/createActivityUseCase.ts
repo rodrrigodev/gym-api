@@ -18,15 +18,12 @@ export class CreateActivityUseCase {
     const userProgressExists =
       await this.userProgressRepository.findUserProgressById(userProgressId)
 
-    if (!userProgressExists || !userProgressExists.workouts.length) {
+    if (!userProgressExists || !userProgressExists.workouts.length)
       throw new UserProgressNotFoundError()
-    }
 
     const activityPending = await this.activityRepository.checkActivities()
 
-    if (activityPending) {
-      throw new ActivityPendingError()
-    }
+    if (activityPending) throw new ActivityPendingError()
 
     const activity = await this.activityRepository.createActivity({
       user_progress_id: userProgressId,

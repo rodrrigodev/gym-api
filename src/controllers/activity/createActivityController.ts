@@ -10,13 +10,15 @@ export async function CreateActivityController(
 ) {
   const createActivitySchema = z.object({
     userProgressId: z.string().uuid(),
+    trainingId: z.string().uuid(),
   })
 
   try {
-    const { userProgressId } = createActivitySchema.parse(req.body)
+    const { userProgressId, trainingId } = createActivitySchema.parse(req.body)
 
     const activity = await useMakeCreateActivityUseCase().execute({
       userProgressId,
+      trainingId,
     })
 
     res.status(201).send(activity)

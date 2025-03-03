@@ -7,17 +7,19 @@ describe('create activity test', () => {
   it('should be able to create an activity', async () => {
     const users = await testHelper.createRandomUsers()
     const usersProgresses = await testHelper.createRandomUsersProgress(users)
+    const training = await testHelper.createRandomTrainings()
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
       .post('/activity/create')
       .send({
         userProgressId: usersProgresses[5].id,
+        trainingId: training.id,
       })
       .set('Authorization', `Bearer ${token}`)
 
     expect(status).toBe(201)
-    expect(body).toHaveProperty('workout')
+    expect(body).toHaveProperty('id')
     expect(body.finished_at).toBe(null)
   })
 })

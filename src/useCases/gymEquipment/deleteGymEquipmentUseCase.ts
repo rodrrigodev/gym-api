@@ -12,11 +12,8 @@ export class DeleteGymEquipmentUseCase {
       throw new EquipmentNotFoundError()
     }
 
-    const gymEquipmentUpdated =
-      await this.gymEquipmentRepository.deleteGymEquipment(
-        gymEquipmentExists.id,
-      )
-
-    return gymEquipmentUpdated
+    return await this.gymEquipmentRepository.deleteGymEquipment(
+      gymEquipmentExists.id,
+    )
   }
 }

@@ -5,9 +5,13 @@ import { setDate } from '@/utils/setDate'
 
 export class PrismaActivityRepository implements ActivityRepository {
   async createActivity(data: Prisma.ActivityUncheckedCreateInput) {
-    const activity = await prisma.activity.create({ data })
-
-    return activity
+    return await prisma.activity.create({
+      data: {
+        created_at: data.created_at,
+        training_id: data.training_id,
+        user_progress_id: data.user_progress_id,
+      },
+    })
   }
 
   async findActivity(id: string) {
@@ -33,10 +37,13 @@ export class PrismaActivityRepository implements ActivityRepository {
     return activityPending
   }
 
-  async fetchActivitiesByProgressId(progressId: string) {
+  async fetchLastActivitiesByProgressId(
+    progressId: string,
+    periodInDays: number,
+  ) {
     const activities = await prisma.activity.findMany({
       where: {
-        finished_at: { gte: setDate(7, 'less') },
+        finished_at: { gte: setDate(periodInDays, 'less') },
         user_progress_id: progressId,
       },
     })

@@ -5,13 +5,13 @@ import { testHelper } from '@/tests/testHelper'
 
 describe('update gym equipment test', () => {
   it('should be able to update a gym equipment', async () => {
-    const gym equipment = await testHelper.createGym equipment()
+    const gymEquipment = await testHelper.createGymEquipment()
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .patch('/ equipment/update')
+      .patch('/equipment/update')
       .send({
-        id: gym equipment[0].id,
+        id: gymEquipment[0].id,
         name: 'Leg Curl Machine',
         category: 'legs',
         sets: 10,

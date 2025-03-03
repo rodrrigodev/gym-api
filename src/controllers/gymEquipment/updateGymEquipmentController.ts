@@ -8,7 +8,7 @@ export async function UpdateGymEquipmentController(
   res: Response,
   next: NextFunction,
 ) {
-  const updateGym equipmentchema = z.object({
+  const updateGymEquipmentSchema = z.object({
     id: z.string().uuid(),
     name: z.string().nullable(),
     category: z.enum(['chest', 'legs', 'back']).nullable(),
@@ -20,7 +20,7 @@ export async function UpdateGymEquipmentController(
   })
 
   try {
-    const gymEquipmentData = updateGym equipmentchema.parse(req.body)
+    const gymEquipmentData = updateGymEquipmentSchema.parse(req.body)
     const gymEquipment = await useMakeUpdateGymEquipmentUseCase().execute(
       gymEquipmentData.id,
       {

@@ -8,7 +8,7 @@ describe('create a gym equipment test', () => {
     const token = await testHelper.createAndAuthenticateUser(app)
 
     const { body, status } = await request(app)
-      .post('/ equipment/create')
+      .post('/equipment/create')
       .send({
         name: 'Leg Press 45',
         category: 'legs',

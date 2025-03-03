@@ -8,22 +8,23 @@ export async function CreateUserProgressController(
   response: Response,
   next: NextFunction,
 ) {
+  const workoutsSchema = z.object({ id: z.string(), category: z.string() })
   const createUserProgressSchema = z.object({
     userId: z.string().uuid(),
     initialWeight: z.number(),
     currentGoal: z.enum(['slim down', 'bulk up']),
-    nextWorkout: z.enum(['chest', 'legs', 'back']),
+    workouts: z.array(workoutsSchema),
   })
 
   try {
-    const { currentGoal, initialWeight, nextWorkout, userId } =
+    const { currentGoal, initialWeight, userId, workouts } =
       createUserProgressSchema.parse(request.body)
 
     const userProgress = await useMakeCreateUserProgressUseCase().execute({
       currentGoal,
       initialWeight,
-      nextWorkout,
       userId,
+      workouts,
     })
 
     response.status(201).send(userProgress)

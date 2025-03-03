@@ -27,14 +27,12 @@ describe('update user progress test', () => {
 
     const userProgressUpdated = await sut.execute(progress.user_id, {
       initialWeight: 82,
-      nextWorkout: 'legs',
       currentGoal: 'slim down',
       currentStreak: 0,
       maxStreakReached: 15,
     })
 
     expect(userProgressUpdated?.initial_weight).toBe(82)
-    expect(userProgressUpdated?.next_workout).toBe('legs')
   })
 
   it('should not be able to update user progress', async () => {
@@ -48,7 +46,6 @@ describe('update user progress test', () => {
     await expect(
       sut.execute('progressId', {
         initialWeight: 82,
-        nextWorkout: 'chest',
         currentGoal: 'slim down',
         currentStreak: 1,
         maxStreakReached: 5,

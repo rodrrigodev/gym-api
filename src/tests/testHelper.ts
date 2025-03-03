@@ -60,7 +60,13 @@ export const testHelper = {
           current_streak: i,
           current_goal: 'slim down',
           max_streak_reached: i + 5,
-          next_workout: i % 2 === 0 ? 'legs' : 'chest',
+          workouts: [
+            {
+              category: 'legs',
+              finished_at: new Date(),
+              id: `b3976917-eccf-4b26-a64${i}`,
+            },
+          ],
         },
       })
     }
@@ -95,7 +101,6 @@ export const testHelper = {
                   Math.floor(Math.random() * exercises.length + 1),
               ),
             ),
-            workout: exercises[Math.floor(Math.random() * exercises.length)],
             finished_at: setDate(i + 1, 'less'),
             user_progress_id: userProgress.id,
           },
@@ -181,7 +186,7 @@ export const testHelper = {
     return await prisma.plan.findMany()
   },
 
-  createGym equipment: async () => {
+  createGymEquipment: async () => {
     await prisma.gymEquipment.createMany({
       data: [
         {
@@ -221,16 +226,16 @@ export const testHelper = {
     const users = await testHelper.createRandomUsers()
     const userProgress = await testHelper.createRandomUsersProgress(users)
 
-    const gym equipment = await testHelper.createGym equipment()
+    const gymEquipment = await testHelper.createGymEquipment()
 
-    for (let i = 0; i < gym equipment.length; i++) {
+    for (let i = 0; i < gymEquipment.length; i++) {
       await prisma.equipmentTracking.createMany({
         data: [
           {
             actual_weight: i + 2,
             initial_weight: i + 2,
             user_progress_id: userProgress[i].id,
-            gym_equipment_id: gym equipment[i].id,
+            gym_equipment_id: gymEquipment[i].id,
             active: true,
           },
         ],
@@ -238,5 +243,17 @@ export const testHelper = {
     }
 
     return await prisma.equipmentTracking.findMany()
+  },
+
+  createRandomTrainings: async () => {
+    return await prisma.training.create({
+      data: {
+        age_group: '25-30',
+        category: 'back',
+        gender: 'male',
+        level: 'beginner',
+        type: 'bulk-up',
+      },
+    })
   },
 }

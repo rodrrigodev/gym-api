@@ -14,11 +14,17 @@ export class PrismaGymEquipmentRepository implements GymEquipmentRepository {
   }
 
   async findGymEquipment(id: string) {
-    return await prisma.gymEquipment.findFirst({ where: { id } })
+    return (await prisma.gymEquipment.findUnique({ where: { id } })) || null
   }
 
-  async fetchGym equipment(category: string) {
-    return await prisma.gymEquipment.findMany({ where: { category } })
+  async fetchGymEquipment(data: { ids: string[]; category?: string }) {
+    const gymEquipment = data.category
+      ? await prisma.gymEquipment.findMany({ where: { id: { in: data.ids } } })
+      : await prisma.gymEquipment.findMany({
+          where: { category: data.category },
+        })
+
+    return gymEquipment
   }
 
   async updateGymEquipment(id: string, data: Prisma.GymEquipmentUpdateInput) {

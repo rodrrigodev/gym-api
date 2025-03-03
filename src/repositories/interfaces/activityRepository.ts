@@ -16,6 +16,6 @@ export interface ActivityRepository {
 
   fetchLastActivitiesByProgressId: (
     progressId: string,
-    periodInDays?: number,
+    periodInDays: number,
   ) => Promise<Activity[]>
 }

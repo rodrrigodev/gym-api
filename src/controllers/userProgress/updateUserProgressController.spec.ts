@@ -2,6 +2,7 @@ import { describe, expect, it } from '@jest/globals'
 import request from 'supertest'
 import { app } from '@/app'
 import { testHelper } from '@/tests/testHelper'
+import { randomUUID } from 'node:crypto'
 
 describe('update user progress test', () => {
   it('should be able to update a user progress', async () => {
@@ -14,7 +15,7 @@ describe('update user progress test', () => {
         userId: users[5].id,
         initialWeight: 74,
         currentGoal: 'bulk up',
-        nextWorkout: 'legs',
+        workouts: [{ id: randomUUID(), category: 'legs' }],
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -23,7 +24,6 @@ describe('update user progress test', () => {
       .send({
         id: users[5].id,
         initialWeight: 76,
-        nextWorkout: 'back',
         currentStreak: 7,
         maxStreakReached: 7,
       })
@@ -31,6 +31,6 @@ describe('update user progress test', () => {
 
     expect(status).toBe(200)
     expect(body.initial_weight).toBe(76)
-    expect(body.next_workout).toBe('back')
+    expect(body.current_goal).toBe('bulk up')
   })
 })

@@ -23,8 +23,9 @@ export class FetchTrainingAndGymEquipmentUseCase {
       return equipment.gymEquipmentId
     })
 
-    const gymEquipment =
-      await this.gymEquipmentRepository.findGymEquipmentByIds(gymIds)
+    const gymEquipment = await this.gymEquipmentRepository.fetchGymEquipment({
+      ids: gymIds,
+    })
 
     if (!gymEquipment?.length) {
       throw new EquipmentNotFoundError()

@@ -3,11 +3,15 @@ import { UserProgressRepository } from '@/repositories/interfaces/userProgressRe
 
 export interface UpdateUserProgressRequest {
   initialWeight?: number
-  nextWorkout?: string
   currentGoal?: string
   currentStreak?: number
   maxStreakReached?: number
   iaAnalyses?: string
+  workouts?: {
+    id: string
+    category: string
+    finishedAt?: Date
+  }[]
 }
 
 export class UpdateUserProgressUseCase {
@@ -21,13 +25,22 @@ export class UpdateUserProgressUseCase {
       throw new UserProgressError()
     }
 
+    const workoutsArray = data.workouts?.length
+      ? data.workouts.map(({ id, category, finishedAt }) => {
+          return {
+            id,
+            category,
+            finished_at: finishedAt || null,
+          }
+        })
+      : userProgressExists.workouts
+
     const userProgressUpdated =
       await this.userProgressRepository.updateUserProgress(
         userProgressExists.id,
         {
           initial_weight:
             data.initialWeight ?? userProgressExists.initial_weight,
-          next_workout: data.nextWorkout ?? userProgressExists.next_workout,
           current_goal: data.currentGoal ?? userProgressExists.current_goal,
           current_streak:
             data.currentStreak ?? userProgressExists.current_streak,
@@ -37,6 +50,7 @@ export class UpdateUserProgressUseCase {
           ia_analyses_date: data.iaAnalyses
             ? new Date()
             : userProgressExists.ia_analyses_date,
+          workouts: workoutsArray,
         },
       )
 

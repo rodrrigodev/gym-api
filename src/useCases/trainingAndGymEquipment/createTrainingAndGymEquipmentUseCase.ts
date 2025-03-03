@@ -28,7 +28,9 @@ export class CreateTrainingAndGymEquipmentUseCase {
     }
 
     const gymEquipmentExists =
-      await this.gymEquipmentRepository.findGymEquipmentByIds(gymEquipmentIds)
+      await this.gymEquipmentRepository.fetchGymEquipment({
+        ids: gymEquipmentIds,
+      })
 
     if (!gymEquipmentExists?.length) {
       throw new EquipmentNotFoundError()

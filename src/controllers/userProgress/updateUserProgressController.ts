@@ -8,22 +8,28 @@ export async function UpdateUserProgressController(
   response: Response,
   next: NextFunction,
 ) {
+  const workoutsSchema = z.object({
+    id: z.string(),
+    category: z.string(),
+    finishedAt: z.date().optional(),
+  })
+
   const updateUserProgressSchema = z.object({
     id: z.string().uuid(),
     initialWeight: z.number().optional(),
-    nextWorkout: z.enum(['chest', 'legs', 'back']).optional(),
     currentGoal: z.enum(['slim down', 'bulk up']).optional(),
     currentStreak: z.number().optional(),
     maxStreakReached: z.number().optional(),
     iaAnalyses: z.string().optional(),
+    workouts: z.array(workoutsSchema).optional(),
   })
 
   try {
     const {
       currentGoal,
       initialWeight,
-      nextWorkout,
       id,
+      workouts,
       currentStreak,
       maxStreakReached,
       iaAnalyses,
@@ -33,10 +39,10 @@ export async function UpdateUserProgressController(
       await useMakeUpdateUserProgressUseCase().execute(id, {
         currentGoal,
         initialWeight,
-        nextWorkout,
         currentStreak,
         maxStreakReached,
         iaAnalyses,
+        workouts,
       })
 
     response.status(200).send(userProgressUpdated)
