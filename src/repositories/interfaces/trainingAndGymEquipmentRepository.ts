@@ -4,7 +4,7 @@ export interface TrainingAndGymEquipmentRepository {
   createTrainingAndGymEquipment: (data: {
     trainingId: string
     gymEquipmentIds: string[]
-  }) => Promise<string[]>
+  }) => Promise<{ trainingId: string; amount: number }>
 
   fetchTrainingsAndGymEquipment: (
     trainingIds: string[],
@@ -13,11 +13,6 @@ export interface TrainingAndGymEquipmentRepository {
   findTrainingsAndGymEquipment: (
     trainingId: string,
   ) => Promise<TrainingGymEquipment[]>
-
-  updateTrainingsAndGymEquipment: (data: {
-    trainingId: string
-    gymEquipmentId: string
-  }) => Promise<TrainingGymEquipment>
 
   deleteTrainingEquipment: (
     trainingId: string,

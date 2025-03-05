@@ -34,13 +34,16 @@ export class InMemoryTrainingRepository implements TrainingRepository {
 
     return (
       this.trainings.find((training) => {
-        return training.id === id || null
+        return training.id === id
       }) || null
     )
   }
 
-  async fetchTrainings() {
-    return this.trainings
+  async fetchTrainings(page: number) {
+    return {
+      trainings: this.trainings.slice((page - 1) * 20, page * 20),
+      length: Math.ceil(this.trainings.length / 20),
+    }
   }
 
   async findTraining(id: string) {

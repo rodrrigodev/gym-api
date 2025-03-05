@@ -7,9 +7,7 @@ export class DeleteTrainingUseCase {
   async execute(id: string) {
     const trainingExists = await this.trainingRepository.findTraining(id)
 
-    if (!trainingExists) {
-      throw new TrainingNotFoundError()
-    }
+    if (!trainingExists) throw new TrainingNotFoundError()
 
     return await this.trainingRepository.deleteTraining(trainingExists.id)
   }

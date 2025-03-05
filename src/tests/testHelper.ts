@@ -209,7 +209,7 @@ export const testHelper = {
         },
         {
           name: 'Back Extension Machine',
-          category: 'chest',
+          category: 'back',
           sets: 12,
           reps: 4,
           cod: '3',
@@ -246,14 +246,32 @@ export const testHelper = {
   },
 
   createRandomTrainings: async () => {
-    return await prisma.training.create({
-      data: {
-        age_group: '25-30',
-        category: 'back',
-        gender: 'male',
-        level: 'beginner',
-        type: 'bulk-up',
-      },
+    await prisma.training.createMany({
+      data: [
+        {
+          age_group: '25-30',
+          category: 'back',
+          gender: 'male',
+          level: 'beginner',
+          type: 'bulk-up',
+        },
+        {
+          age_group: '18-24',
+          category: 'cardio',
+          gender: 'female',
+          level: 'beginner',
+          type: 'slim down',
+        },
+        {
+          age_group: '50-60',
+          category: 'chest',
+          gender: 'male',
+          level: 'medium',
+          type: 'bulk-up',
+        },
+      ],
     })
+
+    return await prisma.training.findMany()
   },
 }

@@ -14,8 +14,9 @@ export async function FetchGymEquipmentController(
 
   try {
     const { category } = fetchGymEquipmentSchema.parse(req.query)
-    const gymEquipment =
-      await useMakeFetchGymEquipmentUseCase().execute(category)
+    const gymEquipment = await useMakeFetchGymEquipmentUseCase().execute({
+      category,
+    })
 
     res.status(200).send(gymEquipment)
   } catch (error) {

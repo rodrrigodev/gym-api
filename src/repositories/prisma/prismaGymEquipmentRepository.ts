@@ -19,10 +19,10 @@ export class PrismaGymEquipmentRepository implements GymEquipmentRepository {
 
   async fetchGymEquipment(data: { ids: string[]; category?: string }) {
     const gymEquipment = data.category
-      ? await prisma.gymEquipment.findMany({ where: { id: { in: data.ids } } })
-      : await prisma.gymEquipment.findMany({
+      ? await prisma.gymEquipment.findMany({
           where: { category: data.category },
         })
+      : await prisma.gymEquipment.findMany({ where: { id: { in: data.ids } } })
 
     return gymEquipment
   }

@@ -4,10 +4,10 @@ import { TrainingRepository } from '@/repositories/interfaces/trainingRepository
 export class FetchTrainingsUseCase {
   constructor(private trainingRepository: TrainingRepository) {}
 
-  async execute() {
-    const trainings = await this.trainingRepository.fetchTrainings()
+  async execute(page: number) {
+    const trainings = await this.trainingRepository.fetchTrainings(page)
 
-    if (!trainings.length) {
+    if (!trainings.trainings.length) {
       throw new TrainingNotFoundError()
     }
 

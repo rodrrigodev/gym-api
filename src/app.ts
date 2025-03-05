@@ -13,6 +13,8 @@ import { billRoutes } from './controllers/bill/routes'
 import { planRoutes } from './controllers/plan/routes'
 import { gymEquipmentRoutes } from './controllers/gymEquipment/routes'
 import { equipmentTracking } from './controllers/equipmentTracking/routes'
+import { trainingRoutes } from './controllers/training/routes'
+import { trainingAndGymEquipmentRoutes } from './controllers/trainingAndGymEquipment/routes'
 
 export const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -32,6 +34,14 @@ app.use('/plan', [isAuthenticate, checkUserRole], planRoutes)
 app.use('/equipment', gymEquipmentRoutes)
 
 app.use('/tracking', equipmentTracking)
+
+app.use('/training', [isAuthenticate, checkUserRole], trainingRoutes)
+
+app.use(
+  '/training-gym-equipment',
+  isAuthenticate,
+  trainingAndGymEquipmentRoutes,
+)
 
 app.use('/prize', [isAuthenticate, checkUserRole], prizeDrawRoutes)
 

@@ -14,7 +14,7 @@ describe('update activity test', () => {
       .post('/activity/create')
       .send({
         userProgressId: usersProgresses[5].id,
-        trainingId: training.id,
+        trainingId: training[0].id,
       })
       .set('Authorization', `Bearer ${token}`)
 

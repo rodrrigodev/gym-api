@@ -47,19 +47,4 @@ export class InMemoryTrainingAndGymEquipmentRepository
       return training.trainingId === trainingId
     })
   }
-
-  async updateTrainingsAndGymEquipment(data: {
-    trainingId: string
-    gymEquipmentId: string
-  }) {
-    this.trainingAndGymEquipment.push({
-      gymEquipmentId: data.gymEquipmentId,
-      trainingId: data.trainingId,
-    })
-
-    return {
-      gymEquipmentId: data.gymEquipmentId,
-      trainingId: data.trainingId,
-    }
-  }
 }

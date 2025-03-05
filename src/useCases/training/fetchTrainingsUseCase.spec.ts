@@ -16,13 +16,13 @@ describe('fetch trainings test', () => {
   it('should be able to fetch trainings', async () => {
     await createTrainingTestHelper(inMemoryTrainingRepository)
 
-    const training = await sut.execute()
+    const { length, trainings } = await sut.execute(1)
 
-    expect(training).toHaveLength(3)
-    expect(training[0].gender).toEqual(expect.any(String))
+    expect(length).toBe(1)
+    expect(trainings[0].gender).toEqual(expect.any(String))
   })
 
   it('should not be able to fetch training', async () => {
-    await expect(sut.execute()).rejects.toBeInstanceOf(TrainingNotFoundError)
+    await expect(sut.execute(1)).rejects.toBeInstanceOf(TrainingNotFoundError)
   })
 })

@@ -13,7 +13,6 @@ export class CreateTrainingUseCase {
 
   async execute(data: CreateTrainingRequest) {
     const training = await this.trainingRepository.createTraining(data)
-
     return training
   }
 }

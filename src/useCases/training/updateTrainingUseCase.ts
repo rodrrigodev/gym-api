@@ -20,6 +20,12 @@ export class UpdateTrainingsUseCase {
       throw new TrainingNotFoundError()
     }
 
-    return await this.trainingRepository.updateTraining(data.id, data)
+    return await this.trainingRepository.updateTraining(data.id, {
+      level: data.level || training.level,
+      category: data.category || training.category,
+      type: data.type || training.type,
+      age_group: data.age_group || training.age_group,
+      gender: data.gender || training.gender,
+    })
   }
 }
